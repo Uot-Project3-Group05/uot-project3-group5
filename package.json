@@ -24,5 +24,8 @@
   "homepage": "https://github.com/Uot-Project3-Group05/uot-project3-group5#readme",
   "devDependencies": {
     "concurrently": "^6.1.0"
+  },
+  "dependencies": {
+    "if-env": "^1.0.4"
   }
 }
