@@ -16,7 +16,7 @@ const typeDefs = gql`
 
   type Deck {
     _id: ID
-    deckname: Stirng
+    deckname: String
     description: String
     cards: [Card]
   }
@@ -25,5 +25,19 @@ const typeDefs = gql`
     username: String
     score: Int
     deck: [Deck]
+  }
+
+  type Auth {
+    token: ID
+    user: User
+  }
+
+  type Query {
+    me: User
+  }
+
+  type Mutation {
+    addUser($username: String!, $email: String!, password: String!): Auth
+    login($username: String!, password: String!): Auth
   }
 `;
