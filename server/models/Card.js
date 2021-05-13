@@ -5,7 +5,7 @@ const cardSchema = new Schema({
     
     cardId: {
         type: Number,
-        required: true,
+        required: [true,'Card is required']
       },
 
       front:[

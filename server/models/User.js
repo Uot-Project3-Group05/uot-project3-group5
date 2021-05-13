@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
+const gameSchema = require('./Game');
 
 const userSchema = new Schema({
     username: {
         type: String,
-        required: true,
+        required: [true,'User name is mandatory'],
         unique: true,
         trim: true
       },
@@ -18,7 +19,7 @@ const userSchema = new Schema({
       },
       password: {
         type: String,
-        required: true,
+        required: [true,'Password is mandatory'],
         minlength: 6
       },
       badges: [
@@ -26,11 +27,7 @@ const userSchema = new Schema({
           type: String,
         },
       ],
-      deck : {
-        type: Schema.Types.ObjectId,
-        ref: 'Deck',
-        required: true
-      }    
+      games : [[gameSchema]]
 });
 
 // set up pre-save middleware to create password

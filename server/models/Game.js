@@ -3,11 +3,6 @@ const { Schema } = mongoose;
 
 const gameSchema = new Schema({
     
-    username: {
-        type: String,
-        required: true,
-        trim: true
-    },
     score : {
         type: Number
     },
