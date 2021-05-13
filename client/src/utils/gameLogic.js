@@ -1,3 +1,4 @@
+
 class GameSession {
     constructor(deck, game) {
         this.matrix = game.matrix; // retrieved from DB or IndexedDb
@@ -8,12 +9,17 @@ class GameSession {
 
     // pushes cards to matrix on first run and when 70% of current cards are in matrix[3] or matrix[4]
     addNewCards() {
-
+        // slice 5 cards from deck array, push to matrix[2]
+        this.matrix[2].push(this.deck.slice(0,4));
     }
 
-    // create each "problem" then pushes to problem set
-    createProblemSet() {
+    selectCards() {
+        // 
+    }
 
+    // create each "problem" as an object, then pushes to problemSet array.
+    createProblemSet() {
+        // 
     }
 
     // render first problem, start progress tracker
