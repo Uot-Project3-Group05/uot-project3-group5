@@ -17,30 +17,20 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
+import Nav from './components/Nav';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl" >
         {/*Start of Header - move to header component*/}
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <Flex >
-            <Box p="4" >
-              Logo
-            </Box>
-            <Spacer />
-            <Box p="4">
-              {/*<Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />*/}
-              <Avatar ></Avatar>
-            </Box>
-        </Flex>
+        <ColorModeSwitcher justifySelf="flex-end" m={5} />
+        <Nav />        
         {/*End of Header*/}
 
         <Box textAlign="center" fontSize="xl" mb={6} >
           Pick a Deck to Begin!
-        </Box>
-
-     
+        </Box>     
         
         <Wrap  justify="space-evenly" spacing="8" >
           <WrapItem boxShadow="2xl">
