@@ -21,7 +21,7 @@ class GameSession {
 
     // pushes cards to matrix on first run and when 70% of current cards are in matrix[3] or matrix[4]
     addNewCards() {
-        // slice 5 cards from deck array, push to matrix[2]
+        // slice 15 cards from deck array, push to matrix[2]
         this.matrix[2].push(this.deck.slice(0,15));
     }
 
@@ -41,7 +41,7 @@ class GameSession {
                 break;
             default:
                 // binNumber = 4
-                let percent = 20;
+                let percent = 10;
         }
         
         if (Math.floor(Math.random() * 100) + 1 <= percent) {
