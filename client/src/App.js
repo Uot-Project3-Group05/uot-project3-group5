@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ChakraProvider,
   Box,
@@ -18,53 +18,38 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Nav from './components/Nav';
+import Profile from './components/Profile';
+import Home from './components/Home';
+
 
 function App() {
+
+  const [navLinkSelected, setNavLinkSelected] = useState('Home');
+
+  const renderPage = () => {
+    switch (navLinkSelected) {
+      case 'Profile':
+        return <Profile />;
+      case 'Home':
+        return <Home />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl" >
         {/*Start of Header - move to header component*/}
         <ColorModeSwitcher justifySelf="flex-end" m={5} />
-        <Nav />        
+        <Nav navLinkSelected={navLinkSelected} setNavLinkSelected={setNavLinkSelected}>
+        </Nav>     
         {/*End of Header*/}
 
-        <Box textAlign="center" fontSize="xl" mb={6} >
-          Pick a Deck to Begin!
-        </Box>     
-        
-        <Wrap  justify="space-evenly" spacing="8" >
-          <WrapItem boxShadow="2xl">
-            <Center w="300px" h="300px" bg="red.200">
-              Box 1
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="green.200">
-              Box 2
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="blue.200">
-              Box 3
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="yellow.200">
-              Box 4
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="orange.200">
-              Box 5
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="purple.200">
-              Box 6
-            </Center>
-          </WrapItem>
-        </Wrap>
-       
+        <main>
+            {/* Call the renderPage function passing in the currentPage */}
+            <div>{renderPage(navLinkSelected)}</div>
+        </main>
 
         
       </Box>
