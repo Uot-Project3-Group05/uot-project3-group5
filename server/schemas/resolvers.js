@@ -9,6 +9,10 @@ const resolvers = {
         .select('-__v -password');
         return userData;
       }
+    },
+
+    users: async (parent, args) => {
+      return User.find();
     }
   },
   Mutation: {
@@ -31,3 +35,5 @@ const resolvers = {
     }
   }
 }
+
+module.exports = resolvers;
