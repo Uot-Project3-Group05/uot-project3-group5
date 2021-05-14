@@ -31,6 +31,15 @@ const typeDefs = gql`
       back: [String]
 
   }
+  type Query {
+    me: User
+  }
+  type Mutation {
+    addUser($username: String!, $email: String!, password: String!): Auth
+    login($username: String!, password: String!): Auth
+  }
+
+
 `;
 
 // export the typeDefs
