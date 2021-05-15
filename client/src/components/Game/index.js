@@ -42,70 +42,36 @@ function Game() {
             </WrapItem>
         </Wrap>
       </Box>     
-
+      {/*Once you select the mode, a button to start will appear*/}
       <Box textAlign="center" fontSize="xl" mb={6} >
-        Pick a Deck to Begin!
+           <Button m={4} boxShadow="2xl"  >
+                  Start Game
+            </Button>
       </Box>     
-  
-      <SimpleGrid minChildWidth="300px" spacing={10} ml={5} mr={5}>
-  
+
         <Box >
-         <Box textAlign="center" fontSize="xl" mb={6} >
-            In Progress
-          </Box>     
-        <Wrap  direction="column"  justify="space-evenly" align="center">
+        <Wrap  direction="column"  justify="space-between" align="center">
             <WrapItem boxShadow="2xl">
-              <Center w="300px" h="300px" bg="red.200">
+              <Center w="350px" h="400px" bg="red.200">
                 Box 1
               </Center>
             </WrapItem>
-            <WrapItem boxShadow="2xl">
-              <Center w="300px" h="300px" bg="blue.200">
-                Box 2
-              </Center>
+              <WrapItem>
+                <Button m={4} boxShadow="2xl"  >
+                  Answer 1
+                </Button>
+                <Button m={4} boxShadow="2xl"  >
+                  Answer 1
+                </Button>
+                <Button m={4} boxShadow="2xl"  >
+                  Answer 1
+                </Button>
+
             </WrapItem>
-            <WrapItem boxShadow="2xl">
-              <Center w="300px" h="300px" bg="yellow.200">
-                Box 3
-              </Center>
-            </WrapItem>
+            
         </Wrap>
         </Box>
-  
-        <Box >
-          <Box textAlign="center" fontSize="xl" mb={6} >
-              Completed
-          </Box>   
-          <Wrap  direction="column"  align="center">
-              <WrapItem boxShadow="2xl">
-                <Center w="300px" h="300px" bg="red.200">
-                  Box 1
-                </Center>
-              </WrapItem>
-              <WrapItem boxShadow="2xl">
-                <Center w="300px" h="300px" bg="blue.200">
-                  Box 2
-                </Center>
-              </WrapItem>
-              <WrapItem boxShadow="2xl">
-                <Center w="300px" h="300px" bg="yellow.200">
-                  Box 3
-                </Center>
-              </WrapItem>
-          </Wrap>
-        </Box>
-  
-      
-  
-  
-       </SimpleGrid>
-     
-  
-  
-  
-      <Box textAlign="center" fontSize="xl" >
-  
-    </Box>
+
     </Box>
     )
   }
