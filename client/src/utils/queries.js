@@ -7,7 +7,20 @@ export const ME = gql`
       username
       email
       badges
-      games
+      games {
+        _id
+        score
+        deck {
+          _id
+          deckname
+          description
+          cards {
+            _id
+            front
+            back
+          }
+        }
+      }
     }
   }
 `;
