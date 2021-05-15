@@ -1,4 +1,5 @@
 
+
 class GameSession {
     constructor(deck, game) {
         this.matrix = game.matrix;  // retrieved from DB or IndexedDb
@@ -9,7 +10,7 @@ class GameSession {
         
     }
 
-    shuffleArray(array) {
+    shuffleArray(array) { //tested
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             const temp = array[i];
@@ -20,28 +21,30 @@ class GameSession {
     }
 
     // pushes cards to matrix on first run and when 70% of current cards are in matrix[3] or matrix[4]
-    addNewCards() {
+    addNewCards() { //tested
         // slice 15 cards from deck array, push to matrix[2]
-        this.matrix[2].push(this.deck.slice(0,15));
+        let slicedCards = this.deck.slice(0,15);
+        slicedCards.forEach(card => this.matrix[2].push(card.cardId));
     }
 
     randomSelect(binNumber) { 
+        let percent;
         switch(binNumber) {
             case 0:
-              let percent = 50;
-              break;
+                percent = 50;
+                break;
             case 1:
-                let percent = 40;
+                percent = 40;
                 break;
             case 2:
-                let percent = 30;
+                percent = 30;
                 break;
             case 3:
-                let percent = 20;
+                percent = 20;
                 break;
             default:
                 // binNumber = 4
-                let percent = 10;
+                percent = 10;
         }
         
         if (Math.floor(Math.random() * 100) + 1 <= percent) {
@@ -49,11 +52,26 @@ class GameSession {
         }
     }
 
+    percentageLoop(longestArray) {
+        for (let i = 0; i < longestArray; i++) {
+            for (let j = 0; j < 5; j++) {
+                if (this.matrix[j][i]) {
+                    if (this.randomSelect(j)){
+                        this.cardsInSet.push(this.matrix[j][i])
+                    }
+                    continue;
+                } else {
+                    continue;
+                }
+            }
+        }
+    }
+
     selectCards() {
         let longestArray = 0;
 
         // randomize arrays & get length of each matrix
-        for (i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
             this.matrix[i] = this.shuffleArray(this.matrix[i]);
             if (this.matrix[i].length > longestArray) {
                 longestArray = this.matrix[i].length;
@@ -62,38 +80,33 @@ class GameSession {
 
         // loop through array selecting cards to push to cardsInSet
         while (this.cardsInSet < 10) {
-            for (i = 0; i < longestArray; i++) {
-                for (j = 0; j < 5; j++) {
-                    if (matrix[j][i]) {
-                        if (this.randomSelect(j)){
-                            this.cardsInSet.push(matrix[j][i])
-                        }
-                        continue;
-                    } else {
-                        continue;
-                    }
-                }
-            }
+            this.percentageLoop(longestArray);
         }
 
         // this.createProblemSet();
     }
 
-    getCardData(cardId) {
+    getCardData(cardId) { //tested
         var result = this.deck.filter(card => {
             return card.cardId === cardId;
         });
+        return result[0];
     }
 
-    generateOptions(cardId) {
-        let choices = this.cardsInSet
+    generateOptions(cardId) { // not working
+        let choices = this.cardsInSet.slice();
         let results = [];
-        choices.splice(indexOf(cardId), 1);
-        for (i=0; i<2; i++) {
-            let random = Math.floor(Math.random()*choices.length+1);
-            optionCard = getCardData(this.cardsInSet[random]);
+        //console.log(`The main card is ${cardId}`);
+        choices.splice(choices.indexOf(cardId), 1);
+        //console.log(`The choices after removing card ${cardId} are: ${choices}`);
+        for (let i=0; i<2; i++) {
+            const random = Math.floor(Math.random()*choices.length); // we don't add +1 because we are indexing from
+            //console.log(`the card in spot ${i} is from index ${indexToRemove[0]} and is cardNumber ${this.cardsInSet[indexToRemove[0]]}`);
+            const optionCard = this.getCardData(choices[random]);
+            //console.log(optionCard);
             results[i] = optionCard.back;
-            choices.splice(random, 1)
+            choices.splice(random, 1);
+            //console.log(`The choices after removing index ${indexToRemove[0]} are: ${choices}`);
         }
         return results;
     }
@@ -103,8 +116,9 @@ class GameSession {
         // given an array of 10 card ids (cardsInSet), and a deck of card objects
         // for each card, get from deck data: front and back
         // at random from other cards in cardsInSet get the "back" property from 2 cards
-        for (i = 0; i < 10; i++) {
-            let problem = {question: '', options: [], answer};
+        for (let i = 0; i < 10; i++) { //reset to 10
+            //console.log(`Problem #${i+1}`);
+            let problem = {question: '', options: [], answer: ''};
             let card = this.getCardData(this.cardsInSet[i]);
             problem.question = card.front;
             let options = this.generateOptions(card.cardId);
