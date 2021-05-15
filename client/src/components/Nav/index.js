@@ -33,8 +33,11 @@ function Nav(props) {
       <Box p="4" >
         <LinkBox>
         <Link 
-        to={`/`}
-        > <CopyIcon w={20} h={20} color="blue.200" ></CopyIcon>Logo 
+          to={`/`}
+          > <CopyIcon 
+          w={20} h={20} 
+          color="blue.200" >
+            </CopyIcon>Logo 
         </Link>
         </LinkBox>
       </Box>
