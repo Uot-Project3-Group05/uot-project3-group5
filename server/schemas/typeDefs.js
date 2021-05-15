@@ -39,8 +39,14 @@ const typeDefs = gql`
   type Mutation {
     addUser($username: String!, $email: String!, password: String!): Auth
     login($username: String!, password: String!): Auth
+<<<<<<< HEAD
 
   }
+=======
+  }
+
+
+>>>>>>> aa704e5f5dd78afd68ed08c1aeebf7744f890a33
 `;
 
 // export the typeDefs
