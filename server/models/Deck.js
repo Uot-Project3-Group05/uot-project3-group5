@@ -6,13 +6,13 @@ const deckSchema = new Schema({
     
     deckname: {
         type: String,
-        required: true,
+        required: [true,'Deck name is mandatory'],
         unique: true,
         trim: true
       },
       description: {
         type: String,
-        required: true,
+        required: [true,'Deck description is mandatory'],
         unique: true,
         trim: true
       },
