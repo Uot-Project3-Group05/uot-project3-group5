@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   ChakraProvider,
   Box,
@@ -17,68 +18,59 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
+import Nav from './components/Nav';
+import Profile from './components/Profile';
+import Home from './components/Home';
+import Game from './components/Game';
+
 
 function App() {
+
+  const [navLinkSelected, setNavLinkSelected] = useState('Home');
+
+  //navLinkSelected={navLinkSelected} setNavLinkSelected={setNavLinkSelected}
+
+  const renderPage = () => {
+
+
+
+    switch (navLinkSelected) {
+      case 'Profile':
+        return <Profile />;
+      case 'Home':
+       return <Home>
+       </Home>
+      case 'Game':
+        return <Game />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl" >
-        {/*Start of Header - move to header component*/}
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <Flex >
-            <Box p="4" >
-              Logo
-            </Box>
-            <Spacer />
-            <Box p="4">
-              {/*<Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />*/}
-              <Avatar ></Avatar>
-            </Box>
-        </Flex>
-        {/*End of Header*/}
+    <Router>
+      <ChakraProvider theme={theme}>
+        <Box textAlign="center" fontSize="xl" >
+          {/*Start of Header - move to header component*/}
+          <ColorModeSwitcher justifySelf="flex-end" m={5} />
+          <Nav navLinkSelected={navLinkSelected} setNavLinkSelected={setNavLinkSelected}>
+          </Nav>     
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/game/:id" component={Game} />
+          </Switch>
+          {/*End of Header*/}
 
-        <Box textAlign="center" fontSize="xl" mb={6} >
-          Pick a Deck to Begin!
+          <main>
+              {/* Call the renderPage function passing in the currentPage */}
+              {/*<div>{renderPage(navLinkSelected)}</div> */}
+          </main>
+
+        
         </Box>
-
-     
-        
-        <Wrap  justify="space-evenly" spacing="8" >
-          <WrapItem boxShadow="2xl">
-            <Center w="300px" h="300px" bg="red.200">
-              Box 1
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="green.200">
-              Box 2
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="blue.200">
-              Box 3
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="yellow.200">
-              Box 4
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="orange.200">
-              Box 5
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="purple.200">
-              Box 6
-            </Center>
-          </WrapItem>
-        </Wrap>
-       
-
-        
-      </Box>
-    </ChakraProvider>
+      </ChakraProvider>
+    </Router>
   );
 }
 
