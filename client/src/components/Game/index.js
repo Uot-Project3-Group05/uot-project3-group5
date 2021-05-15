@@ -8,7 +8,6 @@ import {
     Flex,
     Spacer,
     Avatar,
-    Link,
     Wrap,
     WrapItem,
     Center,
@@ -23,15 +22,27 @@ function Game() {
         
       <Box>
 
-    <Stack direction="row" spacing={4}>
-    <Button leftIcon={<MdBuild />} colorScheme="pink" variant="solid">
-        Settings
-    </Button>
-    <Button rightIcon={<MdCall />} colorScheme="blue" variant="outline">
-        Call us
-    </Button>
-    </Stack>
-  
+ 
+     <Box textAlign="center" fontSize="xl" mb={6} >
+     <Wrap  direction="row"  justify="space-evenly" align="center">
+            <WrapItem>
+              <Button boxShadow="2xl" leftIcon={<MdBuild />} _hover={{bg:"pink"}} size= "lg" >
+                Mode 1 
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button boxShadow="2xl" leftIcon={<MdBuild />} _hover={{bg:"pink"}} size = "lg">
+                Mode 2
+              </Button>
+            </WrapItem>
+            <WrapItem >
+              <Button boxShadow="2xl" leftIcon={<MdBuild />} _hover={{bg:"pink"}} size = "lg">
+                Mode 3
+              </Button>
+            </WrapItem>
+        </Wrap>
+      </Box>     
+
       <Box textAlign="center" fontSize="xl" mb={6} >
         Pick a Deck to Begin!
       </Box>     

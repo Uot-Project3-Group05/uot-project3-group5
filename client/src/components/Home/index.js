@@ -1,9 +1,9 @@
 import React from 'react';
+import { Link, useParams } from "react-router-dom";
 import {
   ChakraProvider,
   Box,
   Text,
-  Link,
   VStack,
   Code,
   Grid,
@@ -27,11 +27,15 @@ function Home() {
         </Box>     
         
         <Wrap  justify="space-evenly" spacing="8" >
-            <WrapItem boxShadow="2xl">
-            <Center w="300px" h="300px" bg="red.200">
-                Box 1
-            </Center>
-            </WrapItem>
+            <Link to={`/game/12345`}>
+                <WrapItem boxShadow="2xl">  
+                    <Center w="300px" h="300px" bg="red.200">
+                
+                    Box 1
+            
+                    </Center>
+                </WrapItem>
+            </Link>
             <WrapItem boxShadow="2xl"> 
             <Center w="300px" h="300px" bg="green.200">
                 Box 2
