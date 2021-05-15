@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
-const gameSchema = require('./Game');
+const Game = require('./Game');
 
 const userSchema = new Schema({
     username: {
@@ -27,7 +27,7 @@ const userSchema = new Schema({
           type: String,
         },
       ],
-      games : [[gameSchema]]
+      games : [[Game.schema]]
 });
 
 // set up pre-save middleware to create password
