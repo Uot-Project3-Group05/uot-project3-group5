@@ -28,8 +28,8 @@ function Home() {
         
         <Wrap  justify="space-evenly" spacing="8" >
             <Link to={`/game/12345`}>
-                <WrapItem boxShadow="2xl">  
-                    <Center w="300px" h="300px" bg="red.200">
+                <WrapItem>  
+                    <Center boxShadow="2xl" w="300px" h="300px" bg="red.200" borderRadius="lg">
                 
                     Box 1
             
