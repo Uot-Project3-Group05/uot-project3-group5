@@ -13,11 +13,19 @@ import {
   Avatar,
   Wrap, 
   WrapItem,
-  Center
+  Center,
+  Image,
+  Badge
 } from '@chakra-ui/react';
 
 
 function Home() {
+    const deck = {
+        name: 'Periodic Table of Elements',
+        cards: 118,
+        img: 'https://bit.ly/2Z4KKcF'
+    } 
+
     return (
 
         <Box>
@@ -31,7 +39,15 @@ function Home() {
                 <WrapItem>  
                     <Center boxShadow="2xl" w="300px" h="300px" bg="red.200" borderRadius="lg">
                 
-                    Box 1
+                    <Box>
+                        <Image src={deck.img} alt='placeholder' />
+                        <Box>
+                            {deck.name}
+                        </Box>
+                        <Box>
+                            {deck.cards} cards
+                        </Box>
+                    </Box>
             
                     </Center>
                 </WrapItem>
