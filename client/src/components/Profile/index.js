@@ -8,10 +8,21 @@ import {
   Wrap,
   WrapItem,
   Center,
-  SimpleGrid
+  SimpleGrid,
+  Image,
+  Progress,
+  CircularProgress,
+  CircularProgressLabel
 } from '@chakra-ui/react';
 
 function Profile() {
+
+  const deck = {
+    name: 'Periodic Table of Elements',
+    cards: 118,
+    img: 'https://bit.ly/2Z4KKcF'
+  } 
+
   return (
     <Box>
 
@@ -27,15 +38,39 @@ function Profile() {
         </Box>     
       <Wrap  direction="column"  justify="space-evenly" align="center">
           <Link to={`/game/12345`}>
-            <WrapItem boxShadow="2xl">
-              <Center w="300px" h="300px" bg="red.200">
-                Box 1
+            <WrapItem boxShadow="2xl" align="center">
+              <Center w="300px" h="300px" bg="red.200" borderRadius="lg">
+                <Box>
+                  <Image src={deck.img} alt='placeholder' />
+                  <Box>
+                    {deck.name}
+                  </Box>
+                  <Box>
+                    {deck.cards} cards
+                  </Box>
+                  <Box>
+                    <Progress value={33} hasStripe="true" size="md" />
+                  </Box>
+                </Box>
               </Center>
             </WrapItem>
           </Link>
           <WrapItem boxShadow="2xl">
             <Center w="300px" h="300px" bg="blue.200">
-              Box 2
+            <Box>
+                  <Image src={deck.img} alt='placeholder' />
+                  <Box>
+                    {deck.name}
+                  </Box>
+                  <Box>
+                    {deck.cards} cards
+                  </Box>
+                  <Box align="center">
+                    <CircularProgress value={33} size="10%">
+                      <CircularProgressLabel>33%</CircularProgressLabel>
+                    </CircularProgress>
+                  </Box>
+                </Box>
             </Center>
           </WrapItem>
           <WrapItem boxShadow="2xl">
