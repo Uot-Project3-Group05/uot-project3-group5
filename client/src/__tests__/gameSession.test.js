@@ -25,7 +25,17 @@ const deck = [
     {"front":"Titanium","back":"Ti", "cardId": 22},
     {"front":"Vanadium","back":"V", "cardId": 23},
     {"front":"Chromium","back":"Cr", "cardId": 24},
-    {"front":"Manganese","back":"Mn", "cardId": 25}
+    {"front":"Manganese","back":"Mn", "cardId": 25},
+    {"front":"Iron","back":"Fe", "cardId": 26},
+    {"front":"Cobalt","back":"Co", "cardId": 27},
+    {"front":"Nickel","back":"Ni", "cardId": 28},
+    {"front":"Copper","back":"Cu", "cardId": 29},
+    {"front":"Zinc","back":"Zn", "cardId": 30},
+    {"front":"Gallium","back":"Ga", "cardId": 31},
+    {"front":"Germanium","back":"Ge", "cardId": 32},
+    {"front":"Arsenic","back":"As", "cardId": 33},
+    {"front":"Selenium","back":"Se", "cardId": 34},
+    {"front":"Bromine","back":"Br", "cardId": 35}
 ];
 
 const game = {
@@ -46,8 +56,15 @@ test('initial game session', () => {
     expect(thisGame.matrix).toEqual(game.matrix);
 });
 
+test('start() method', () => {
+    thisGame.start();
+    console.log('start() method', this.problemSet);
+})
+
+
 test('addCards() method', () => {
-    thisGame.addNewCards();
+    thisGame.matrix = [[],[],[],[],[]];
+    thisGame.addNewCards(0);
     //console.log(thisGame.matrix);
     expect(thisGame.matrix[2].length).toEqual(15);
 });
@@ -78,8 +95,25 @@ test('generateOptions() method', () => {
     //console.log(thisGame.cardsInSet);
 });
 
+test('addCardsByScore() method', () => {
+    thisGame.matrix = [[1],[2],[3],[4,5,6],[7,8,9,10]];
+    thisGame.addCardsByScore();
+    expect(thisGame.matrix[2].length).toEqual(16);
+
+});
+
+test('selectCards() method', () => {
+    thisGame.matrix = [[ 1 ],[ 2 ],[3, 11, 12, 13, 14, 15,16, 17, 18, 19, 20, 21,22, 23, 24, 25],[ 4, 5, 6 ],[ 7, 8, 9, 10 ]];
+    thisGame.cardsInSet = [];
+    thisGame.selectCards();
+    expect(thisGame.cardsInSet).toHaveLength(10);
+    console.log('selectCards() method', thisGame.cardsInSet);
+});
+
 test('createProblemSet() method', () => {
+    thisGame.problemSet = [];
     thisGame.cardsInSet = [6,4,8,2,11,3,9,14,5,7];
     thisGame.createProblemSet();
-    console.log(thisGame.problemSet);
-})
+    console.log('createProblemSet() method', thisGame.problemSet);
+});
+

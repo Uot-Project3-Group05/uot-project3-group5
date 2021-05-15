@@ -1,5 +1,3 @@
-
-
 class GameSession {
     constructor(deck, game) {
         this.matrix = game.matrix;  // retrieved from DB or IndexedDb
@@ -10,7 +8,8 @@ class GameSession {
         
     }
 
-    shuffleArray(array) { //tested
+    // randomly reorder an array
+    shuffleArray(array) { 
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             const temp = array[i];
@@ -20,80 +19,100 @@ class GameSession {
         return array;
     }
 
+    // get number of 'strong' cards and total number of cards in the game matrix
+    getTotal() {
+        // total number of cards in arrays [3] & [4]
+        let strongCards = 0;
+        // total all cards in the matrix 
+        let total = 0;
+        for (let i=0; i<5; i++) {
+            if (i > 2) {
+                strongCards += this.matrix[i].length;
+            }
+            total += this.matrix[i].length;
+        }
+        return { strong: strongCards, total: total};
+    }
+
     // pushes cards to matrix on first run and when 70% of current cards are in matrix[3] or matrix[4]
-    addNewCards() { //tested
-        // slice 15 cards from deck array, push to matrix[2]
-        let slicedCards = this.deck.slice(0,15);
+    addNewCards(index) { // set index to 0 for first run, use total cards in matrix to determine index for each addition afterwards
+        let slicedCards;
+        let num = this.deck.length - index + 1;
+        if (this.deck.length - index + 1 < 15 ) {
+            slicedCards = this.deck.slice(index, index+num);
+        } else {
+            slicedCards = this.deck.slice(index, index+15);
+        }
+        // slice n cards from deck array, push to matrix[2]
         slicedCards.forEach(card => this.matrix[2].push(card.cardId));
+        // console.log(this.matrix);
     }
 
-    randomSelect(binNumber) { 
-        let percent;
-        switch(binNumber) {
-            case 0:
-                percent = 50;
-                break;
-            case 1:
-                percent = 40;
-                break;
-            case 2:
-                percent = 30;
-                break;
-            case 3:
-                percent = 20;
-                break;
-            default:
-                // binNumber = 4
-                percent = 10;
-        }
-        
-        if (Math.floor(Math.random() * 100) + 1 <= percent) {
-            return true;
+    // if this is not the first game, determine if cards need to be added based on 'score'
+    addCardsByScore() { 
+        const score = this.getTotal();
+        if (score.strong/score.total >= 0.7) {
+            this.addNewCards(score.total);
         }
     }
 
-    percentageLoop(longestArray) {
-        for (let i = 0; i < longestArray; i++) {
-            for (let j = 0; j < 5; j++) {
-                if (this.matrix[j][i]) {
-                    if (this.randomSelect(j)){
-                        this.cardsInSet.push(this.matrix[j][i])
-                    }
-                    continue;
-                } else {
-                    continue;
-                }
-            }
+    // select cards based on a weighted random number generator
+    randomSelect() { 
+        let check = Math.floor(Math.random() * 100);
+        let bin; 
+        // determine which array in the matrix to pick from
+        if (check >= 0 && check < 40) {
+            bin = 0;
+        } else if (check >= 40 && check < 70){
+            bin = 1;
+        } else if (check >= 70 && check < 85){
+            bin = 2;
+        } else if (check >= 85 && check < 95){
+            bin = 3;
+        } else {
+            bin = 4;
+        }
+        // if the array has no objects, call the function again
+        if (this.matrix[bin].length < 1) {
+            this.randomSelect();
+        }
+
+        // if the array has entries, find the first one not already in this.cardsInSet
+        const newCard = this.matrix[bin].find((card) => {
+            return this.cardsInSet.indexOf(card) === -1
+        });
+
+        // if array has entries but all entries are already in this.cardsInSet, call function again
+        if (!newCard) {
+            this.randomSelect();
+        } else {
+            // if a card meets all criteria, push to this.cardsInSet array
+            this.cardsInSet.push(newCard);
         }
     }
 
+    // get cards from matrix to fill this.cardsInSet array
     selectCards() {
-        let longestArray = 0;
-
-        // randomize arrays & get length of each matrix
-        for (let i = 0; i < 5; i++) {
-            this.matrix[i] = this.shuffleArray(this.matrix[i]);
-            if (this.matrix[i].length > longestArray) {
-                longestArray = this.matrix[i].length;
-            }
+        // shuffle all arrays
+        for (let i=0; i<5; i++) {
+            this.shuffleArray(this.matrix[i])
         }
-
-        // loop through array selecting cards to push to cardsInSet
-        while (this.cardsInSet < 10) {
-            this.percentageLoop(longestArray);
+        // select random cards to fill this.cardsInSet
+        for (let j=0; j<10; j++) {
+            this.randomSelect();
         }
-
-        // this.createProblemSet();
     }
 
-    getCardData(cardId) { //tested
+    // get all data for a card from the deck given its cardId
+    getCardData(cardId) { 
         var result = this.deck.filter(card => {
             return card.cardId === cardId;
         });
         return result[0];
     }
 
-    generateOptions(cardId) { // not working
+     // create problem options from 2 random cards in set
+    generateOptions(cardId) {
         let choices = this.cardsInSet.slice();
         let results = [];
         //console.log(`The main card is ${cardId}`);
@@ -111,13 +130,9 @@ class GameSession {
         return results;
     }
 
-    // create each "problem" as an object, then pushes to problemSet array.
+    // create each "problem" as an object, then push to problemSet array.
     createProblemSet() {
-        // given an array of 10 card ids (cardsInSet), and a deck of card objects
-        // for each card, get from deck data: front and back
-        // at random from other cards in cardsInSet get the "back" property from 2 cards
-        for (let i = 0; i < 10; i++) { //reset to 10
-            //console.log(`Problem #${i+1}`);
+        for (let i = 0; i < 10; i++) { 
             let problem = {question: '', options: [], answer: ''};
             let card = this.getCardData(this.cardsInSet[i]);
             problem.question = card.front;
@@ -129,9 +144,21 @@ class GameSession {
         }
     }
 
-    // render first problem, start progress tracker
+    // main game flow (up to creation of the problem set)
     start() {
-
+        // are there cards?
+        const hasCards = this.getTotal(); 
+        // if no, then this is the first run, add 15 cards, shuffle and add to set
+        if (hasCards.total === 0) { 
+            this.addNewCards(0);
+            this.cardsInSet = this.shuffleArray(this.matrix[2]).slice(0,15);
+        // if yes, check current card status and add cards if necessary, then randomly add to set
+        } else if ((hasCards.total > 0)) { 
+            this.addCardsByScore();
+            this.selectCards();
+        }
+        this.createProblemSet();
+        
     }
 
     // renders next problem (combines with React Components)
