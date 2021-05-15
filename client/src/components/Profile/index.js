@@ -15,13 +15,31 @@ import {
   CircularProgressLabel
 } from '@chakra-ui/react';
 
+import { 
+  GiEmerald,
+  GiGoldBar
+ } from "react-icons/gi";
+
+
 function Profile() {
 
-  const deck = {
+  const deck = [
+    
+    {
     name: 'Periodic Table of Elements',
     cards: 118,
     img: 'https://bit.ly/2Z4KKcF'
-  } 
+    },
+    {
+      name: 'Flags of the world',
+      cards: 195,
+      img: 'https://bit.ly/2Z4KKcF'
+      },
+
+  ]
+
+  //<GiEmerald w={20} h={20} color="blue.200" ></GiEmerald>
+  //GiEmerald
 
   return (
     <Box>
@@ -38,19 +56,32 @@ function Profile() {
         </Box>     
       <Wrap  direction="column"  justify="space-evenly" align="center">
           <Link to={`/game/12345`}>
-            <WrapItem boxShadow="2xl" align="center">
-              <Center w="300px" h="300px" bg="red.200" borderRadius="lg">
-                <Box>
-                  <Image src={deck.img} alt='placeholder' />
+            <WrapItem  align="center">
+              <Center boxShadow="2xl" bg="red.200" borderRadius="lg">
+                <Box maxW="sm" 
+                
+                borderRadius="lg" 
+                overflow="hidden">
+                  <Image src={deck[0].img} alt='placeholder' />
                   <Box>
-                    {deck.name}
+                    {deck[0].name}
                   </Box>
                   <Box>
-                    {deck.cards} cards
+                    {deck[0].cards} cards
                   </Box>
-                  <Box>
-                    <Progress value={33} hasStripe="true" size="md" />
+                  <Box ml={3} mr={3} >
+                    <Progress 
+                    colorScheme = "purple"
+                    mb={2}
+                    borderRadius="lg"
+                    value={33}
+                    hasStripe="true"
+                    size="md" />
                   </Box>
+                  <Box align="center" mb={3}>
+                  <GiEmerald w={20} h={20} color="#cd7f32"  size={50}></GiEmerald>
+                  </Box>
+                  
                 </Box>
               </Center>
             </WrapItem>
@@ -58,12 +89,12 @@ function Profile() {
           <WrapItem boxShadow="2xl">
             <Center w="300px" h="300px" bg="blue.200">
             <Box>
-                  <Image src={deck.img} alt='placeholder' />
+                  <Image src={deck[0].img} alt='placeholder' />
                   <Box>
-                    {deck.name}
+                    {deck[0].name}
                   </Box>
                   <Box>
-                    {deck.cards} cards
+                    {deck[0].cards} cards
                   </Box>
                   <Box align="center">
                     <CircularProgress value={33} size="10%">
@@ -87,9 +118,33 @@ function Profile() {
         </Box>   
         <Wrap  direction="column"  align="center">
           <Link to={`/game/12345`}>
-            <WrapItem boxShadow="2xl">
-              <Center w="300px" h="300px" bg="red.200">
-                Box 1
+            <WrapItem >
+            <Center boxShadow="2xl" bg="red.200" borderRadius="lg">
+                <Box maxW="sm" 
+                
+                borderRadius="lg" 
+                overflow="hidden">
+                  <Image src={deck[1].img} alt='placeholder' />
+                  <Box>
+                    {deck[1].name}
+                  </Box>
+                  <Box>
+                    {deck[1].cards} cards
+                  </Box>
+                  <Box ml={3} mr={3} >
+                    <Progress 
+                    colorScheme = "purple"
+                    mb={2}
+                    borderRadius="lg"
+                    value={100}
+                    hasStripe="true"
+                    size="md" />
+                  </Box>
+                  <Box align="center" mb={3}>
+                  <GiGoldBar w={20} h={20} color="#FFFF00"  size={50}></GiGoldBar>
+                  </Box>
+                  
+                </Box>
               </Center>
             </WrapItem>
           </Link>
