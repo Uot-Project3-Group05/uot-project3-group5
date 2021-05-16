@@ -1,5 +1,6 @@
 class GameSession {
     constructor(deck, matrix) {
+        this.finished = false;
         this.matrix = matrix;  // retrieved from DB or IndexedDb
         this.deck = deck;
         this.progress = 0; // for displaying progress on problem set - i.e. 6/10
@@ -164,6 +165,9 @@ class GameSession {
         if (this.progress < 10) {
             const problem = this.problemSet[this.progress];
             this.progress++;
+            if (this.progress === 9)  {
+                this.finished = true;
+            }
             return problem;
         } else {
             this.tallyResults();

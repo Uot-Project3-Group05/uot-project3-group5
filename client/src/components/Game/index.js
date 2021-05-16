@@ -49,10 +49,16 @@ function Game() {
           console.log(answer)
           alert(answer === userInput)
           console.log(Game.problemSet);
-          currentQuestion = Game.renderNext();
-          setQuestion(currentQuestion.question);
-          setOptions(currentQuestion.options);
-          answer = currentQuestion.answer;
+
+          if (!Game.finished) {
+            currentQuestion = Game.renderNext();
+            console.log(Game.finished);
+            setQuestion(currentQuestion.question);
+            setOptions(currentQuestion.options);
+            answer = currentQuestion.answer;
+          } else {
+            window.location.replace('/profile');
+          }
         }
       }
     }
@@ -89,7 +95,7 @@ function Game() {
               <Button 
               boxShadow="2xl"  
               onClick={e => {
-                methods.handleInput(e);
+                methods.handleInput(e)
               }}
               >
                 {option}
