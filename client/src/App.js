@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   ChakraProvider,
@@ -23,6 +25,17 @@ import Profile from './components/Profile';
 import Home from './components/Home';
 import Game from './components/Game';
 
+const client = new ApolloClient({
+  request: (operation) => {
+    const token = localStorage.getItem('id_token')
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+  },
+  uri: '/graphql',
+})
 
 function App() {
 
@@ -48,6 +61,7 @@ function App() {
   };
 
   return (
+    <ApolloProvider client={client}>
     <Router>
       <ChakraProvider theme={theme}>
         <Box textAlign="center" fontSize="xl" >
@@ -71,6 +85,7 @@ function App() {
         </Box>
       </ChakraProvider>
     </Router>
+    </ApolloProvider>
   );
 }
 
