@@ -21,9 +21,9 @@ const typeDefs = gql`
     cards: [Card]
   }
   type Card {
-    _id: ID
-    front:[String]
-    back: [String]
+    cardId: Int
+    front:String
+    back: String
   }
   type Auth {
     token: ID
