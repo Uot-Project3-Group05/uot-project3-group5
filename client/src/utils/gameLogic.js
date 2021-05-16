@@ -5,6 +5,8 @@ class GameSession {
         this.progress = 0; // for displaying progress on problem set - i.e. 6/10
         this.cardsInSet = [];
         this.problemSet = [];
+        this.correctCards = [];
+        this.incorrectCards = [];
         this.currentQuestion = {};
         this.result = [[], [], [], [], []];
     }
@@ -168,46 +170,73 @@ class GameSession {
         }
     }
 
-    // handle user interaction for each problem
-    handleInput() {
-
-    }
-
     // checks the answer returns a boolean used to move card up or down one array in the matrix
-    isCorrect(answer) {
-        // same as: 
-        // const correctAnswer = this.currentQuestion.answer
-        const { answer: correctAnswer } = this.currentQuestion;
+    isCorrect(bool) {
+        if (bool === true) {
+            console.log(`You are correct!`);
+            this.correctCards.push(this.cardsInSet.shift());
+            this.progress++;
+            return('correct');
 
-        return answer === correctAnswer;
+        } else {
+            console.log(`Sorry, that's not correct`);
+            this.incorrectCards.push(this.cardsInSet.shift());
+            this.progress++;
+            return('incorrect');
+        }
     }
 
     // increments the progress tracker after each "problem" is solved
-    trackProgress() {
+    // trackProgress() {
 
-    }
+    // }
 
     // determine final results of set
-    tallyResults(currentQuestion, status) {
-        // determine whether go up or down a bin
-        const tallyValue = status ? 1 : -1;
-        if ((currentQuestion.index === 0 && status === false) || (currentQuestion.index === 4 && status === true)) {
-            return;
-        }
-
-        currentQuestion.index += tallyValue;
-        this.result[currentQuestion.index].push(currentQuestion);
+    tallyResults() {
+        console.log(`You've finished this round! \nHere are your results:\n\nCorrect Answers: ${this.correctCards.length}\nIncorrect Answers: ${this.incorrectCards.length}`);
+        this.resortMatrix(this.correctCards, true);
+        this.resortMatrix(this.incorrectCards, false);
+        this.correctCards = [];
+        this.incorrectCards = [];
     }
 
-    // at end of set review missed problems?
-    review() {
-
+    // takes either this.correctCards with bool=true, or this.incorrectCards with bool=false
+    resortMatrix(arr, bool) {
+        arr.forEach(cardId => {
+            let cardIndex;
+            // iterates through arrays in this.matrix
+            for(let i=0; i<5; i++){
+                // looks for index of the cardId in each array
+                cardIndex = this.matrix[i].indexOf(cardId);
+                // if it finds it in the array, the card was correct and it is not in array 4
+                if (cardIndex !== -1 && bool === true && i<4) {
+                    // slice from current spot
+                    const card = this.matrix[i].splice(cardIndex, 1);
+                    //move to next highest array
+                    this.matrix[i+1].push(card[0]);
+                    break;
+                // if it finds it in the array, the card was incorrect and it is not in array 0
+                } else if (cardIndex !== -1 && bool === false && i>0) {
+                    const card = this.matrix[i].splice(cardIndex, 1);
+                    //move to next lowest array
+                    this.matrix[i-1].push(card[0]);
+                    break;
+                } else {
+                    continue
+                }
+            }
+        });
     }
 
-    // after set is completed, save results and new card positions to player game state (IndexedDB then finally graphql)
-    saveResults() {
+    // // at end of set review missed problems?
+    // review() {
+
+    // }
+
+    // // after set is completed, save results and new card positions to player game state (IndexedDB then finally graphql)
+    // saveResults() {
         
-    }
+    // }
     
 
 }
