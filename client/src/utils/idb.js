@@ -24,9 +24,9 @@ function uploadTransactions() {
   // open transaction
   const transaction = db.transaction(["decks_db"], 'readwrite');
 
-  const budgetObjectStore = transaction.objectStore("decks_db");
+  const decksObjectStore = transaction.objectStore("decks_db");
 
-  const getAll = budgetObjectStore.getAll();
+  const getAll = decksObjectStore.getAll();
 
   getAll.onsuccess = function() {
     if (getAll.result.length > 0) {
@@ -34,8 +34,8 @@ function uploadTransactions() {
 
       // open more transaction
       const transaction = db.transaction(["decks_db"], 'readwrite');
-      const budgetObjectStore = transaction.objectStore('decks_db');
-      budgetObjectStore.clear();
+      const decksObjectStore = transaction.objectStore('decks_db');
+      decksObjectStore.clear();
 
       alert('all transactions have been submitted!');
       window.location.reload();
