@@ -26,6 +26,7 @@ function Game() {
     const [question, setQuestion] = useState('no question');
     const [options, setOptions] = useState([]);
     const [answer, setAnswer] = useState('');
+    const [methods, setMethods] = useState({});
 
 
     const { loading, data } = useQuery(GET_DECKS);
@@ -34,37 +35,38 @@ function Game() {
     }
 
 
-    const Game = new GameSession(data.decks.cards, [[], [], [], [], []]);
-    let currentQuestion;
-
     function handleStart() {
+      const Game = new GameSession(data.decks.cards, [[], [], [], [], []]);
       Game.start();
+      let currentQuestion;
       currentQuestion = Game.renderNext();
       setQuestion(currentQuestion.question);
       setOptions(currentQuestion.options);
       setAnswer(currentQuestion.answer);
-    }
 
-    function handleInput(e) {
-      const userInput = e.target.textContent;
-      console.log(answer)
-      alert(answer === userInput)
+      return {
+        handleInput(e) {
+          const userInput = e.target.textContent;
+          console.log(answer)
+          alert(answer === userInput)
+          console.log(Game.problemSet);
+          currentQuestion = Game.renderNext();
+          setQuestion(currentQuestion.question);
+          setOptions(currentQuestion.options);
+          setAnswer(currentQuestion.answer);
+        }
+      }
     }
-
 
     return (
-
-        
       <Box>
-
- 
       {/*Once you select the mode, a button to start will appear*/}
       <Box textAlign="center" fontSize="xl" mb={6} >
            <Button 
            m={4} 
            boxShadow="2xl"
            onClick={() =>{
-            handleStart(); 
+            setMethods(handleStart()); 
           }
           }
           >
@@ -88,7 +90,7 @@ function Game() {
               <Button 
               boxShadow="2xl"  
               onClick={e => {
-                handleInput(e);
+                methods.handleInput(e);
               }}
               >
                 {option}
