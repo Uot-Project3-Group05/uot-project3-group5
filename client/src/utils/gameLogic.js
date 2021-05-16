@@ -161,6 +161,7 @@ class GameSession {
     renderNext() {
         if (this.progress < 10) {
             const problem = this.problemSet[this.progress];
+            this.progress++;
             return problem;
         } else {
             this.tallyResults();
