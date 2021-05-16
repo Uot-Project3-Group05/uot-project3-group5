@@ -25,7 +25,6 @@ import {
 function Game() {
     const [question, setQuestion] = useState('no question');
     const [options, setOptions] = useState([]);
-    const [answer, setAnswer] = useState('');
     const [methods, setMethods] = useState({});
 
 
@@ -42,7 +41,7 @@ function Game() {
       currentQuestion = Game.renderNext();
       setQuestion(currentQuestion.question);
       setOptions(currentQuestion.options);
-      setAnswer(currentQuestion.answer);
+      let answer = currentQuestion.answer;
 
       return {
         handleInput(e) {
@@ -53,7 +52,7 @@ function Game() {
           currentQuestion = Game.renderNext();
           setQuestion(currentQuestion.question);
           setOptions(currentQuestion.options);
-          setAnswer(currentQuestion.answer);
+          answer = currentQuestion.answer;
         }
       }
     }
