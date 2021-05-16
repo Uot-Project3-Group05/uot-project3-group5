@@ -1,6 +1,6 @@
 class GameSession {
-    constructor(deck, game) {
-        this.matrix = game.matrix;  // retrieved from DB or IndexedDb
+    constructor(deck, matrix) {
+        this.matrix = matrix;  // retrieved from DB or IndexedDb
         this.deck = deck;
         this.progress = 0; // for displaying progress on problem set - i.e. 6/10
         this.cardsInSet = [];
@@ -159,7 +159,12 @@ class GameSession {
 
     // renders next problem (combines with React Components)
     renderNext() {
-
+        if (this.progress < 10) {
+            const problem = this.problemSet[this.progress];
+            return problem;
+        } else {
+            this.tallyResults();
+        }
     }
 
     // handle user interaction for each problem
