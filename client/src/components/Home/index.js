@@ -45,8 +45,7 @@ function Home() {
         console.log(data)
     }
 
-    // const decks = data?.deck || [];
-    // console.log(decks)
+
 
 
 
