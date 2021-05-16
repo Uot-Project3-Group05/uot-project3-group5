@@ -21,9 +21,9 @@ const typeDefs = gql`
     cards: [Card]
   }
   type Card {
-      _id: ID
-      front:[String]
-      back: [String]
+    _id: ID
+    front:[String]
+    back: [String]
   }
   type Auth {
     token: ID
@@ -31,6 +31,7 @@ const typeDefs = gql`
   }
   type Query {
     me: User
+    decks: Deck
     users:[User]
     user(username: String!): User
   }

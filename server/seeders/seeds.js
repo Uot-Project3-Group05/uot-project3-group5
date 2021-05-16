@@ -1,12 +1,12 @@
 const db = require('../config/connection');
-const { Card } = require('../models');
+const { Deck, Card } = require('../models');
 
-const CARD_DATA = require('./data');
+const DECK_DATA = require('./data');
 
 db.once('open', async () => {
-  await Card.deleteMany({});
+  await Deck.deleteMany({});
 
-  await Card.collection.insertMany(CARD_DATA);
+  await Deck.collection.insertOne(DECK_DATA);
 
   console.log('all done!');
   process.exit(0);
