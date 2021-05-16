@@ -58,14 +58,14 @@ test('initial game session', () => {
 
 test('start() method', () => {
     thisGame.start();
-    console.log('start() method', this.problemSet);
+    console.log('start() method', thisGame.problemSet);
 })
 
 
 test('addCards() method', () => {
     thisGame.matrix = [[],[],[],[],[]];
     thisGame.addNewCards(0);
-    //console.log(thisGame.matrix);
+    console.log(thisGame.matrix);
     expect(thisGame.matrix[2].length).toEqual(15);
 });
 
@@ -73,7 +73,7 @@ test('shuffleArray() method', () => {
     //console.log(thisGame.matrix[2][0])
     thisGame.matrix[2] = thisGame.shuffleArray(thisGame.matrix[2]);
     //console.log(thisGame.matrix[2][0])
-    //console.log(thisGame.matrix);
+    console.log(thisGame.matrix);
     expect(thisGame.matrix[2].length).toEqual(15);
     // expect(thisGame.matrix[2][0]).not.toEqual(1);
 });
@@ -116,4 +116,21 @@ test('createProblemSet() method', () => {
     thisGame.createProblemSet();
     console.log('createProblemSet() method', thisGame.problemSet);
 });
+
+test('isCorrect() method', () => {
+    thisGame.currentQuestion = { question: 'Oxygen', options: [ 'N', 'Li', 'O' ], answer: 'O' };
+
+    expect(thisGame.isCorrect('N')).toBe(false);
+    expect(thisGame.isCorrect('Li')).toBe(false);
+    expect(thisGame.isCorrect('O')).toBe(true);
+})
+
+
+test('tallyResult() method', () => {
+    thisGame.currentQuestion = { question: 'Oxygen', options: [ 'N', 'Li', 'O' ], answer: 'O', index: 3 };
+
+    thisGame.tallyResults(thisGame.currentQuestion, true);
+    console.log(thisGame.result);
+})
+
 

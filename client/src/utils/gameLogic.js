@@ -5,17 +5,13 @@ class GameSession {
         this.progress = 0; // for displaying progress on problem set - i.e. 6/10
         this.cardsInSet = [];
         this.problemSet = [];
-        
+        this.currentQuestion = {};
+        this.result = [[], [], [], [], []];
     }
 
     // randomly reorder an array
     shuffleArray(array) { 
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            const temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
+        array.sort((a, b) => Math.random() - 0.5)
         return array;
     }
 
@@ -45,7 +41,7 @@ class GameSession {
         }
         // slice n cards from deck array, push to matrix[2]
         slicedCards.forEach(card => this.matrix[2].push(card.cardId));
-        // console.log(this.matrix);
+        console.log(this.matrix);
     }
 
     // if this is not the first game, determine if cards need to be added based on 'score'
@@ -172,8 +168,12 @@ class GameSession {
     }
 
     // checks the answer returns a boolean used to move card up or down one array in the matrix
-    isCorrect() {
+    isCorrect(answer) {
+        // same as: 
+        // const correctAnswer = this.currentQuestion.answer
+        const { answer: correctAnswer } = this.currentQuestion;
 
+        return answer === correctAnswer;
     }
 
     // increments the progress tracker after each "problem" is solved
@@ -182,8 +182,15 @@ class GameSession {
     }
 
     // determine final results of set
-    tallyResults() {
+    tallyResults(currentQuestion, status) {
+        // determine whether go up or down a bin
+        const tallyValue = status ? 1 : -1;
+        if ((currentQuestion.index === 0 && status === false) || (currentQuestion.index === 4 && status === true)) {
+            return;
+        }
 
+        currentQuestion.index += tallyValue;
+        this.result[currentQuestion.index].push(currentQuestion);
     }
 
     // at end of set review missed problems?
