@@ -8,19 +8,15 @@ const cardSchema = new Schema({
         required: [true,'Card is required']
       },
 
-      front:[
-        {
+      front: {
         type: String,
         required: true
-         }
-      ],
-      
-      back : [
-          {
+      },
+
+      back: {
         type: String,
         required: true      
-          }
-      ]     
+      }
 });
 
 const Card = mongoose.model('Card', cardSchema);

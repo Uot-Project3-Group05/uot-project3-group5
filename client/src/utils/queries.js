@@ -10,12 +10,12 @@ export const ME = gql`
       games {
         _id
         score
-        deck {
+        decks {
           _id
           deckname
           description
           cards {
-            _id
+            cardId
             front
             back
           }
@@ -35,12 +35,12 @@ export const GET_USERS = gql`
       games {
         _id
         score
-        deck {
+        decks {
           _id
           deckname
           description
           cards {
-            _id
+            cardId
             front
             back
           }
@@ -60,12 +60,12 @@ export const GET_USER_BY_USERNAME = gql`
       games {
         _id
         score
-        deck {
+        decks {
           _id
           deckname
           description
           cards {
-            _id
+            cardId
             front
             back
           }

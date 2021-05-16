@@ -21,7 +21,7 @@ const resolvers = {
     },
 
     decks: async () => {
-      return Deck.find();
+      return Deck.findOne();
     }
   },
   Mutation: {
