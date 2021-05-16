@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useDebugValue } from 'react';
 import { Link, useParams } from "react-router-dom";
 import {
   ChakraProvider,
@@ -17,6 +17,8 @@ import {
   Image,
   Badge
 } from '@chakra-ui/react';
+import { GET_DECKS, GET_USERS } from "../../utils/queries";
+import { useQuery } from '@apollo/react-hooks';
 
 
 function Home() {
@@ -25,6 +27,14 @@ function Home() {
         cards: 118,
         img: 'https://bit.ly/2Z4KKcF'
     } 
+    
+    // get all decks into data
+    const { loading, data } = useQuery(GET_DECKS);
+
+
+    // const decks = data?.deck || [];
+    // console.log(decks)
+
 
     return (
 

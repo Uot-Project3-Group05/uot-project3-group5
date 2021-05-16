@@ -74,3 +74,18 @@ export const GET_USER_BY_USERNAME = gql`
     } 
   }
 `;
+
+export const GET_DECKS = gql`
+  {
+    decks {
+      _id
+      deckname
+      description
+      cards {
+        front
+        back
+        cardId
+      }
+    }
+  }
+`;
