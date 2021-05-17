@@ -20,8 +20,11 @@ const resolvers = {
       return User.findOne({ username: username})
     },
 
+    // decks: async () => {
+    //   return Deck.findOne();
+    // }
     decks: async () => {
-      return Deck.findOne();
+      return Deck.find();
     }
   },
   Mutation: {

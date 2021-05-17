@@ -34,10 +34,7 @@ function Home() {
     // get all decks into data
     const { loading, error, data } = useQuery(GET_DECKS);
 
-    if (!loading) {
-        console.log(error)
-        console.log(data)
-    }
+
 
     if (loading) {
         return <h1> Loading </h1>
@@ -45,6 +42,17 @@ function Home() {
         console.log(data)
     }
 
+    /*
+                    
+                    <Box>
+                        <Image src={testImage.img} alt='placeholder' />
+                        <Box>
+                            {data.decks.deckname}
+                        </Box>
+                        <Box>
+                        {data.decks.cards.length} cards
+                        </Box>
+                    </Box>*/
 
 
 
@@ -58,23 +66,26 @@ function Home() {
         </Box>     
         
         <Wrap  justify="space-evenly" spacing="8" >
-            <Link to={`/game/${data.decks._id}`}>
-                <WrapItem>  
+            {data && 
+            data.decks.map(deck => (
+
+            <Link to={`/game/${deck._id}`} key={deck._id}>
+                <WrapItem >  
                     <Center boxShadow="2xl" w="300px" h="300px" bg="red.200" borderRadius="lg">
-                
                     <Box>
                         <Image src={testImage.img} alt='placeholder' />
                         <Box>
-                            {data.decks.deckname}
+                            {deck.deckname}
                         </Box>
                         <Box>
-                        {data.decks.cards.length} cards
+                        {deck.cards.length} cards
                         </Box>
                     </Box>
             
                     </Center>
                 </WrapItem>
             </Link>
+            ))}
         
         </Wrap>
       </Box>
