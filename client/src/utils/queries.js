@@ -75,6 +75,21 @@ export const GET_USER_BY_USERNAME = gql`
   }
 `;
 
+export const GET_DECK_ID = gql`
+  query deck($id: ID! ) {
+    deck(_id: $id) {
+        _id
+        deckname
+        description
+        cards {
+          front
+          back
+          cardId
+        }
+    }
+  }
+`;
+
 export const GET_DECKS = gql`
   {
     decks {
@@ -89,3 +104,5 @@ export const GET_DECKS = gql`
     }
   }
 `;
+
+

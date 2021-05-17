@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import GameSession from '../../utils/gameLogic';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_DECKS } from "../../utils/queries";
+import { GET_DECKS, GET_DECK_ID } from "../../utils/queries";
+import { Link, useParams } from "react-router-dom";
 import {
     MdBuild,
     MdCall
@@ -28,14 +29,25 @@ function Game() {
     const [methods, setMethods] = useState({});
 
 
-    const { loading, data } = useQuery(GET_DECKS);
+    // this will display the URL ID value from the URL
+    //const { id: deckId } = useParams();
+    const { id } = useParams();
+    //console.log(thoughtId);
+
+    const { loading, data } = useQuery(GET_DECK_ID, {
+      // this is from the react router dom useParams id URL
+      //variables: { id: deckId }
+      variables: { id }
+    });
+
     if (loading) {
       return <h1>Loading...</h1>
+    } else {
+      console.log(data)
     }
-
-
+  
     function handleStart() {
-      const Game = new GameSession(data.decks.cards, [[], [], [], [], []]);
+      const Game = new GameSession(data.deck.cards, [[], [], [], [], []]);
       Game.start();
       let currentQuestion;
       currentQuestion = Game.renderNext();

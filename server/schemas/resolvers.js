@@ -20,8 +20,15 @@ const resolvers = {
       return User.findOne({ username: username})
     },
 
+    // Get one Deck
+    deck: async (parent, id ) => {
+      console.log(id)
+      return Deck.findOne({ _id: id});
+      
+    },
+    // Get many decks
     decks: async () => {
-      return Deck.findOne();
+      return Deck.find();
     }
   },
   Mutation: {
