@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import GameSession from '../../utils/gameLogic';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_DECKS, GET_DECK_ID } from "../../utils/queries";
+import { Link, useParams } from "react-router-dom";
 import {
     MdBuild,
     MdCall
@@ -20,93 +24,67 @@ import {
 
 
 function Game() {
-    // Chakra toast button
+    const [question, setQuestion] = useState('no question');
+    const [options, setOptions] = useState([]);
+    const [methods, setMethods] = useState({});
 
 
-    const toast = useToast()
+    // this will display the URL ID value from the URL
+    //const { id: deckId } = useParams();
+    const { id } = useParams();
+    //console.log(thoughtId);
 
+    const { loading, data } = useQuery(GET_DECK_ID, {
+      // this is from the react router dom useParams id URL
+      //variables: { id: deckId }
+      variables: { id }
+    });
+
+    if (loading) {
+      return <h1>Loading...</h1>
+    } else {
+      console.log(data)
+    }
+  
+    function handleStart() {
+      const Game = new GameSession(data.deck.cards, [[], [], [], [], []]);
+      Game.start();
+      let currentQuestion;
+      currentQuestion = Game.renderNext();
+      setQuestion(currentQuestion.question);
+      setOptions(currentQuestion.options);
+      let answer = currentQuestion.answer;
+
+      return {
+        handleInput(e) {
+          const userInput = e.target.textContent;
+          console.log(answer)
+          alert(answer === userInput)
+          console.log(Game.problemSet);
+
+          if (!Game.finished) {
+            currentQuestion = Game.renderNext();
+            console.log(Game.finished);
+            setQuestion(currentQuestion.question);
+            setOptions(currentQuestion.options);
+            answer = currentQuestion.answer;
+          } else {
+            window.location.replace('/profile');
+          }
+        }
+      }
+    }
 
     return (
-
-        
       <Box>
-
- 
-     <Box textAlign="center" fontSize="xl" mb={6} >
-     <Wrap  direction="row"  justify="space-evenly" align="center">
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />}
-               _hover={{bg:"pink"}} 
-               size= "lg" 
-               onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 1 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }
-               >
-                Mode 1 
-              </Button>
-            </WrapItem>
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />} 
-              _hover={{bg:"pink"}} 
-              size = "lg"
-              onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 2 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }>
-                Mode 2
-              </Button>
-            </WrapItem>
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />}
-              _hover={{bg:"pink"}} 
-              size = "lg"
-              onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 3 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }>
-                Mode 3
-              </Button>
-            </WrapItem>
-        </Wrap>
-      </Box>     
       {/*Once you select the mode, a button to start will appear*/}
       <Box textAlign="center" fontSize="xl" mb={6} >
            <Button 
            m={4} 
            boxShadow="2xl"
-           onClick={() =>
-            toast({
-              title: "Starting Game!",
-              status: "info",
-              duration: 2800,
-              isClosable: true,
-              position: "top"
-            })
+           onClick={() =>{
+            setMethods(handleStart()); 
+          }
           }
           >
                   Start Game
@@ -117,63 +95,26 @@ function Game() {
         <Wrap  direction="column"  justify="space-between" align="center">
             <WrapItem boxShadow="2xl">
               <Center w="350px" h="400px" bg="red.200">
-                Box 1
+                {question}
               </Center>
             </WrapItem>
 
         </Wrap>
 
         <Wrap  direction="row"  justify="space-evenly" align="center" mt={5}>
-              <WrapItem p={2}>
-                <Button 
-                 boxShadow="2xl"  
-                onClick={() =>
-                  toast({
-                    title: "Correct!",
-                    description: "Correct answer provided!",
-                    status: "success",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                }
-                >
-                  Correct Answer!
-                </Button>
-                </WrapItem>
-                <WrapItem p={2}>
-                <Button 
-                boxShadow="2xl"  
-                onClick={() =>
-                  toast({
-                    title: "Incorrect!",
-                    description: "Question will show up again!",
-                    status: "error",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                }
-                >
-                  Incorrect Answer!
-                </Button>
-                </WrapItem>
-                <WrapItem p={2}>
-                <Button 
-                boxShadow="2xl"  
-                onClick={() =>
-                  toast({
-                    title: "Incorrect!",
-                    description: "Question will show up again!",
-                    status: "error",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                }
-                >
-                  Incorrect Answer!
-                </Button>
-
+          {options.map(option => (
+            <WrapItem key={option} p={2}>
+              <Button 
+              boxShadow="2xl"  
+              onClick={e => {
+                methods.handleInput(e)
+              }}
+              >
+                {option}
+              </Button>
             </WrapItem>
-          </Wrap>
+          ))}
+        </Wrap>
             
    
         </Box>
