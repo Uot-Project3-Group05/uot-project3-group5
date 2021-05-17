@@ -30,12 +30,14 @@ function Game() {
 
 
     // this will display the URL ID value from the URL
-    const { id: deckId } = useParams();
+    //const { id: deckId } = useParams();
+    const { id } = useParams();
     //console.log(thoughtId);
 
     const { loading, data } = useQuery(GET_DECK_ID, {
       // this is from the react router dom useParams id URL
-      variables: { id: deckId }
+      //variables: { id: deckId }
+      variables: { id }
     });
 
     if (loading) {
