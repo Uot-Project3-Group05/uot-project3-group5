@@ -59,7 +59,6 @@ function Profile() {
             <WrapItem  align="center">
               <Center boxShadow="2xl" bg="red.200" borderRadius="lg">
                 <Box maxW="sm" 
-                
                 borderRadius="lg" 
                 overflow="hidden">
                   <Image src={deck[0].img} alt='placeholder' />
