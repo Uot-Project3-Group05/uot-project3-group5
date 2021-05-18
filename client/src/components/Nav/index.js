@@ -6,11 +6,28 @@ import {
   Spacer,
   Avatar,
   LinkBox,
-  LinkOverlay
+  LinkOverlay,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Tabs, 
+  TabList, 
+  TabPanels, 
+  Tab, 
+  TabPanel,
+  Button,
+  useDisclosure
 } from '@chakra-ui/react';
 
 
-import { CopyIcon } from '@chakra-ui/icons'
+import { CopyIcon } from '@chakra-ui/icons';
+
+import SignupForm from '../Signup';
+import Login from '../Login';
 
 
 function Nav(props) {
@@ -21,6 +38,8 @@ function Nav(props) {
    
   } = props;
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
 //  href="#Home" 
 //  onClick={() => setNavLinkSelected('Home')}
 //LinkOverlay 
@@ -28,8 +47,8 @@ function Nav(props) {
 // onClick={() => setNavLinkSelected('Profile')}
 
   return (
-    <Flex >
-    
+    <>
+    <Flex>    
       <Box p="4" >
         <LinkBox>
         <Link 
@@ -39,10 +58,13 @@ function Nav(props) {
           color="blue.200" >
             </CopyIcon>Logo 
         </Link>
-        </LinkBox>
+        </LinkBox>        
       </Box>
       <Spacer />
-      <Box p="4">
+      <Box p="4" d='flex' alignItems='center'>
+        <Box mr={3}>
+          <Button onClick={onOpen}>Login/Signup</Button>
+        </Box>
         {/*<Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />*/}
         <LinkBox>
         <Link 
@@ -54,6 +76,17 @@ function Nav(props) {
 
       </Box>
     </Flex>
+    <Modal isOpen={isOpen} onClose={onClose} size={'lg'}>
+      <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <SignupForm />
+          </ModalBody>          
+        </ModalContent>
+    </Modal>
+    </>
   )
 }
 
