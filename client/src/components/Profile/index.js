@@ -85,29 +85,6 @@ function Profile() {
               </Center>
             </WrapItem>
           </Link>
-          <WrapItem boxShadow="2xl">
-            <Center w="300px" h="300px" bg="blue.200">
-            <Box>
-                  <Image src={deck[0].img} alt='placeholder' />
-                  <Box>
-                    {deck[0].name}
-                  </Box>
-                  <Box>
-                    {deck[0].cards} cards
-                  </Box>
-                  <Box align="center">
-                    <CircularProgress value={33} size="10%">
-                      <CircularProgressLabel>33%</CircularProgressLabel>
-                    </CircularProgress>
-                  </Box>
-                </Box>
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl">
-            <Center w="300px" h="300px" bg="yellow.200">
-              Box 3
-            </Center>
-          </WrapItem>
       </Wrap>
       </Box>
 
@@ -147,16 +124,6 @@ function Profile() {
               </Center>
             </WrapItem>
           </Link>
-            <WrapItem boxShadow="2xl">
-              <Center w="300px" h="300px" bg="blue.200">
-                Box 2
-              </Center>
-            </WrapItem>
-            <WrapItem boxShadow="2xl">
-              <Center w="300px" h="300px" bg="yellow.200">
-                Box 3
-              </Center>
-            </WrapItem>
         </Wrap>
       </Box>
 
