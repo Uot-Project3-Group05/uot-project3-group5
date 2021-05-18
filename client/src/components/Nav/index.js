@@ -27,7 +27,7 @@ import {
 import { CopyIcon } from '@chakra-ui/icons';
 
 import SignupForm from '../Signup';
-import Login from '../Login';
+import LoginForm from '../Login';
 
 
 function Nav(props) {
@@ -78,13 +78,31 @@ function Nav(props) {
     </Flex>
     <Modal isOpen={isOpen} onClose={onClose} size={'lg'}>
       <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <SignupForm />
-          </ModalBody>          
-        </ModalContent>
+      <ModalContent>
+        <ModalCloseButton />
+        <Tabs variant='enclosed'>
+          <TabList>
+            <Tab>Login</Tab>
+            <Tab>Signup</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              {/* <ModalContent> */}                
+                <ModalBody>
+                  <LoginForm />
+                </ModalBody>          
+              {/* </ModalContent> */}
+            </TabPanel>
+            <TabPanel>
+              {/* <ModalContent> */}                              
+                <ModalBody>
+                  <SignupForm />
+                </ModalBody>          
+              {/* </ModalContent> */}
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </ModalContent>        
     </Modal>
     </>
   )

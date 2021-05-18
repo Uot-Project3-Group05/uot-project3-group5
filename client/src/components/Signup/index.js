@@ -12,7 +12,7 @@ const SignupForm = () => {
   // set state for form validation
   const [validated] = useState('false');
   // set state for alert
-  const [showAlert, setShowAlert] = useState('false');
+  //const [showAlert, setShowAlert] = useState('false');
 
   const [addUser] = useMutation(ADD_USER);
 
@@ -43,7 +43,7 @@ const SignupForm = () => {
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
-      setShowAlert('true');
+      //setShowAlert('true');
     }
 
     setUserFormData({
@@ -58,9 +58,9 @@ const SignupForm = () => {
       {/* This is needed for the validation functionality above*/}
       <form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
-        <Alert onClose={() => setShowAlert('false')} show={showAlert} variant='danger'>
+        {/* <Alert onClose={() => setShowAlert('false')} show={showAlert} variant='danger'>
           Something went wrong with your signup!
-        </Alert>
+        </Alert> */}
 
         <FormControl                    
           id='username'
@@ -68,6 +68,7 @@ const SignupForm = () => {
           onChange={handleInputChange}
           value={userFormData.username}
           isRequired
+          mt={2}
         >
           <FormLabel name='username'>Username</FormLabel>
           <Input name='username' type='text' placeholder='Your username' />
@@ -80,6 +81,7 @@ const SignupForm = () => {
           onChange={handleInputChange}
           value={userFormData.email}
           isRequired
+          mt={2}
         >
           <FormLabel htmlFor='email'>Email</FormLabel>
           <Input name='email' type='email' placeholder='Your email address' />
@@ -94,6 +96,7 @@ const SignupForm = () => {
           onChange={handleInputChange}
           value={userFormData.password}
           isRequired
+          mt={2}
         >
           <FormLabel htmlFor='password'>Password</FormLabel>
           <Input name='password' type='password' placeholder='Your Password' />
@@ -102,7 +105,7 @@ const SignupForm = () => {
         <Button
           disabled={!(userFormData.username && userFormData.email && userFormData.password)}
           type='submit'
-          m={2}
+          mt={2}
           >
           Submit
         </Button>
