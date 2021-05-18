@@ -179,13 +179,11 @@ class GameSession {
         if (bool === true) {
             console.log(`You are correct!`);
             this.correctCards.push(this.cardsInSet.shift());
-            this.progress++;
             return('correct');
 
         } else {
             console.log(`Sorry, that's not correct`);
             this.incorrectCards.push(this.cardsInSet.shift());
-            this.progress++;
             return('incorrect');
         }
     }

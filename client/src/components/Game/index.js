@@ -58,13 +58,11 @@ function Game() {
       return {
         handleInput(e) {
           const userInput = e.target.textContent;
-          console.log(answer)
-          alert(answer === userInput)
-          console.log(Game.problemSet);
+          const isCorrect = answer === userInput;
+          Game.isCorrect(isCorrect);
 
           if (!Game.finished) {
             currentQuestion = Game.renderNext();
-            console.log(Game.finished);
             setQuestion(currentQuestion.question);
             setOptions(currentQuestion.options);
             answer = currentQuestion.answer;
