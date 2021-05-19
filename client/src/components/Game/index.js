@@ -62,9 +62,14 @@ function Game() {
       return {
         handleInput(e) {
           const userInput = e.target.textContent;
-          console.log(answer)
-          alert(answer === userInput)
-          console.log(Game.problemSet);
+          const isCorrect = answer === userInput;
+          toast({
+            title: `${isCorrect ? 'Correct' : 'Incorrect'}`,
+            description: `${isCorrect ? 'Correct answer provided' : 'Question will show up again!'}`,
+            status: `${isCorrect ? 'success' : 'error'}`,
+            duration: 1200,
+            isClosable: true,
+          })
 
           if (!Game.finished) {
             currentQuestion = Game.renderNext();
@@ -154,8 +159,8 @@ function Game() {
           }
           }
           >
-                  Start Game
-            </Button>
+            Start Game
+          </Button>
       </Box>     
 
         <Box>
@@ -188,59 +193,7 @@ function Game() {
           ))}
         </Wrap>
 
-        <Wrap  direction="row"  justify="space-evenly" align="center" mt={5}>
-
-              <Button 
-                boxShadow="2xl"  
-                onClick={() =>
-                  toast({
-                    title: "Incorrect!",
-                    description: "Question will show up again!",
-                    status: "error",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                }
-                >
-                  Incorrect Answer!
-              </Button>
-
-              <Button 
-                  boxShadow="2xl"  
-                  onClick={() =>
-                  toast({
-                    title: "Correct!",
-                    description: "Correct answer provided!",
-                    status: "success",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                  }
-                  >
-                  Correct Answer!
-              </Button>
-
-              <Button 
-                boxShadow="2xl"  
-                onClick={() =>
-                  toast({
-                    title: "Incorrect!",
-                    description: "Question will show up again!",
-                    status: "error",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                }
-                >
-                  Incorrect Answer!
-              </Button>
-     
-        
-        </Wrap>
-
-            
-   
-        </Box>
+      </Box>
 
     </Box>
     )
