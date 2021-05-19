@@ -19,7 +19,8 @@ import {
   Image,
   Badge,
   Progress,
-  SimpleGrid
+  SimpleGrid,
+  useToast
 } from '@chakra-ui/react';
 import { 
     GiEmerald,
@@ -27,6 +28,7 @@ import {
    } from "react-icons/gi";
 import Auth from '../../utils/auth';
 import periodicTable from '../../assets/images/periodic-table.svg'
+import { idbPromise } from '../../utils/helpers';
   
 
 function Home() {
@@ -35,6 +37,19 @@ function Home() {
          cards: 118,
         img: 'https://bit.ly/2Z4KKcF'
      } 
+    const toast = useToast();
+
+     function notAuthenticated() {
+        toast({
+            title: 'Authentication Error',
+            description: 'You need to be logged in!',
+            status: 'error',
+            duration: 1500,
+            isClosable: true,
+            position: 'top'
+        })
+    }
+     
 
      const deck = [
     
@@ -61,9 +76,9 @@ function Home() {
 
     if (loading) {
         return <h1> Loading </h1>
-    } else {
-        console.log(data)
-    }
+    } 
+
+    data.decks.forEach(deck => idbPromise('decks', 'put', deck));
 
     /*
                     
@@ -142,7 +157,9 @@ function Home() {
                             bg="red.200"
                             maxW="sm"
                             borderRadius="lg" 
-                            overflow="hidden">
+                            overflow="hidden"
+                            onClick={notAuthenticated}
+                            >
                     
                         
                             <Image src={periodicTable} alt='periodic table'  />
