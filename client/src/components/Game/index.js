@@ -72,6 +72,7 @@ function Game() {
             status: `${isCorrect ? 'success' : 'error'}`,
             duration: 1200,
             isClosable: true,
+            position: 'top'
           })
 
           if (!Game.finished) {
