@@ -7,13 +7,31 @@ import {
   Avatar,
   LinkBox,
   LinkOverlay,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Tabs, 
+  TabList, 
+  TabPanels, 
+  Tab, 
+  TabPanel,
+  Button,
+  useDisclosure,
   Image
+
 } from '@chakra-ui/react';
 
 import logo from '../../assets/images/logoMD.png'
 
 
-import { CopyIcon } from '@chakra-ui/icons'
+import { CopyIcon } from '@chakra-ui/icons';
+
+import SignupForm from '../Signup';
+import LoginForm from '../Login';
 
 
 function Nav(props) {
@@ -24,6 +42,8 @@ function Nav(props) {
    
   } = props;
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
 //  href="#Home" 
 //  onClick={() => setNavLinkSelected('Home')}
 //LinkOverlay 
@@ -31,8 +51,8 @@ function Nav(props) {
 // onClick={() => setNavLinkSelected('Profile')}
 
   return (
-    <Flex >
-    
+    <>
+    <Flex>    
       <Box p="4" >
         <LinkBox>
         <Link 
@@ -43,10 +63,13 @@ function Nav(props) {
           />
         
         </Link>
-        </LinkBox>
+        </LinkBox>        
       </Box>
       <Spacer />
-      <Box p="4">
+      <Box p="4" d='flex' alignItems='center'>
+        <Box mr={3}>
+          <Button onClick={onOpen}>Login/Signup</Button>
+        </Box>
         {/*<Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />*/}
         <LinkBox>
         <Link 
@@ -58,6 +81,35 @@ function Nav(props) {
 
       </Box>
     </Flex>
+    <Modal isOpen={isOpen} onClose={onClose} size={'lg'}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalCloseButton />
+        <Tabs variant='enclosed'>
+          <TabList>
+            <Tab>Login</Tab>
+            <Tab>Signup</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              {/* <ModalContent> */}                
+                <ModalBody>
+                  <LoginForm />
+                </ModalBody>          
+              {/* </ModalContent> */}
+            </TabPanel>
+            <TabPanel>
+              {/* <ModalContent> */}                              
+                <ModalBody>
+                  <SignupForm />
+                </ModalBody>          
+              {/* </ModalContent> */}
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </ModalContent>        
+    </Modal>
+    </>
   )
 }
 
