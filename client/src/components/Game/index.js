@@ -91,66 +91,66 @@ function Game() {
       <Box>
       {/*Once you select the mode, a button to start will appear*/}
 
-      <Wrap  direction="row"  justify="space-evenly" align="center">
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />}
-               _hover={{bg:"pink"}} 
-               size= "lg" 
-               onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 1 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }
-               >
-                Mode 1 
-              </Button>
-            </WrapItem>
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />} 
-              _hover={{bg:"pink"}} 
-              size = "lg"
-              onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 2 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }>
-                Mode 2
-              </Button>
-            </WrapItem>
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />}
-              _hover={{bg:"pink"}} 
-              size = "lg"
-              onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 3 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }>
-                Mode 3
-              </Button>
-            </WrapItem>
-        </Wrap>
+      {!gameStarted && <Wrap  direction="row"  justify="space-evenly" align="center">
+        <WrapItem p={2}>
+          <Button 
+          boxShadow="2xl" 
+          leftIcon={<MdBuild />}
+            _hover={{bg:"pink"}} 
+            size= "lg" 
+            onClick={() =>
+            toast({
+              title: "Activated!",
+              description: "Mode 1 Activated!",
+              status: "info",
+              duration: 2800,
+              isClosable: true,
+              position: "top"
+            })
+          }
+            >
+            Mode 1 
+          </Button>
+        </WrapItem>
+        <WrapItem p={2}>
+          <Button 
+          boxShadow="2xl" 
+          leftIcon={<MdBuild />} 
+          _hover={{bg:"pink"}} 
+          size = "lg"
+          onClick={() =>
+            toast({
+              title: "Activated!",
+              description: "Mode 2 Activated!",
+              status: "info",
+              duration: 2800,
+              isClosable: true,
+              position: "top"
+            })
+          }>
+            Mode 2
+          </Button>
+        </WrapItem>
+        <WrapItem p={2}>
+          <Button 
+          boxShadow="2xl" 
+          leftIcon={<MdBuild />}
+          _hover={{bg:"pink"}} 
+          size = "lg"
+          onClick={() =>
+            toast({
+              title: "Activated!",
+              description: "Mode 3 Activated!",
+              status: "info",
+              duration: 2800,
+              isClosable: true,
+              position: "top"
+            })
+          }>
+            Mode 3
+          </Button>
+        </WrapItem>
+      </Wrap>}
 
         
       {!gameStarted && <Box textAlign="center" fontSize="xl" mb={6} >
