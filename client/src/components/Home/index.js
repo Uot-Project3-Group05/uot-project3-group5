@@ -17,9 +17,17 @@ import {
   WrapItem,
   Center,
   Image,
-  Badge
+  Badge,
+  Progress,
+  SimpleGrid
 } from '@chakra-ui/react';
-
+import { 
+    GiEmerald,
+    GiGoldBar
+   } from "react-icons/gi";
+import Auth from '../../utils/auth';
+import periodicTable from '../../assets/images/periodic-table.svg'
+  
 
 function Home() {
      const testImage = {
@@ -27,6 +35,21 @@ function Home() {
          cards: 118,
         img: 'https://bit.ly/2Z4KKcF'
      } 
+
+     const deck = [
+    
+        {
+        name: 'Periodic Table of Elements',
+        cards: 118,
+        img: 'https://bit.ly/2Z4KKcF'
+        },
+        {
+          name: 'Flags of the world',
+          cards: 195,
+          img: 'https://bit.ly/2Z4KKcF'
+          },
+    
+      ]
 
     
 
@@ -56,38 +79,114 @@ function Home() {
 
 
 
-
     return (
 
         <Box>
 
+        
+
         <Box textAlign="center" fontSize="xl" mb={6} >
             Pick a Deck to Begin!
-        </Box>     
-        
-        <Wrap  justify="space-evenly" spacing="8" >
-            {data && 
-            data.decks.map(deck => (
+        </Box>    
 
-            <Link to={`/game/${deck._id}`} key={deck._id}>
-                <WrapItem >  
-                    <Center boxShadow="2xl" w="300px" h="300px" bg="red.200" borderRadius="lg">
-                    <Box>
-                        <Image src={testImage.img} alt='placeholder' />
-                        <Box>
-                            {deck.deckname}
-                        </Box>
-                        <Box>
-                        {deck.cards.length} cards
-                        </Box>
-                    </Box>
-            
-                    </Center>
-                </WrapItem>
-            </Link>
-            ))}
         
-        </Wrap>
+
+                
+          <Wrap  direction="column"  justify="space-evenly" align="center">
+                {data && 
+                data.decks.map(deck => (
+
+                    <Box>
+                    <WrapItem >  
+
+                    
+                    {Auth.loggedIn() ? (
+                        <>
+
+<Box 
+                            boxShadow="2xl" 
+                            bg="red.200"
+                            maxW="sm"
+                            borderRadius="lg" 
+                            overflow="hidden">
+                        <Link to={`/game/${deck._id}`} key={deck._id}> 
+                        
+                            <Image src={periodicTable} alt='periodic table'  />
+                            <Box>
+                                {deck.deckname} of Elements
+                            </Box>
+                            <Box>
+                                {deck.cards.length} cards
+                            </Box>
+                            <Box ml={3} mr={3} >
+                                <Progress 
+                                    colorScheme = "purple"
+                                    mb={2}
+                                    borderRadius="lg"
+                                    value={1}
+                                    hasStripe="true"
+                                    size="md" 
+                                />
+                            </Box>
+                            <Box align="center" mb={3}>
+                                <GiEmerald w={20} h={20} color="#cd7f32"  size={50}></GiEmerald>
+                            </Box>
+                            </Link>
+                        </Box>
+                        
+                        </>
+                    ) : (
+                        <>
+                        <Box 
+                            boxShadow="2xl" 
+                            bg="red.200"
+                            maxW="sm"
+                            borderRadius="lg" 
+                            overflow="hidden">
+                    
+                        
+                            <Image src={periodicTable} alt='periodic table'  />
+                            <Box>
+                                {deck.deckname} of Elements
+                            </Box>
+                            <Box>
+                                {deck.cards.length} cards
+                            </Box>
+                            <Box ml={3} mr={3} >
+                                <Progress 
+                                    colorScheme = "purple"
+                                    mb={2}
+                                    borderRadius="lg"
+                                    value={1}
+                                    hasStripe="true"
+                                    size="md" 
+                                />
+                            </Box>
+                            <Box align="center" mb={3}>
+                                <GiEmerald w={20} h={20} color="#cd7f32"  size={50}></GiEmerald>
+                            </Box>
+                      
+                        </Box>
+                        </>
+                    )}
+                                
+                        
+                        
+                
+                 
+               
+                    </WrapItem>
+                    
+                   
+                    </Box>
+                
+                ))}
+
+
+            </Wrap>
+  
+
+
       </Box>
 
     )
