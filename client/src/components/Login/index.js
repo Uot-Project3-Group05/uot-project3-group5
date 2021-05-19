@@ -22,8 +22,9 @@ const LoginForm = () => {
   // set state for alert
   //const [showAlert, setShowAlert] = useState('false');
 
-  const [loginUser] = useMutation(LOGIN);
-
+  const [loginUser, { error }] = useMutation(LOGIN);
+  
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });    
@@ -60,6 +61,9 @@ const LoginForm = () => {
     });
   };
 
+  // Disable button logic test
+  //disabled={!(userFormData.email && userFormData.password)}
+  
   return (
     <>
       {/* This is needed for the validation functionality above*/}
@@ -98,13 +102,13 @@ const LoginForm = () => {
           <FormErrorMessage>Password is required!</FormErrorMessage>
         </FormControl>
         <Button
-          disabled={!(userFormData.email && userFormData.password)}
           type='submit'
           mt={2}
           >
           Submit
         </Button>
       </form>
+      {error && <div>Login failed</div>}
     </>
   );
 };

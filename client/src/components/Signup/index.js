@@ -14,7 +14,7 @@ const SignupForm = () => {
   // set state for alert
   //const [showAlert, setShowAlert] = useState('false');
 
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -52,6 +52,9 @@ const SignupForm = () => {
       password: '',
     });
   };
+
+  // Disable button logic test
+  //disabled={!(userFormData.username && userFormData.email && userFormData.password)
 
   return (
     <>
@@ -103,13 +106,13 @@ const SignupForm = () => {
           <FormErrorMessage>Password is required!</FormErrorMessage>
         </FormControl>
         <Button
-          disabled={!(userFormData.username && userFormData.email && userFormData.password)}
           type='submit'
           mt={2}
           >
           Submit
         </Button>
       </form>
+      {error && <div>Login failed</div>}
     </>
   );
 };

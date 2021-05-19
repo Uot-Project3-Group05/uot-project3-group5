@@ -32,6 +32,8 @@ import { CopyIcon } from '@chakra-ui/icons';
 
 import SignupForm from '../Signup';
 import LoginForm from '../Login';
+import Auth from '../../utils/auth';
+
 
 
 function Nav(props) {
@@ -49,6 +51,15 @@ function Nav(props) {
 //LinkOverlay 
 // href="#Profile" 
 // onClick={() => setNavLinkSelected('Profile')}
+
+  // logout function 
+  const logout = event => {
+    // this will stop the a element from refreshing the page
+    event.preventDefault();
+    Auth.logout();
+  };
+
+
 
   return (
     <>
@@ -68,7 +79,16 @@ function Nav(props) {
       <Spacer />
       <Box p="4" d='flex' alignItems='center'>
         <Box mr={3}>
-          <Button onClick={onOpen}>Login/Signup</Button>
+        {Auth.loggedIn() ? (
+            <>
+              <Button onClick={logout}>LogOut</Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={onOpen}>Login/Signup</Button>
+            </>
+          )}
+          
         </Box>
         {/*<Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />*/}
         <LinkBox>

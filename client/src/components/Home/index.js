@@ -25,8 +25,9 @@ import {
     GiEmerald,
     GiGoldBar
    } from "react-icons/gi";
+import Auth from '../../utils/auth';
+import periodicTable from '../../assets/images/periodic-table.svg'
   
-
 
 function Home() {
      const testImage = {
@@ -78,7 +79,6 @@ function Home() {
 
 
 
-
     return (
 
         <Box>
@@ -100,16 +100,18 @@ function Home() {
                     <WrapItem >  
 
                     
-                        
-                    <Link to={`/game/${deck._id}`} key={deck._id}> 
-                        
-                        <Box 
+                    {Auth.loggedIn() ? (
+                        <>
+
+<Box 
                             boxShadow="2xl" 
                             bg="red.200"
                             maxW="sm"
                             borderRadius="lg" 
                             overflow="hidden">
-                            <Image src={testImage.img} alt='placeholder' />
+                        <Link to={`/game/${deck._id}`} key={deck._id}> 
+                        
+                            <Image src={periodicTable} alt='periodic table'  />
                             <Box>
                                 {deck.deckname} of Elements
                             </Box>
@@ -129,10 +131,49 @@ function Home() {
                             <Box align="center" mb={3}>
                                 <GiEmerald w={20} h={20} color="#cd7f32"  size={50}></GiEmerald>
                             </Box>
-                    
+                            </Link>
                         </Box>
+                        
+                        </>
+                    ) : (
+                        <>
+                        <Box 
+                            boxShadow="2xl" 
+                            bg="red.200"
+                            maxW="sm"
+                            borderRadius="lg" 
+                            overflow="hidden">
+                    
+                        
+                            <Image src={periodicTable} alt='periodic table'  />
+                            <Box>
+                                {deck.deckname} of Elements
+                            </Box>
+                            <Box>
+                                {deck.cards.length} cards
+                            </Box>
+                            <Box ml={3} mr={3} >
+                                <Progress 
+                                    colorScheme = "purple"
+                                    mb={2}
+                                    borderRadius="lg"
+                                    value={1}
+                                    hasStripe="true"
+                                    size="md" 
+                                />
+                            </Box>
+                            <Box align="center" mb={3}>
+                                <GiEmerald w={20} h={20} color="#cd7f32"  size={50}></GiEmerald>
+                            </Box>
+                      
+                        </Box>
+                        </>
+                    )}
+                                
+                        
+                        
                 
-                    </Link>
+                 
                
                     </WrapItem>
                     
