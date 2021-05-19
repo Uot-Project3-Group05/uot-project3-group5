@@ -25,6 +25,7 @@ import {
 
 
 function Game() {
+  const [gameStarted, setGameStarted] = useState(false);
     const [question, setQuestion] = useState('Press Start Game to play');
     const [options, setOptions] = useState([]);
     const [methods, setMethods] = useState({});
@@ -51,6 +52,7 @@ function Game() {
     }
   
     function handleStart() {
+      setGameStarted(true);
       const Game = new GameSession(data.deck.cards, [[], [], [], [], []]);
       Game.start();
       let currentQuestion;
@@ -150,7 +152,7 @@ function Game() {
         </Wrap>
 
         
-      <Box textAlign="center" fontSize="xl" mb={6} >
+      {!gameStarted && <Box textAlign="center" fontSize="xl" mb={6} >
            <Button 
            m={4} 
            boxShadow="2xl"
@@ -161,7 +163,7 @@ function Game() {
           >
             Start Game
           </Button>
-      </Box>     
+      </Box>}
 
         <Box>
         <Wrap  direction="column"  justify="space-between" align="center">
