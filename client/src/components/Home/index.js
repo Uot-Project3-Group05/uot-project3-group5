@@ -118,7 +118,7 @@ function Home() {
                     {Auth.loggedIn() ? (
                         <>
 
-<Box 
+                    <Box 
                             boxShadow="2xl" 
                             bg="red.200"
                             maxW="sm"
@@ -186,26 +186,11 @@ function Home() {
                         </Box>
                         </>
                     )}
-                                
-                        
-                        
-                
-                 
-               
-                    </WrapItem>
-                    
-                   
-                    </Box>
-                
+                    </WrapItem>    
+                    </Box> 
                 ))}
-
-
             </Wrap>
-  
-
-
       </Box>
-
     )
   }
   

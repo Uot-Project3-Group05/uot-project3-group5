@@ -19,6 +19,11 @@ import {
   GiEmerald,
   GiGoldBar
  } from "react-icons/gi";
+ 
+ import periodicTable from '../../assets/images/periodic-table.svg'
+ import flagsWorld from '../../assets/images/flags-world.png'
+
+
 
 
 function Profile() {
@@ -61,7 +66,7 @@ function Profile() {
                 <Box maxW="sm" 
                 borderRadius="lg" 
                 overflow="hidden">
-                  <Image src={deck[0].img} alt='placeholder' />
+                  <Image src={periodicTable} alt='Periodic Table' />
                   <Box>
                     {deck[0].name}
                   </Box>
@@ -100,7 +105,7 @@ function Profile() {
                 
                 borderRadius="lg" 
                 overflow="hidden">
-                  <Image src={deck[1].img} alt='placeholder' />
+                  <Image src={flagsWorld} alt='Flags of the World' />
                   <Box>
                     {deck[1].name}
                   </Box>
