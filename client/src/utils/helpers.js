@@ -1,6 +1,4 @@
 export function idbPromise(storeName, method, object) {
-  console.log('here')
-  console.log(storeName, method, object);
   return new Promise((resolve, reject) => {
     const request = window.indexedDB.open('mind-decks', 1);
 
@@ -32,11 +30,10 @@ export function idbPromise(storeName, method, object) {
           resolve(object);
           break;
         case 'get':
-          const deck = store.getAll().filter(d => d._id === object._id);
-          resolve(deck);
-          // all.onsuccess = function() {
-          //   resolve(all.result);
-          // };
+          const all = store.getAll();
+          all.onsuccess = function() {
+            resolve(all.result);
+          };
           break;
         case 'delete':
           store.delete(object._id);
