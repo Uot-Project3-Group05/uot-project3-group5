@@ -20,8 +20,12 @@ import {
   Tab, 
   TabPanel,
   Button,
-  useDisclosure
+  useDisclosure,
+  Image
+
 } from '@chakra-ui/react';
+
+import logo from '../../assets/images/logoMD.png'
 
 
 import { CopyIcon } from '@chakra-ui/icons';
@@ -53,10 +57,11 @@ function Nav(props) {
         <LinkBox>
         <Link 
           to={`/`}
-          > <CopyIcon 
+          > 
+          <Image src={logo} alt='placeholder' 
           w={20} h={20} 
-          color="blue.200" >
-            </CopyIcon>Logo 
+          />
+        
         </Link>
         </LinkBox>        
       </Box>
