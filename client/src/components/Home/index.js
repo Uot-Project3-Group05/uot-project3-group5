@@ -27,6 +27,7 @@ import {
    } from "react-icons/gi";
 import Auth from '../../utils/auth';
 import periodicTable from '../../assets/images/periodic-table.svg'
+import { idbPromise } from '../../utils/helpers';
   
 
 function Home() {
@@ -61,9 +62,9 @@ function Home() {
 
     if (loading) {
         return <h1> Loading </h1>
-    } else {
-        console.log(data)
-    }
+    } 
+
+    data.decks.forEach(deck => idbPromise('decks', 'put', deck));
 
     /*
                     

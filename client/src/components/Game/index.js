@@ -25,6 +25,7 @@ import {
 
 
 function Game() {
+  const [gameStarted, setGameStarted] = useState(false);
     const [question, setQuestion] = useState('Press Start Game to play');
     const [options, setOptions] = useState([]);
     const [methods, setMethods] = useState({});
@@ -51,6 +52,7 @@ function Game() {
     }
   
     function handleStart() {
+      setGameStarted(true);
       const Game = new GameSession(data.deck.cards, [[], [], [], [], []]);
       Game.start();
       let currentQuestion;
@@ -62,13 +64,19 @@ function Game() {
       return {
         handleInput(e) {
           const userInput = e.target.textContent;
-          console.log(answer)
-          alert(answer === userInput)
-          console.log(Game.problemSet);
+          const isCorrect = answer === userInput;
+          Game.isCorrect(isCorrect);
+          toast({
+            title: `${isCorrect ? 'Correct' : 'Incorrect'}`,
+            description: `${isCorrect ? 'Correct answer provided' : 'Question will show up again!'}`,
+            status: `${isCorrect ? 'success' : 'error'}`,
+            duration: 1200,
+            isClosable: true,
+            position: 'top'
+          })
 
           if (!Game.finished) {
             currentQuestion = Game.renderNext();
-            console.log(Game.finished);
             setQuestion(currentQuestion.question);
             setOptions(currentQuestion.options);
             answer = currentQuestion.answer;
@@ -83,69 +91,69 @@ function Game() {
       <Box>
       {/*Once you select the mode, a button to start will appear*/}
 
-      <Wrap  direction="row"  justify="space-evenly" align="center">
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />}
-               _hover={{bg:"pink"}} 
-               size= "lg" 
-               onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 1 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }
-               >
-                Mode 1 
-              </Button>
-            </WrapItem>
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />} 
-              _hover={{bg:"pink"}} 
-              size = "lg"
-              onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 2 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }>
-                Mode 2
-              </Button>
-            </WrapItem>
-            <WrapItem p={2}>
-              <Button 
-              boxShadow="2xl" 
-              leftIcon={<MdBuild />}
-              _hover={{bg:"pink"}} 
-              size = "lg"
-              onClick={() =>
-                toast({
-                  title: "Activated!",
-                  description: "Mode 3 Activated!",
-                  status: "info",
-                  duration: 2800,
-                  isClosable: true,
-                  position: "top"
-                })
-              }>
-                Mode 3
-              </Button>
-            </WrapItem>
-        </Wrap>
+      {!gameStarted && <Wrap  direction="row"  justify="space-evenly" align="center">
+        <WrapItem p={2}>
+          <Button 
+          boxShadow="2xl" 
+          leftIcon={<MdBuild />}
+            _hover={{bg:"pink"}} 
+            size= "lg" 
+            onClick={() =>
+            toast({
+              title: "Activated!",
+              description: "Mode 1 Activated!",
+              status: "info",
+              duration: 2800,
+              isClosable: true,
+              position: "top"
+            })
+          }
+            >
+            Mode 1 
+          </Button>
+        </WrapItem>
+        <WrapItem p={2}>
+          <Button 
+          boxShadow="2xl" 
+          leftIcon={<MdBuild />} 
+          _hover={{bg:"pink"}} 
+          size = "lg"
+          onClick={() =>
+            toast({
+              title: "Activated!",
+              description: "Mode 2 Activated!",
+              status: "info",
+              duration: 2800,
+              isClosable: true,
+              position: "top"
+            })
+          }>
+            Mode 2
+          </Button>
+        </WrapItem>
+        <WrapItem p={2}>
+          <Button 
+          boxShadow="2xl" 
+          leftIcon={<MdBuild />}
+          _hover={{bg:"pink"}} 
+          size = "lg"
+          onClick={() =>
+            toast({
+              title: "Activated!",
+              description: "Mode 3 Activated!",
+              status: "info",
+              duration: 2800,
+              isClosable: true,
+              position: "top"
+            })
+          }>
+            Mode 3
+          </Button>
+        </WrapItem>
+      </Wrap>}
 
         
-      <Box textAlign="center" fontSize="xl" mb={6} >
+      {!gameStarted && <Box textAlign="center" fontSize="xl" mb={6} >
            <Button 
            m={4} 
            boxShadow="2xl"
@@ -154,9 +162,9 @@ function Game() {
           }
           }
           >
-                  Start Game
-            </Button>
-      </Box>     
+            Start Game
+          </Button>
+      </Box>}
 
         <Box>
         <Wrap  direction="column"  justify="space-between" align="center">
@@ -188,59 +196,7 @@ function Game() {
           ))}
         </Wrap>
 
-        <Wrap  direction="row"  justify="space-evenly" align="center" mt={5}>
-
-              <Button 
-                boxShadow="2xl"  
-                onClick={() =>
-                  toast({
-                    title: "Incorrect!",
-                    description: "Question will show up again!",
-                    status: "error",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                }
-                >
-                  Incorrect Answer!
-              </Button>
-
-              <Button 
-                  boxShadow="2xl"  
-                  onClick={() =>
-                  toast({
-                    title: "Correct!",
-                    description: "Correct answer provided!",
-                    status: "success",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                  }
-                  >
-                  Correct Answer!
-              </Button>
-
-              <Button 
-                boxShadow="2xl"  
-                onClick={() =>
-                  toast({
-                    title: "Incorrect!",
-                    description: "Question will show up again!",
-                    status: "error",
-                    duration: 2800,
-                    isClosable: true,
-                  })
-                }
-                >
-                  Incorrect Answer!
-              </Button>
-     
-        
-        </Wrap>
-
-            
-   
-        </Box>
+      </Box>
 
     </Box>
     )
