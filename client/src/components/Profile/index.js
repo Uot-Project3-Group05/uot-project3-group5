@@ -53,7 +53,10 @@ function Profile() {
     return <Redirect to="/profile" />;
   }
 
-  console.log(user);
+  let addFriend = false;
+  if (username && Auth.loggedIn()) {
+    addFriend = true;
+  }
 
   const deck = [
     
@@ -75,6 +78,9 @@ function Profile() {
 
   return (
     <Box>
+      {addFriend && <Box>
+        <h1>Add Friend</h1>
+      </Box>}
 
     <Box textAlign="center" fontSize="xl" mb={6} >
       Pick a Deck to Continue or Begin!
