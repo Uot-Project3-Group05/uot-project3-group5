@@ -26,7 +26,6 @@ import logo from '../../assets/images/logoMD.png'
 import SignupForm from '../Signup';
 import LoginForm from '../Login';
 import Auth from '../../utils/auth';
-
 function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -69,13 +68,13 @@ function Nav() {
           
         </Box>
         {/*<Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />*/}
-        <LinkBox>
+        {Auth.loggedIn() && <LinkBox>
         <Link 
           to={`/profile`}
         >
         <Avatar size="xl" ></Avatar>
         </Link>
-        </LinkBox>
+        </LinkBox>}
 
       </Box>
     </Flex>

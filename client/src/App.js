@@ -37,7 +37,7 @@ function App() {
           <Nav />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/profile/:username?" component={Profile} />
             <Route exact path="/game/:id" component={Game} />
           </Switch>
           {/*End of Header*/}
