@@ -101,7 +101,7 @@ const SignupForm = () => {
           Submit
         </Button>
       </form>
-      {error && <div>{error.message.substring(14,error.message.length)}</div>}
+      {error && <div>{error.message.toString().includes('duplicate') ? 'User with email id exist!' : error.message.substring(14,error.message.length)}</div>}
     </>
   );
 };
