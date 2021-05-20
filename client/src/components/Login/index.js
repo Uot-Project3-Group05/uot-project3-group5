@@ -108,7 +108,7 @@ const LoginForm = () => {
           Submit
         </Button>
       </form>
-      {error && <div>Login failed</div>}
+      {error && <div>{error.message.substring(14,error.message.length)}</div>}
     </>
   );
 };
