@@ -10,7 +10,7 @@ export const ME = gql`
       games {
         _id
         score
-        decks {
+        deck {
           _id
           deckname
           description
@@ -35,7 +35,7 @@ export const GET_USERS = gql`
       games {
         _id
         score
-        decks {
+        deck {
           _id
           deckname
           description
@@ -60,7 +60,7 @@ export const GET_USER_BY_USERNAME = gql`
       games {
         _id
         score
-        decks {
+        deck {
           _id
           deckname
           description
