@@ -1,17 +1,14 @@
 import React from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
   Spacer,
   Avatar,
   LinkBox,
-  LinkOverlay,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Tabs, 
@@ -22,35 +19,16 @@ import {
   Button,
   useDisclosure,
   Image
-
 } from '@chakra-ui/react';
 
 import logo from '../../assets/images/logoMD.png'
-
-
-import { CopyIcon } from '@chakra-ui/icons';
 
 import SignupForm from '../Signup';
 import LoginForm from '../Login';
 import Auth from '../../utils/auth';
 
-
-
-function Nav(props) {
-
-  const {
-    navLinkSelected,
-    setNavLinkSelected
-   
-  } = props;
-
+function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-//  href="#Home" 
-//  onClick={() => setNavLinkSelected('Home')}
-//LinkOverlay 
-// href="#Profile" 
-// onClick={() => setNavLinkSelected('Profile')}
 
   // logout function 
   const logout = event => {
