@@ -16,12 +16,13 @@ const resolvers = {
       return User.find();
     },
 
-    user: async(parent, id) => {
-      return User.findOne({ _id: id})
+    user: async(parent, { username }) => {
+      return User.findOne({ username: username})
     },
 
     // Get one Deck
     deck: async (parent, id ) => {
+      console.log(id)
       return Deck.findOne({ _id: id});
       
     },

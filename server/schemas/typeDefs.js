@@ -34,7 +34,7 @@ const typeDefs = gql`
     decks: [Deck]
     deck(_id: ID!): Deck
     users:[User]
-    user(_id: ID!): User
+    user(username: String!): User
   }
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
