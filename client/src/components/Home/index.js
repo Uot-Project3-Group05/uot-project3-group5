@@ -111,7 +111,7 @@ function Home() {
                 {data && 
                 data.decks.map(deck => (
 
-                    <Box>
+                    <Box key={deck.deckname}>
                     <WrapItem >  
 
                     
