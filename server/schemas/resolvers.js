@@ -38,13 +38,24 @@ const resolvers = {
       return { token, user };
     },
     login: async (parent, { email, password }) => {
+      if(!email)
+      {
+        throw new AuthenticationError('Please enter email');
+      }
+
+      if(!password)
+      {
+        throw new AuthenticationError('Please enter password');
+      }
+
       const user = await User.findOne({ email });
+
       if (!user) {
-        throw new AuthenticationError('invalid credentials!');
+        throw new AuthenticationError('Invalid credentials!');
       }
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
-        throw new AuthenticationError('invalid credentials!');
+        throw new AuthenticationError('Invalid credentials!');
       }
       const token = signToken(user);
       return { token, user };

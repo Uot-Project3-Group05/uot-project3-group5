@@ -178,11 +178,11 @@ class GameSession {
     isCorrect(bool) {
         if (bool === true) {
             this.correctCards.push(this.cardsInSet.shift());
-            this.progress++;
+            return('correct');
 
         } else {
             this.incorrectCards.push(this.cardsInSet.shift());
-            this.progress++;
+            return('incorrect');
         }
     }
 
