@@ -9,6 +9,7 @@ import {
   VStack,
   Code,
   Grid,
+  GridItem,
   theme,
   Flex,
   Spacer, 
@@ -21,8 +22,19 @@ import {
   Progress,
   SimpleGrid,
   Button,
-  useToast
+  useToast,
+  Select
 } from '@chakra-ui/react';
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tfoot,
+    Tr,
+    Th,
+    Td,
+    TableCaption,
+  } from "@chakra-ui/react"
 import {
     MdBuild,
     MdCall
@@ -57,9 +69,8 @@ function Leaderboard() {
     
       ]
 
-    
+    const toast = useToast()
 
-    
     // get all decks into data
     const { loading, error, data } = useQuery(GET_DECKS);
 
@@ -83,102 +94,96 @@ function Leaderboard() {
                         </Box>
                     </Box>*/
 
-    const toast = useToast()
+   
 
     return (
 
-        <Box>
+<Box>
 
 
-        <Box textAlign="center" fontSize="xl" mb={6} >
-            Pick a Deck to Begin!
-        </Box>    
+    <Box textAlign="center" fontSize="xl" mb={6} >
+        Welcome to the leaderboard!
+    </Box>    
+
+    <Center mb={5}>
+    <Select boxShadow="2xl" width="300px" placeholder="Select Deck to Filter">
+        <option value="option1">Periodic Table</option>
+        <option value="option2">Flags of the World</option>
+    </Select>
+    <Link to={`/leaderboard`}>
+    <Button ml={3}
+          boxShadow="2xl" 
+            _hover={{bg:"pink"}} 
+            size= "lg" 
+            >
+              
+            Show all Decks!
+          </Button>
+       </Link>
+    </Center>
+
+    <Box >
+
+    <Table variant="striped" colorScheme="teal">
+        <TableCaption>Mind Deck Leaderboard</TableCaption>
+        <Thead>
+            <Tr>
+            <Th>User Name</Th>
+            <Th>Deck</Th>
+            <Th>Cards Completed</Th>
+            </Tr>
+        </Thead>
+        <Tbody>
+            <Tr>
+            <Td>esroleo</Td>
+            <Td>Periodic Table</Td>
+            <Td>50</Td>
+            </Tr>
+            <Tr>
+            <Td>anagha</Td>
+            <Td>Periodic Table</Td>
+            <Td>100</Td>
+            </Tr>
+            <Tr>
+            <Td>ali</Td>
+            <Td>Periodic Table</Td>
+            <Td>20</Td>
+            </Tr>
+            <Tr>
+            <Td>shawn</Td>
+            <Td>Flags of the World</Td>
+            <Td>15</Td>
+            </Tr>
+            <Tr>
+            <Td>terrance</Td>
+            <Td>Flags of the World</Td>
+            <Td>30</Td>
+            </Tr>
+            <Tr>
+            <Td>kris</Td>
+            <Td>Flags of the World</Td>
+            <Td>90</Td>
+            </Tr>
+        </Tbody>
+        <Tfoot>
+            <Tr>
+            <Th>User Name</Th>
+            <Th>Deck</Th>
+            <Th>Cards Completed</Th>
+            </Tr>
+        </Tfoot>
+        </Table>
+
+    </Box>
+
+
+  
 
   
     
 
         
-          <Wrap  direction="column"  justify="space-evenly" align="center">
-                {data && 
-                data.decks.map(deck => (
-
-                    <Box>
-                    <WrapItem >  
-
-
-                    {Auth.loggedIn() ? (
-                        <>
-
-                    <Box 
-                            boxShadow="2xl" 
-                            bg="red.200"
-                            maxW="sm"
-                            borderRadius="lg" 
-                            overflow="hidden">
-                        <Link to={`/game/${deck._id}`} key={deck._id}> 
-                        
-                            <Image src={periodicTable} alt='periodic table'  />
-                            <Box>
-                                {deck.deckname} of Elements
-                            </Box>
-                            <Box>
-                                {deck.cards.length} cards
-                            </Box>
-                            <Box ml={3} mr={3} >
-                                <Progress 
-                                    colorScheme = "purple"
-                                    mb={2}
-                                    borderRadius="lg"
-                                    value={1}
-                                    hasStripe="true"
-                                    size="md" 
-                                />
-                            </Box>
-                            <Box align="center" mb={3}>
-                                <GiEmerald w={20} h={20} color="#cd7f32"  size={50}></GiEmerald>
-                            </Box>
-                            </Link>
-                        </Box>
-                        
-                        </>
-                    ) : (
-                        <>
-                        <Box 
-                            boxShadow="2xl" 
-                            bg="red.200"
-                            maxW="sm"
-                            borderRadius="lg" 
-                            overflow="hidden">
-                    
-                        
-                            <Image src={periodicTable} alt='periodic table'  />
-                            <Box>
-                                {deck.deckname} of Elements
-                            </Box>
-                            <Box>
-                                {deck.cards.length} cards
-                            </Box>
-                            <Box ml={3} mr={3} >
-                                <Progress 
-                                    colorScheme = "purple"
-                                    mb={2}
-                                    borderRadius="lg"
-                                    value={1}
-                                    hasStripe="true"
-                                    size="md" 
-                                />
-                            </Box>
-                            <Box align="center" mb={3}>
-                                <GiEmerald w={20} h={20} color="#cd7f32"  size={50}></GiEmerald>
-                            </Box>
-                      
-                        </Box>
-                        </>
-                    )}
-                    </WrapItem>    
-                    </Box> 
-                ))}
-            </Wrap>
+         
       </Box>
     )
   }

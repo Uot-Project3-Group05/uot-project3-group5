@@ -63,7 +63,7 @@ function Profile() {
     </Box>     
 
     <Box textAlign="center" fontSize="xl" mb={6} >
-    <Link to={`/game/12345`}>
+    <Link to={`/leaderboard`}>
     <Button
           boxShadow="2xl" 
           leftIcon={<MdBuild />}
