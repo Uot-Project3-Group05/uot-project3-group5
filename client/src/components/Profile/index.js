@@ -12,8 +12,15 @@ import {
   Image,
   Progress,
   CircularProgress,
-  CircularProgressLabel
+  CircularProgressLabel,
+  Button,
+  useToast
 } from '@chakra-ui/react';
+
+import {
+  MdBuild,
+  MdCall
+} from "react-icons/md"
 
 import { 
   GiEmerald,
@@ -43,6 +50,8 @@ function Profile() {
 
   ]
 
+  const toast = useToast()
+
   //<GiEmerald w={20} h={20} color="blue.200" ></GiEmerald>
   //GiEmerald
 
@@ -52,6 +61,31 @@ function Profile() {
     <Box textAlign="center" fontSize="xl" mb={6} >
       Pick a Deck to Continue or Begin!
     </Box>     
+
+    <Box textAlign="center" fontSize="xl" mb={6} >
+    <Link to={`/leaderboard`}>
+    <Button
+          boxShadow="2xl" 
+          leftIcon={<MdBuild />}
+            _hover={{bg:"pink"}} 
+            size= "lg" 
+            onClick={() =>
+            toast({
+              title: "Activated!",
+              description: "Mode 1 Activated!",
+              status: "info",
+              duration: 2800,
+              isClosable: true,
+              position: "top"
+            })
+          }
+            >
+              
+            Go to Leaderboard!
+          </Button>
+       </Link>
+   
+    </Box>  
 
     <SimpleGrid minChildWidth="300px" spacing={10} ml={5} mr={5}>
 
