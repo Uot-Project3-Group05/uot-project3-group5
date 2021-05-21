@@ -133,4 +133,22 @@ test('tallyResult() method', () => {
     // console.log(thisGame.result);
 })
 
+test('resortMatrix() method', () => {
+    thisGame.matrix = [
+        [ 1 ],
+        [ 2 ],
+        [
+           3, 11, 12, 13, 14, 15,
+          16, 17, 18, 19, 20, 21,
+          22, 23, 24, 25
+        ],
+        [ 4, 5, 6 ],
+        [ 7, 8, 9, 10 ]
+      ];
+    thisGame.correctCards = [1, 3];
+    thisGame.incorrectCards = [2];
+    
+    
+})
+
 
