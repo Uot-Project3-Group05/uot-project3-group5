@@ -9,7 +9,6 @@ class GameSession {
         this.correctCards = [];
         this.incorrectCards = [];
         this.currentQuestion = {};
-        this.result = [[], [], [], [], []];
     }
 
     // randomly reorder an array
@@ -34,7 +33,6 @@ class GameSession {
         }
         return { strong: strongCards, total: total, deckTotal: deckTotal};
     }
-
 
     // pushes cards to matrix on first run and when 70% of current cards are in matrix[3] or matrix[4]
     addNewCards(index) { // set index to 0 for first run, use total cards in matrix to determine index for each addition afterwards
@@ -185,12 +183,12 @@ class GameSession {
 
     // determine final results of set
     tallyResults() { 
-        const numCorrect = this.correctCards.length
+        const results = { correct: this.correctCards.length, incorrect: this.incorrectCards.length};
         this.resortMatrix(this.correctCards, true);
         this.resortMatrix(this.incorrectCards, false);
         this.correctCards = [];
         this.incorrectCards = [];
-        return `You got ${numCorrect} correct answers and ${10 - numCorrect} wrong answers`;
+        return results;
     }
 
     // takes either this.correctCards with bool=true, or this.incorrectCards with bool=false
@@ -220,18 +218,6 @@ class GameSession {
             }
         });
     }
-
-    // // at end of set review missed problems?
-    // review() {
-
-    // }
-
-    // // after set is completed, save results and new card positions to player game state (IndexedDB then finally graphql)
-    // saveResults() {
-        
-    // }
-    
-
 }
 
 export default GameSession;
