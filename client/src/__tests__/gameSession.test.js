@@ -54,6 +54,7 @@ test('initial game session', () => {
     expect(thisGame).toBeInstanceOf(GameSession);
     expect(thisGame.deck).toEqual(deck);
     expect(thisGame.matrix).toEqual(game.matrix);
+    expect(thisGame.gameMode).toEqual(1);
 });
 
 test('start() method', () => {
@@ -82,7 +83,7 @@ test('getCardData() method', () => {
 
 test('generateOptions() method', () => {
     thisGame.cardsInSet = [6,4,8,2,11,3,9,14,5,7];
-    let options = thisGame.generateOptions(14);
+    let options = thisGame.generateOptions(14, 'back');
     let firstCard = [14];
     expect(options).toHaveLength(2);
     expect(options).toEqual(expect.not.arrayContaining(firstCard));
@@ -104,11 +105,23 @@ test('selectCards() method', () => {
     console.log('selectCards() method', thisGame.cardsInSet);
 });
 
-test('createProblemSet() method', () => {
+test('createProblemSet() method with Game Modes', () => {
     thisGame.problemSet = [];
     thisGame.cardsInSet = [6,4,8,2,11,3,9,14,5,7];
     thisGame.createProblemSet();
-    console.log('createProblemSet() method', thisGame.problemSet);
+    console.log('createProblemSet() gameMode 1', thisGame.problemSet);
+
+    thisGame.gameMode = 2;
+    thisGame.problemSet = [];
+    thisGame.cardsInSet = [6,4,8,2,11,3,9,14,5,7];
+    thisGame.createProblemSet();
+    console.log('createProblemSet() gameMode 2', thisGame.problemSet);
+
+    thisGame.gameMode = 3;
+    thisGame.problemSet = [];
+    thisGame.cardsInSet = [6,4,8,2,11,3,9,14,5,7];
+    thisGame.createProblemSet();
+    console.log('createProblemSet() gameMode 3', thisGame.problemSet);
 });
 
 test('isCorrect() method', () => {

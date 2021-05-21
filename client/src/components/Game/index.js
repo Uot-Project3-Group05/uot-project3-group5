@@ -29,6 +29,7 @@ function Game() {
     const [question, setQuestion] = useState('Press Start Game to play');
     const [options, setOptions] = useState([]);
     const [methods, setMethods] = useState({});
+    const [gameMode, setGameMode] = useState(1);
 
     // Allow toast to work
     const toast = useToast()
@@ -53,7 +54,8 @@ function Game() {
   
     function handleStart() {
       setGameStarted(true);
-      const Game = new GameSession(data.deck.cards, [[], [], [], [], []]);
+      const Game = new GameSession(data.deck.cards, [[], [], [], [], []]); // matrix retrieved from DB
+      Game.gameMode = gameMode;
       Game.start();
       let currentQuestion;
       currentQuestion = Game.renderNext();
@@ -98,16 +100,18 @@ function Game() {
           leftIcon={<MdBuild />}
             _hover={{bg:"pink"}} 
             size= "lg" 
-            onClick={() =>
-            toast({
-              title: "Activated!",
-              description: "Mode 1 Activated!",
-              status: "info",
-              duration: 2800,
-              isClosable: true,
-              position: "top"
-            })
-          }
+            onClick={() => {
+              setGameMode(1);
+              toast({
+                title: "Activated!",
+                description: "Mode 1 Activated!",
+                status: "info",
+                duration: 2800,
+                isClosable: true,
+                position: "top"
+                });
+              }
+            }
             >
             Mode 1 
           </Button>
@@ -118,7 +122,8 @@ function Game() {
           leftIcon={<MdBuild />} 
           _hover={{bg:"pink"}} 
           size = "lg"
-          onClick={() =>
+          onClick={() => {
+            setGameMode(2);
             toast({
               title: "Activated!",
               description: "Mode 2 Activated!",
@@ -126,7 +131,8 @@ function Game() {
               duration: 2800,
               isClosable: true,
               position: "top"
-            })
+              });
+            }
           }>
             Mode 2
           </Button>
@@ -137,7 +143,8 @@ function Game() {
           leftIcon={<MdBuild />}
           _hover={{bg:"pink"}} 
           size = "lg"
-          onClick={() =>
+          onClick={() => {
+            setGameMode(3);
             toast({
               title: "Activated!",
               description: "Mode 3 Activated!",
@@ -145,7 +152,8 @@ function Game() {
               duration: 2800,
               isClosable: true,
               position: "top"
-            })
+              });
+            }
           }>
             Mode 3
           </Button>

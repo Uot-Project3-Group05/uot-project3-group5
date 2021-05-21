@@ -9,7 +9,7 @@ class GameSession {
         this.correctCards = [];
         this.incorrectCards = [];
         this.currentQuestion = {};
-        this.gameMode = 1;
+        this.gameMode = 1; // get from react useState in Game component
     }
 
     // randomly reorder an array
@@ -112,31 +112,59 @@ class GameSession {
     }
 
      // create problem options from 2 random cards in set
-    generateOptions(cardId) {
+    generateOptions(cardId, side) {
         let choices = this.cardsInSet.slice();
         let results = [];
         choices.splice(choices.indexOf(cardId), 1);
         for (let i=0; i<2; i++) {
             const random = Math.floor(Math.random()*choices.length); // we don't add +1 because we are indexing from
             const optionCard = this.getCardData(choices[random]);
-            
-            // switch statement? (this.gameMode: )
-            results[i] = optionCard.back;
+            if (side === 'back') {
+                results[i] = optionCard.back;
+            } else if (side === 'front') {
+                results[i] = optionCard.front;
+            }
             choices.splice(random, 1);
         }
         return results;
     }
 
-    // create each "problem" as an object, then push to problemSet array.
-    createProblemSet() {
-        for (let i = 0; i < 10; i++) { 
-            let problem = {question: '', options: [], answer: ''};
-            let card = this.getCardData(this.cardsInSet[i]);
+    useSide(card, bool) {
+        let problem = {question: '', options: [], answer: ''}
+        if (bool === true) {
             problem.question = card.front;
-            let options = this.generateOptions(card.cardId);
+            let options = this.generateOptions(card.cardId, 'back');
             options.push(card.back);
             problem.options = this.shuffleArray(options);
             problem.answer = card.back;
+        } else {
+            problem.question = card.back;
+            let options = this.generateOptions(card.cardId, 'front');
+            options.push(card.front);
+            problem.options = this.shuffleArray(options);
+            problem.answer = card.front;
+        }
+        return problem;
+    }
+    // create each "problem" as an object, then push to problemSet array.
+    createProblemSet() {
+        for (let i = 0; i < 10; i++) { 
+            let problem;
+            const card = this.getCardData(this.cardsInSet[i]);
+            // check for game mode and customize questions/answers
+            if (this.gameMode === 1) {
+                problem = this.useSide(card, true);
+            } else if (this.gameMode === 2) {
+                problem = this.useSide(card, false);
+            } else {
+                let side = Math.floor(Math.random() * 2);
+                if (side === 1) {
+                    side = true;
+                } else {
+                    side = false;
+                }
+                problem = this.useSide(card, side);
+            }
             this.problemSet.push(problem);
         }
     }
