@@ -11,7 +11,14 @@ const gameSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Deck'
         }
-    ]
+    ],
+    matrix: [
+        [{type: Number}],
+        [{type: Number}],
+        [{type: Number}],
+        [{type: Number}],
+        [{type: Number}]
+    ]     
      
 });
 
