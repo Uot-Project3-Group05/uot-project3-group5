@@ -26,13 +26,10 @@ import flagsWorld from '../../assets/images/flags-world.png'
 
 function Profile() {
   const { username } = useParams();
-  // const { loading: isLoading, data: isData } = useQuery(ME);
 
   if (!username && !Auth.loggedIn()) {
     return <h1>please use the navigation to login!!</h1>
   }
-
-  // isData && console.log(isData);
 
   const { loading, data } = useQuery(username ? GET_USER_BY_USERNAME : ME, {
     variables: { username }
@@ -53,9 +50,9 @@ function Profile() {
     return <Redirect to="/profile" />;
   }
 
-  let addFriend = false;
-  if (username && Auth.loggedIn()) {
-    addFriend = true;
+  let isNotMyPage = false;
+  if (username) {
+    isNotMyPage = true;
   }
 
   const deck = [
@@ -78,13 +75,13 @@ function Profile() {
 
   return (
     <Box>
-      {addFriend && <Box>
+      {isNotMyPage && Auth.loggedIn() && <Box>
         <h1>Add Friend</h1>
       </Box>}
 
-    <Box textAlign="center" fontSize="xl" mb={6} >
+    {isNotMyPage ? '' : <Box textAlign="center" fontSize="xl" mb={6} >
       Pick a Deck to Continue or Begin!
-    </Box>     
+    </Box>}     
 
     <SimpleGrid minChildWidth="300px" spacing={10} ml={5} mr={5}>
 
