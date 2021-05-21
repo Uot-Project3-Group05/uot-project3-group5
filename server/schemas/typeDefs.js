@@ -7,12 +7,13 @@ const typeDefs = gql`
     email: String
     password: String
     badges: [String]
-    games:[[Game]]
+    games:[Game]
   }
   type Game {
     _id: ID
     score: Int
     deck: [Deck]
+    matrix:[[Int]]
   }
   type Deck {
     _id: ID
