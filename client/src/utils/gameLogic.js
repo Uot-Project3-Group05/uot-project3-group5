@@ -9,7 +9,7 @@ class GameSession {
         this.correctCards = [];
         this.incorrectCards = [];
         this.currentQuestion = {};
-        this.result = [[], [], [], [], []];
+        this.gameMode = 1; // get from react useState in Game component
     }
 
     // randomly reorder an array
@@ -24,13 +24,15 @@ class GameSession {
         let strongCards = 0;
         // total all cards in the matrix 
         let total = 0;
+        // number of cards in the deck - use to determine progress in a deck
+        const deckTotal = this.deck.length;
         for (let i=0; i<5; i++) {
             if (i > 2) {
                 strongCards += this.matrix[i].length;
             }
             total += this.matrix[i].length;
         }
-        return { strong: strongCards, total: total};
+        return { strong: strongCards, total: total, deckTotal: deckTotal};
     }
 
     // pushes cards to matrix on first run and when 70% of current cards are in matrix[3] or matrix[4]
@@ -44,7 +46,6 @@ class GameSession {
         }
         // slice n cards from deck array, push to matrix[2]
         slicedCards.forEach(card => this.matrix[2].push(card.cardId));
-        console.log(this.matrix);
     }
 
     // if this is not the first game, determine if cards need to be added based on 'score'
@@ -111,34 +112,59 @@ class GameSession {
     }
 
      // create problem options from 2 random cards in set
-    generateOptions(cardId) {
+    generateOptions(cardId, side) {
         let choices = this.cardsInSet.slice();
         let results = [];
-        //console.log(`The main card is ${cardId}`);
         choices.splice(choices.indexOf(cardId), 1);
-        //console.log(`The choices after removing card ${cardId} are: ${choices}`);
         for (let i=0; i<2; i++) {
             const random = Math.floor(Math.random()*choices.length); // we don't add +1 because we are indexing from
-            //console.log(`the card in spot ${i} is from index ${indexToRemove[0]} and is cardNumber ${this.cardsInSet[indexToRemove[0]]}`);
             const optionCard = this.getCardData(choices[random]);
-            //console.log(optionCard);
-            results[i] = optionCard.back;
+            if (side === 'back') {
+                results[i] = optionCard.back;
+            } else if (side === 'front') {
+                results[i] = optionCard.front;
+            }
             choices.splice(random, 1);
-            //console.log(`The choices after removing index ${indexToRemove[0]} are: ${choices}`);
         }
         return results;
     }
 
-    // create each "problem" as an object, then push to problemSet array.
-    createProblemSet() {
-        for (let i = 0; i < 10; i++) { 
-            let problem = {question: '', options: [], answer: ''};
-            let card = this.getCardData(this.cardsInSet[i]);
+    useSide(card, bool) {
+        let problem = {question: '', options: [], answer: ''}
+        if (bool === true) {
             problem.question = card.front;
-            let options = this.generateOptions(card.cardId);
+            let options = this.generateOptions(card.cardId, 'back');
             options.push(card.back);
             problem.options = this.shuffleArray(options);
             problem.answer = card.back;
+        } else {
+            problem.question = card.back;
+            let options = this.generateOptions(card.cardId, 'front');
+            options.push(card.front);
+            problem.options = this.shuffleArray(options);
+            problem.answer = card.front;
+        }
+        return problem;
+    }
+    // create each "problem" as an object, then push to problemSet array.
+    createProblemSet() {
+        for (let i = 0; i < 10; i++) { 
+            let problem;
+            const card = this.getCardData(this.cardsInSet[i]);
+            // check for game mode and customize questions/answers
+            if (this.gameMode === 1) {
+                problem = this.useSide(card, true);
+            } else if (this.gameMode === 2) {
+                problem = this.useSide(card, false);
+            } else {
+                let side = Math.floor(Math.random() * 2);
+                if (side === 1) {
+                    side = true;
+                } else {
+                    side = false;
+                }
+                problem = this.useSide(card, side);
+            }
             this.problemSet.push(problem);
         }
     }
@@ -153,7 +179,7 @@ class GameSession {
             this.cardsInSet = this.shuffleArray(this.matrix[2]).slice(0,15);
         // if yes, check current card status and add cards if necessary, then randomly add to set
         } else if ((hasCards.total > 0)) { 
-            this.addCardsByScore();
+            this.addCardsByScore(); 
             this.selectCards();
         }
         this.createProblemSet();
@@ -177,29 +203,23 @@ class GameSession {
     // checks the answer returns a boolean used to move card up or down one array in the matrix
     isCorrect(bool) {
         if (bool === true) {
-            console.log(`You are correct!`);
             this.correctCards.push(this.cardsInSet.shift());
             return('correct');
 
         } else {
-            console.log(`Sorry, that's not correct`);
             this.incorrectCards.push(this.cardsInSet.shift());
             return('incorrect');
         }
     }
 
-    // increments the progress tracker after each "problem" is solved
-    // trackProgress() {
-
-    // }
-
     // determine final results of set
-    tallyResults() {
-        console.log(`You've finished this round! \nHere are your results:\n\nCorrect Answers: ${this.correctCards.length}\nIncorrect Answers: ${this.incorrectCards.length}`);
+    tallyResults() { 
+        const results = { correct: this.correctCards.length, incorrect: this.incorrectCards.length};
         this.resortMatrix(this.correctCards, true);
         this.resortMatrix(this.incorrectCards, false);
         this.correctCards = [];
         this.incorrectCards = [];
+        return results;
     }
 
     // takes either this.correctCards with bool=true, or this.incorrectCards with bool=false
@@ -229,18 +249,6 @@ class GameSession {
             }
         });
     }
-
-    // // at end of set review missed problems?
-    // review() {
-
-    // }
-
-    // // after set is completed, save results and new card positions to player game state (IndexedDB then finally graphql)
-    // saveResults() {
-        
-    // }
-    
-
 }
 
 export default GameSession;
