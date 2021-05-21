@@ -24,14 +24,17 @@ class GameSession {
         let strongCards = 0;
         // total all cards in the matrix 
         let total = 0;
+        // number of cards in the deck - use to determine progress in a deck
+        const deckTotal = this.deck.length;
         for (let i=0; i<5; i++) {
             if (i > 2) {
                 strongCards += this.matrix[i].length;
             }
             total += this.matrix[i].length;
         }
-        return { strong: strongCards, total: total};
+        return { strong: strongCards, total: total, deckTotal: deckTotal};
     }
+
 
     // pushes cards to matrix on first run and when 70% of current cards are in matrix[3] or matrix[4]
     addNewCards(index) { // set index to 0 for first run, use total cards in matrix to determine index for each addition afterwards
@@ -44,7 +47,6 @@ class GameSession {
         }
         // slice n cards from deck array, push to matrix[2]
         slicedCards.forEach(card => this.matrix[2].push(card.cardId));
-        console.log(this.matrix);
     }
 
     // if this is not the first game, determine if cards need to be added based on 'score'
@@ -114,17 +116,12 @@ class GameSession {
     generateOptions(cardId) {
         let choices = this.cardsInSet.slice();
         let results = [];
-        //console.log(`The main card is ${cardId}`);
         choices.splice(choices.indexOf(cardId), 1);
-        //console.log(`The choices after removing card ${cardId} are: ${choices}`);
         for (let i=0; i<2; i++) {
             const random = Math.floor(Math.random()*choices.length); // we don't add +1 because we are indexing from
-            //console.log(`the card in spot ${i} is from index ${indexToRemove[0]} and is cardNumber ${this.cardsInSet[indexToRemove[0]]}`);
             const optionCard = this.getCardData(choices[random]);
-            //console.log(optionCard);
             results[i] = optionCard.back;
             choices.splice(random, 1);
-            //console.log(`The choices after removing index ${indexToRemove[0]} are: ${choices}`);
         }
         return results;
     }
@@ -153,7 +150,7 @@ class GameSession {
             this.cardsInSet = this.shuffleArray(this.matrix[2]).slice(0,15);
         // if yes, check current card status and add cards if necessary, then randomly add to set
         } else if ((hasCards.total > 0)) { 
-            this.addCardsByScore();
+            this.addCardsByScore(); 
             this.selectCards();
         }
         this.createProblemSet();
@@ -187,12 +184,13 @@ class GameSession {
     }
 
     // determine final results of set
-    tallyResults() {
-        // console.log(`You've finished this round! \nHere are your results:\n\nCorrect Answers: ${this.correctCards.length}\nIncorrect Answers: ${this.incorrectCards.length}`);
+    tallyResults() { 
+        const numCorrect = this.correctCards.length
         this.resortMatrix(this.correctCards, true);
         this.resortMatrix(this.incorrectCards, false);
         this.correctCards = [];
         this.incorrectCards = [];
+        return `You got ${numCorrect} correct answers and ${10 - numCorrect} wrong answers`;
     }
 
     // takes either this.correctCards with bool=true, or this.incorrectCards with bool=false

@@ -61,26 +61,22 @@ test('start() method', () => {
     console.log('start() method', thisGame.problemSet);
 })
 
-
 test('addCards() method', () => {
     thisGame.matrix = [[],[],[],[],[]];
     thisGame.addNewCards(0);
-    console.log(thisGame.matrix);
+    console.log('addCards method:', thisGame.matrix);
     expect(thisGame.matrix[2].length).toEqual(15);
+
 });
 
 test('shuffleArray() method', () => {
-    //console.log(thisGame.matrix[2][0])
     thisGame.matrix[2] = thisGame.shuffleArray(thisGame.matrix[2]);
-    //console.log(thisGame.matrix[2][0])
-    console.log(thisGame.matrix);
+    console.log('shuffleArray method', thisGame.matrix);
     expect(thisGame.matrix[2].length).toEqual(15);
-    // expect(thisGame.matrix[2][0]).not.toEqual(1);
 });
 
 test('getCardData() method', () => {
     let cardOption = thisGame.getCardData(14);
-    //console.log(cardOption);
     expect(cardOption).toEqual({front:"Silicon",back:"Si", cardId: 14});
 })
 
@@ -91,8 +87,6 @@ test('generateOptions() method', () => {
     expect(options).toHaveLength(2);
     expect(options).toEqual(expect.not.arrayContaining(firstCard));
     expect(options[0]).not.toEqual(options[1]);
-
-    //console.log(thisGame.cardsInSet);
 });
 
 test('addCardsByScore() method', () => {
@@ -118,37 +112,46 @@ test('createProblemSet() method', () => {
 });
 
 test('isCorrect() method', () => {
-    // thisGame.currentQuestion = { question: 'Oxygen', options: [ 'N', 'Li', 'O' ], answer: 'O' };
-
-    // expect(thisGame.isCorrect('N')).toBe(false);
-    // expect(thisGame.isCorrect('Li')).toBe(false);
-    // expect(thisGame.isCorrect('O')).toBe(true);
-})
-
-
-test('tallyResult() method', () => {
-    // thisGame.currentQuestion = { question: 'Oxygen', options: [ 'N', 'Li', 'O' ], answer: 'O', index: 3 };
-
-    // thisGame.tallyResults(thisGame.currentQuestion, true);
-    // console.log(thisGame.result);
-})
+    thisGame.cardsInSet = [6,4,8,2,11,3,9,14,5,7];
+    thisGame.correctCards = [];
+    thisGame.incorrectCards = [];
+    thisGame.isCorrect(true);
+    expect(thisGame.correctCards).toEqual([6]);
+    expect(thisGame.cardsInSet).toEqual([4,8,2,11,3,9,14,5,7]);
+    thisGame.isCorrect(true);
+    thisGame.isCorrect(false);
+    thisGame.isCorrect(false);
+    expect(thisGame.correctCards).toEqual([6, 4]);
+    expect(thisGame.incorrectCards).toEqual([8, 2]);
+    expect(thisGame.cardsInSet).toEqual([11,3,9,14,5,7]);
+});
 
 test('resortMatrix() method', () => {
-    thisGame.matrix = [
-        [ 1 ],
-        [ 2 ],
-        [
-           3, 11, 12, 13, 14, 15,
-          16, 17, 18, 19, 20, 21,
-          22, 23, 24, 25
-        ],
-        [ 4, 5, 6 ],
-        [ 7, 8, 9, 10 ]
-      ];
-    thisGame.correctCards = [1, 3];
-    thisGame.incorrectCards = [2];
-    
-    
-})
+    thisGame.matrix = [[1], [2], [3, 11, 12, 13, 14, 15,16, 17, 18, 19, 20, 21,22, 23, 24, 25], [4, 5, 6], [7, 8, 9, 10]];
+    thisGame.correctCards = [2, 11, 12, 13, 4, 8];
+    thisGame.resortMatrix(thisGame.correctCards, true);
+    expect(thisGame.matrix).toEqual([[1], [], [3, 14, 15,16, 17, 18, 19, 20, 21,22, 23, 24, 25, 2], [5, 6, 11, 12, 13 ], [ 7, 8, 9, 10, 4 ]]);
+    thisGame.incorrectCards = [1, 3, 5, 6];
+    thisGame.resortMatrix(thisGame.incorrectCards, false);
+    expect(thisGame.matrix).toEqual([[1], [3], [14, 15,16, 17, 18, 19, 20, 21,22, 23, 24, 25, 2, 5, 6], [11, 12, 13 ], [ 7, 8, 9, 10, 4 ]]);
+});
 
+test('tallyResults() method', () => {
+    thisGame.matrix = [[1], [2], [3, 11, 12, 13, 14, 15,16, 17, 18, 19, 20, 21,22, 23, 24, 25], [4, 5, 6], [7, 8, 9, 10]];
+    thisGame.correctCards = [2, 11, 12, 13, 4, 8];
+    thisGame.incorrectCards = [1, 3, 5, 6];
+    thisGame.tallyResults();
 
+    expect(thisGame.matrix).toEqual([[1], [3], [14, 15,16, 17, 18, 19, 20, 21,22, 23, 24, 25, 2, 5, 6], [11, 12, 13 ], [ 7, 8, 9, 10, 4 ]]);
+    expect(thisGame.correctCards).toEqual([]);
+    expect(thisGame.incorrectCards).toEqual([]);
+});
+
+test('getTotal() method', ()=> {
+    thisGame.matrix = [[1], [2], [3, 11, 12, 13, 14, 15,16, 17, 18, 19, 20, 21,22, 23, 24, 25], [4, 5, 6], [7, 8, 9, 10]];
+    const score = thisGame.getTotal();
+    expect(score).toEqual({ strong: 7, total: 25, deckTotal: 35});
+    thisGame.matrix = [[1], [2], [3, 11, 12, 13, 20], [4, 5, 6, 14, 15, 16, 17, 18, 19], [7, 8, 9, 10, 21, 22, 23, 24, 25]];
+    const newScore = thisGame.getTotal();
+    expect(newScore).toEqual({ strong: 18, total: 25, deckTotal: 35});
+});
