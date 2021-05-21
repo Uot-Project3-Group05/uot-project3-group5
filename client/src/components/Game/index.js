@@ -59,7 +59,9 @@ function Game() {
         handleInput(e) {
           const userInput = e.target.textContent;
           console.log(answer)
-          alert(answer === userInput)
+          let result = answer === userInput;
+          Game.isCorrect(result);
+          alert(result)
           console.log(Game.problemSet);
 
           if (!Game.finished) {

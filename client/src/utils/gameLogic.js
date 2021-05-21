@@ -177,27 +177,18 @@ class GameSession {
     // checks the answer returns a boolean used to move card up or down one array in the matrix
     isCorrect(bool) {
         if (bool === true) {
-            console.log(`You are correct!`);
             this.correctCards.push(this.cardsInSet.shift());
             this.progress++;
-            return('correct');
 
         } else {
-            console.log(`Sorry, that's not correct`);
             this.incorrectCards.push(this.cardsInSet.shift());
             this.progress++;
-            return('incorrect');
         }
     }
 
-    // increments the progress tracker after each "problem" is solved
-    // trackProgress() {
-
-    // }
-
     // determine final results of set
     tallyResults() {
-        console.log(`You've finished this round! \nHere are your results:\n\nCorrect Answers: ${this.correctCards.length}\nIncorrect Answers: ${this.incorrectCards.length}`);
+        // console.log(`You've finished this round! \nHere are your results:\n\nCorrect Answers: ${this.correctCards.length}\nIncorrect Answers: ${this.incorrectCards.length}`);
         this.resortMatrix(this.correctCards, true);
         this.resortMatrix(this.incorrectCards, false);
         this.correctCards = [];
