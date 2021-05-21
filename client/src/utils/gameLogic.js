@@ -9,6 +9,7 @@ class GameSession {
         this.correctCards = [];
         this.incorrectCards = [];
         this.currentQuestion = {};
+        this.gameMode = 1;
     }
 
     // randomly reorder an array
@@ -118,6 +119,8 @@ class GameSession {
         for (let i=0; i<2; i++) {
             const random = Math.floor(Math.random()*choices.length); // we don't add +1 because we are indexing from
             const optionCard = this.getCardData(choices[random]);
+            
+            // switch statement? (this.gameMode: )
             results[i] = optionCard.back;
             choices.splice(random, 1);
         }
