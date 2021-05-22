@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import GameSession from '../../utils/gameLogic';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DECKS, GET_DECK_ID } from "../../utils/queries";
@@ -21,15 +21,18 @@ import {
     useToast,
     toast
 } from '@chakra-ui/react';
+import Flippy, { FrontSide, BackSide } from 'react-flippy'
 
 
 
 function Game() {
   const [gameStarted, setGameStarted] = useState(false);
     const [question, setQuestion] = useState('Press Start Game to play');
+    const [cardAnswer, setCardAnswer] = useState('');
     const [options, setOptions] = useState([]);
     const [methods, setMethods] = useState({});
     const [gameMode, setGameMode] = useState(1);
+    let answer;
 
     // Allow toast to work
     const toast = useToast()
@@ -61,7 +64,9 @@ function Game() {
       currentQuestion = Game.renderNext();
       setQuestion(currentQuestion.question);
       setOptions(currentQuestion.options);
-      let answer = currentQuestion.answer;
+      setCardAnswer(currentQuestion.answer);
+      answer = currentQuestion.answer;
+      console.log(answer);
 
       return {
         handleInput(e) {
@@ -81,7 +86,9 @@ function Game() {
             currentQuestion = Game.renderNext();
             setQuestion(currentQuestion.question);
             setOptions(currentQuestion.options);
+            setCardAnswer(currentQuestion.answer);
             answer = currentQuestion.answer;
+            console.log(answer);
           } else {
             window.location.replace('/profile');
           }
@@ -176,17 +183,32 @@ function Game() {
 
         <Box>
         <Wrap  direction="column"  justify="space-between" align="center">
+        <Flippy>
+        <FrontSide>
             <WrapItem 
             boxShadow="2xl"
             bg="red.200"
             maxW="sm"
             borderRadius="lg" 
             overflow="hidden">
-              <Center w="350px" h="400px" bg="red.200">
-                {question}
-              </Center>
+              <Center w="350px" h="400px">                  
+                {question}                
+              </Center>              
             </WrapItem>
-
+            </FrontSide>
+            <BackSide>
+            <WrapItem 
+            boxShadow="2xl"
+            bg="red.200"
+            maxW="sm"
+            borderRadius="lg" 
+            overflow="hidden">
+              <Center w="350px" h="400px">
+                {cardAnswer}            
+              </Center>            
+            </WrapItem>
+            </BackSide>
+        </Flippy>
         </Wrap>
 
         <Wrap  direction="row"  justify="space-evenly" align="center" mt={5}>
