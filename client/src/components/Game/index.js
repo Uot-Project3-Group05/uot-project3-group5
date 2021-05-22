@@ -28,11 +28,13 @@ import Flippy, { FrontSide, BackSide } from 'react-flippy'
 function Game() {
   const [gameStarted, setGameStarted] = useState(false);
     const [question, setQuestion] = useState('Press Start Game to play');
-    const [cardAnswer, setCardAnswer] = useState('');
+    //Answer for Back of Card, not sure why but answer checking if statement won't read this variable properly to check answer always displays as incorrect
+    const [cardAnswer, setCardAnswer] = useState(''); 
     const [options, setOptions] = useState([]);
     const [methods, setMethods] = useState({});
     const [gameMode, setGameMode] = useState(1);
-    let answer;
+    const ref = useRef();
+    let answer; // for answer checking
 
     // Allow toast to work
     const toast = useToast()
@@ -64,14 +66,16 @@ function Game() {
       currentQuestion = Game.renderNext();
       setQuestion(currentQuestion.question);
       setOptions(currentQuestion.options);
-      setCardAnswer(currentQuestion.answer);
-      answer = currentQuestion.answer;
-      console.log(answer);
+      setCardAnswer(currentQuestion.answer); //put answer on back of card
+      answer = currentQuestion.answer; //load correct answer for if statement below
+      
 
       return {
         handleInput(e) {
           const userInput = e.target.textContent;
           const isCorrect = answer === userInput;
+          ref.current.toggle()
+          
           Game.isCorrect(isCorrect);
           toast({
             title: `${isCorrect ? 'Correct' : 'Incorrect'}`,
@@ -86,9 +90,10 @@ function Game() {
             currentQuestion = Game.renderNext();
             setQuestion(currentQuestion.question);
             setOptions(currentQuestion.options);
-            setCardAnswer(currentQuestion.answer);
-            answer = currentQuestion.answer;
-            console.log(answer);
+            setTimeout(() => {
+              setCardAnswer(currentQuestion.answer);
+            }, 1000)            
+            answer = currentQuestion.answer;            
           } else {
             window.location.replace('/profile');
           }
@@ -182,11 +187,16 @@ function Game() {
       </Box>}
 
         <Box>
+          
         <Wrap  direction="column"  justify="space-between" align="center">
-        <Flippy>
-        <FrontSide>
+        <Flippy
+        flipOnHover={false}
+        flipOnClick={false}
+        ref={ref}>        
+        <FrontSide
+        style={{ backgroundColor: "#FEB2B2", borderRadius: "0.5rem", boxShadow: "5px 10px 10px 5px grey"}}>
             <WrapItem 
-            boxShadow="2xl"
+            //boxShadow="2xl"
             bg="red.200"
             maxW="sm"
             borderRadius="lg" 
@@ -196,9 +206,11 @@ function Game() {
               </Center>              
             </WrapItem>
             </FrontSide>
-            <BackSide>
+            <BackSide
+            animationDuration={600}
+            style={{ backgroundColor: "#FEB2B2", borderRadius: "0.5rem", boxShadow: "5px 10px 10px 5px grey"}}>
             <WrapItem 
-            boxShadow="2xl"
+            //boxShadow="2xl"
             bg="red.200"
             maxW="sm"
             borderRadius="lg" 
@@ -207,9 +219,10 @@ function Game() {
                 {cardAnswer}            
               </Center>            
             </WrapItem>
-            </BackSide>
+            </BackSide>          
         </Flippy>
         </Wrap>
+       
 
         <Wrap  direction="row"  justify="space-evenly" align="center" mt={5}>
           {options.map(option => (
@@ -217,7 +230,11 @@ function Game() {
               <Button 
               boxShadow="2xl"  
               onClick={e => {
-                methods.handleInput(e)
+                
+                ref.current.toggle();
+                setTimeout(() => {
+                  methods.handleInput(e); 
+                }, 1000)                 
               }}
               >
                 {option}
