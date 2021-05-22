@@ -13,7 +13,7 @@ const userSchema = new Schema({
       },
       email: {
         type: String,
-        required: true,
+        required: [true,'Email is mandatory'],
         unique: true,
         match: [/.+@.+\..+/, 'Must match an email address!']
       },
@@ -27,7 +27,7 @@ const userSchema = new Schema({
           type: String,
         },
       ],
-      games : [[Game.schema]]
+      games : [Game.schema]
 });
 
 // set up pre-save middleware to create password
