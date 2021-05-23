@@ -115,17 +115,16 @@ function Home() {
 
 
 
-            <Wrap direction="column" justify="space-evenly" align="center">
+            <Wrap justify="space-evenly" align="center">
                 {data &&
                     data.decks.map(deck => (
-
-                        <Box>
+                     
                             <WrapItem >
-
 
                                 {Auth.loggedIn() ? (
                                     <>
 
+                                    <Center>
                                         <Box
                                             boxShadow="2xl"
                                             bg="red.200"
@@ -140,7 +139,7 @@ function Home() {
                                                 </Box>
                                                 <Box>
                                                     {deck.cards.length} cards
-                            </Box>
+                                             </Box>
                                                 <Box ml={3} mr={3} >
                                                     <Progress
                                                         colorScheme="purple"
@@ -156,10 +155,13 @@ function Home() {
                                                 </Box>
                                             </Link>
                                         </Box>
+                                        </Center>
 
                                     </>
                                 ) : (
                                     <>
+
+                                    <Center>
                                         <Box
                                             boxShadow="2xl"
                                             bg="red.200"
@@ -176,7 +178,7 @@ function Home() {
                                             </Box>
                                             <Box>
                                                 {deck.cards.length} cards
-                            </Box>
+                                          </Box>
                                             <Box ml={3} mr={3} >
                                                 <Progress
                                                     colorScheme="purple"
@@ -192,10 +194,11 @@ function Home() {
                                             </Box>
 
                                         </Box>
+                                        </Center>
                                     </>
                                 )}
                             </WrapItem>
-                        </Box>
+                        
                     ))}
             </Wrap>
         </Box>
