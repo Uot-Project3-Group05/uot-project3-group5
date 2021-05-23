@@ -59,7 +59,8 @@ class GameSession {
     // select cards based on a weighted random number generator
     randomSelect() { 
         let check = Math.floor(Math.random() * 100);
-        let bin; 
+        let bin;
+        let newCard; 
         // determine which array in the matrix to pick from
         if (check >= 0 && check < 40) {
             bin = 0;
@@ -72,10 +73,26 @@ class GameSession {
         } else {
             bin = 4;
         }
-        // if the array has no objects, call the function again
-        if (this.matrix[bin].length < 1) {
-            this.randomSelect();
-        }
+        // if the array has no objects, move to next bin
+        // if (bin === 0 && this.matrix[bin].length < 1) {
+        //     bin++;
+        // }
+        newCard = this.matrix[bin].find((card) => {
+            return this.cardsInSet.indexOf(card) === -1
+        });
+        
+        if (this.matrix[bin].length < 1){
+            // loop through all bins to find the next card that is not already in this.cardsInSet
+            for (let i=0; i<this.matrix.length; i++){
+                if (this.matrix[i].length > 0){
+                    newCard = this.matrix[bin].find((card) => { // matrix array
+                        return this.cardsInSet.indexOf(card) === -1 // cardsInSet
+                    });  
+                }
+                
+            }
+        
+        
 
         // if the array has entries, find the first one not already in this.cardsInSet
         const newCard = this.matrix[bin].find((card) => {
