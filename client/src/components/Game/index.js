@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import GameSession from '../../utils/gameLogic';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DECKS, GET_DECK_ID } from "../../utils/queries";
@@ -21,15 +21,20 @@ import {
     useToast,
     toast
 } from '@chakra-ui/react';
+import Flippy, { FrontSide, BackSide } from 'react-flippy'
 
 
 
 function Game() {
   const [gameStarted, setGameStarted] = useState(false);
     const [question, setQuestion] = useState('Press Start Game to play');
+    //Answer for Back of Card, not sure why but answer checking if statement won't read this variable properly to check answer always displays as incorrect
+    const [cardAnswer, setCardAnswer] = useState(''); 
     const [options, setOptions] = useState([]);
     const [methods, setMethods] = useState({});
     const [gameMode, setGameMode] = useState(1);
+    const ref = useRef();
+    let answer; // for answer checking
 
     // Allow toast to work
     const toast = useToast()
@@ -61,12 +66,18 @@ function Game() {
       currentQuestion = Game.renderNext();
       setQuestion(currentQuestion.question);
       setOptions(currentQuestion.options);
-      let answer = currentQuestion.answer;
+      setCardAnswer(currentQuestion.answer); //put answer on back of card
+      answer = currentQuestion.answer; //load correct answer for if statement below
+      
+
+      let matrixState = [];
 
       return {
         handleInput(e) {
           const userInput = e.target.textContent;
           const isCorrect = answer === userInput;
+          ref.current.toggle()
+          
           Game.isCorrect(isCorrect);
           toast({
             title: `${isCorrect ? 'Correct' : 'Incorrect'}`,
@@ -82,8 +93,11 @@ function Game() {
             setQuestion(currentQuestion.question);
             setOptions(currentQuestion.options);
             answer = currentQuestion.answer;
-          } else {
-            window.location.replace('/profile');
+          } else { // at this point the  matrix has been sorted.
+            Game.tallyResults()
+            matrixState = Game.matrix
+            console.log(matrixState)
+            //window.location.replace('/profile');
           }
         }
       }
@@ -175,19 +189,42 @@ function Game() {
       </Box>}
 
         <Box>
+          
         <Wrap  direction="column"  justify="space-between" align="center">
+        <Flippy
+        flipOnHover={false}
+        flipOnClick={false}
+        ref={ref}>        
+        <FrontSide
+        style={{ backgroundColor: "#FEB2B2", borderRadius: "0.5rem", boxShadow: "5px 10px 10px 5px grey"}}>
             <WrapItem 
-            boxShadow="2xl"
+            //boxShadow="2xl"
             bg="red.200"
             maxW="sm"
             borderRadius="lg" 
             overflow="hidden">
-              <Center w="350px" h="400px" bg="red.200">
-                {question}
-              </Center>
+              <Center w="350px" h="400px">                  
+                {question}                
+              </Center>              
             </WrapItem>
-
+            </FrontSide>
+            <BackSide
+            animationDuration={600}
+            style={{ backgroundColor: "#FEB2B2", borderRadius: "0.5rem", boxShadow: "5px 10px 10px 5px grey"}}>
+            <WrapItem 
+            //boxShadow="2xl"
+            bg="red.200"
+            maxW="sm"
+            borderRadius="lg" 
+            overflow="hidden">
+              <Center w="350px" h="400px">
+                {cardAnswer}            
+              </Center>            
+            </WrapItem>
+            </BackSide>          
+        </Flippy>
         </Wrap>
+       
 
         <Wrap  direction="row"  justify="space-evenly" align="center" mt={5}>
           {options.map(option => (
@@ -195,7 +232,11 @@ function Game() {
               <Button 
               boxShadow="2xl"  
               onClick={e => {
-                methods.handleInput(e)
+                
+                ref.current.toggle();
+                setTimeout(() => {
+                  methods.handleInput(e); 
+                }, 1000)                 
               }}
               >
                 {option}

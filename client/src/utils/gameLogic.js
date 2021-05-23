@@ -18,9 +18,9 @@ class GameSession {
         return array;
     }
 
-    // get number of 'strong' cards and total number of cards in the game matrix
+    // get number of 'strong' or answered correctly cards and total number of cards in the game matrix
     getTotal() {
-        // total number of cards in arrays [3] & [4]
+        // total number of cards in arrays indexes [3] & [4]
         let strongCards = 0;
         // total all cards in the matrix 
         let total = 0;
@@ -188,16 +188,32 @@ class GameSession {
 
     // renders next problem (combines with React Components)
     renderNext() {
-        if (this.progress < 10) {
-            const problem = this.problemSet[this.progress];
-            this.progress++;
-            if (this.progress === 9)  {
-                this.finished = true;
-            }
-            return problem;
-        } else {
-            this.tallyResults();
+
+        if (this.finished) {
+            return this.tallyResults();
         }
+        const problem = this.problemSet[this.progress];
+        console.log(this.progress)
+        if (this.progress === 9)  {
+            this.finished = true;
+            //this.renderNext()
+            //this.tallyResults();
+        }
+        this.progress++;
+        return problem;
+        // if (this.progress < 10) {
+        //     const problem = this.problemSet[this.progress];
+        //     console.log(progress)
+        //     if (this.progress === 10)  {
+        //         this.finished = true;
+        //         this.tallyResults();
+        //     }
+        //     this.progress++;
+        //     return problem;
+        //  }
+        // else {
+        //     this.tallyResults();
+        // }
     }
 
     // checks the answer returns a boolean used to move card up or down one array in the matrix

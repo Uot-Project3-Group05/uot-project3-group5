@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Deck } = require('../models');
+const { User, Deck, Game } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -30,7 +30,8 @@ const resolvers = {
     decks: async () => {
       return Deck.find();
     }
-  },
+
+},
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -59,6 +60,23 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
+    },
+
+    addGame: async (parent, data, { user }) => {
+      data.score = 0;
+      data.matrix = [[], [], [], [], []];
+      // return Game.create(data);
+
+      if (user) {
+        // const isExists = await User.findOne
+        const createGame = await User.create(
+          { _id: user._id }, 
+          { $addToSet: { games: data } },
+          { new: true }
+        )
+
+        return createGame;
+      }
     }
   }
 }
