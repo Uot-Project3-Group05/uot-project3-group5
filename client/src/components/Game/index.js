@@ -70,6 +70,8 @@ function Game() {
       answer = currentQuestion.answer; //load correct answer for if statement below
       
 
+      let matrixState = [];
+
       return {
         handleInput(e) {
           const userInput = e.target.textContent;
@@ -90,12 +92,12 @@ function Game() {
             currentQuestion = Game.renderNext();
             setQuestion(currentQuestion.question);
             setOptions(currentQuestion.options);
-            setTimeout(() => {
-              setCardAnswer(currentQuestion.answer);
-            }, 1000)            
-            answer = currentQuestion.answer;            
-          } else {
-            window.location.replace('/profile');
+            answer = currentQuestion.answer;
+          } else { // at this point the  matrix has been sorted.
+            Game.tallyResults()
+            matrixState = Game.matrix
+            console.log(matrixState)
+            //window.location.replace('/profile');
           }
         }
       }
