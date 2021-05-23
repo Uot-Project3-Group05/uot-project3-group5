@@ -94,9 +94,12 @@ function Game() {
             setOptions(currentQuestion.options);
             answer = currentQuestion.answer;
           } else { // at this point the  matrix has been sorted.
-            Game.tallyResults()
+            const tallyResults = Game.tallyResults()
+            // To be used for the modal showing how many you had correct.
+            console.log(`You have answered ${tallyResults.correct} out of 10`)
             matrixState = Game.matrix
             console.log(matrixState)
+            // change the finished back to false to continue playing           
             //window.location.replace('/profile');
           }
         }
