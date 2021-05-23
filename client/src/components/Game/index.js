@@ -102,10 +102,12 @@ function Game() {
             const tallyResults = Game.tallyResults()
             // To be used for the modal showing how many you had correct.
             console.log(`You have answered ${tallyResults.correct} out of 10`)
-            matrixState = Game.matrix
-            console.log(matrixState)
+            matrixState = Game.matrix;
+            console.log(matrixState);
             // change the finished back to false to continue playing           
+            Game.reset();
             //window.location.replace('/profile');
+            Game.start();
           }
         }
       }

@@ -238,6 +238,16 @@ class GameSession {
         return results;
     }
 
+    reset() {
+        this.finished = false;
+        this.progress = 0; // for displaying progress on problem set - i.e. 6/10
+        this.cardsInSet = [];
+        this.problemSet = [];
+        this.correctCards = [];
+        this.incorrectCards = [];
+        this.currentQuestion = {};
+    }
+
     // takes either this.correctCards with bool=true, or this.incorrectCards with bool=false
     resortMatrix(arr, bool) {
         arr.forEach(cardId => {
