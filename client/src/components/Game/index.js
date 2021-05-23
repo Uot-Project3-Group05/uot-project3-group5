@@ -46,8 +46,13 @@ function Game() {
     const [gameMode, setGameMode] = useState(1);
     // Modal Declaration
     const { isOpen, onOpen, onClose } = useDisclosure()
+    // Modal useState
+    const [numCorrectAnswer, SetNumCorrectAnswer] = useState(0); 
+
+
     const ref = useRef();
     let answer; // for answer checking
+    let correctAnswer; // will hold tally correct answer number
 
     // Allow toast to work
     const toast = useToast()
@@ -69,7 +74,11 @@ function Game() {
     } else {
       console.log(data)
     }
+
+
   
+  
+    
     function handleStart() {
       setGameStarted(true);
       const Game = new GameSession(data.deck.cards, [[], [], [], [], []]); // matrix retrieved from DB
@@ -82,6 +91,7 @@ function Game() {
       setOptions(currentQuestion.options);
       setCardAnswer(currentQuestion.answer); //put answer on back of card
       answer = currentQuestion.answer; //load correct answer for if statement below
+
       
 
       let matrixState = [];
@@ -115,8 +125,38 @@ function Game() {
             }, 800); 
             ; //put answer on back of card
           } else { // at this point the  matrix has been sorted.
-             //tallyResults = Game.tallyResults()
+            //const tallyResults = Game.tallyResults()
+            let tallyAnswer = (Game.tallyResults())
+            SetNumCorrectAnswer(tallyAnswer.correct)
+           
+           //console.log(tallyResults.correct)
+
+
+            //let tallyResults = async () => { return SetNumCorrectAnswer(Game.tallyResults()) }
+            //console.log(tallyResults())
+            
+         //  tallyResults().then((value) => console.log(value))
+           // tallyResults().then((value) => SetNumCorrectAnswer(value))
+          //  console.log(numCorrectAnswer)
+
+            // async function tallyResults() {
+            //   return numCorrectAnswer = await SetNumCorrectAnswer(Game.tallyResults())
+            // };
+            // async function tallyResults() {
+            //   await SetNumCorrectAnswer(Game.tallyResults())
+            //   //
+            //   console.log("inside the async function")
+            //   console.log(numCorrectAnswer)
+            // };
+
+           // tallyResults()
+
+           
+
+            //SetNumCorrectAnswer(tallyResults)
             // To be used for the modal showing how many you had correct.
+            console.log(`usestate correct answers ${numCorrectAnswer.correct}`)
+            //console.log(tallyResults)
             //console.log(`You have answered ${tallyResults.correct} out of 10`)
             matrixState = Game.matrix
             console.log(matrixState)
@@ -128,6 +168,8 @@ function Game() {
         }
       }
     }
+
+
 
     return (
       <Box>
@@ -144,7 +186,7 @@ function Game() {
               setGameMode(1);
               toast({
                 title: "Activated!",
-                description: "Mode 1 Activated!",
+                description: "Symbol Mode Activated!",
                 status: "info",
                 duration: 2800,
                 isClosable: true,
@@ -153,7 +195,7 @@ function Game() {
               }
             }
             >
-            Mode 1 
+            Symbol Mode
           </Button>
         </WrapItem>
         <WrapItem p={2}>
@@ -166,7 +208,7 @@ function Game() {
             setGameMode(2);
             toast({
               title: "Activated!",
-              description: "Mode 2 Activated!",
+              description: "Description Mode Activated!",
               status: "info",
               duration: 2800,
               isClosable: true,
@@ -174,7 +216,7 @@ function Game() {
               });
             }
           }>
-            Mode 2
+            Description Mode
           </Button>
         </WrapItem>
         <WrapItem p={2}>
@@ -187,7 +229,7 @@ function Game() {
             setGameMode(3);
             toast({
               title: "Activated!",
-              description: "Mode 3 Activated!",
+              description: "Mix Mode Activated!",
               status: "info",
               duration: 2800,
               isClosable: true,
@@ -195,7 +237,7 @@ function Game() {
               });
             }
           }>
-            Mode 3
+            Mix Mode
           </Button>
         </WrapItem>
       </Wrap>}
@@ -276,17 +318,16 @@ function Game() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>{data.deck.deckname}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-          test
+          You have answered {numCorrectAnswer} correctly.
           </ModalBody>
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
