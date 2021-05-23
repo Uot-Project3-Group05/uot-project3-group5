@@ -155,15 +155,17 @@ function Game() {
 
             //SetNumCorrectAnswer(tallyResults)
             // To be used for the modal showing how many you had correct.
-            console.log(`usestate correct answers ${numCorrectAnswer.correct}`)
-            //console.log(tallyResults)
-            //console.log(`You have answered ${tallyResults.correct} out of 10`)
-            matrixState = Game.matrix
-            console.log(matrixState)
+
+
+            matrixState = Game.matrix;
+            console.log(matrixState);
+            // change the finished back to false to continue playing           
+            //Game.reset();
             // change the finished back to false to continue playing        
             // Show Modal with results.   
             onOpen(true)
             //window.location.replace('/profile');
+            // Game.start();
           }
         }
       }
