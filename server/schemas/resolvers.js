@@ -29,8 +29,20 @@ const resolvers = {
     // Get many decks
     decks: async () => {
       return Deck.find();
-    }
+    },
 
+
+    // get game by userid and deckname
+
+    getGame: async (parent, { deck: deckname } , context) => {
+      if (context.user) {
+        const gameData = await Game.findOne({ $and: [ {userId: context.user._id} , { deck: deckname } ] })
+        return gameData;
+      }
+    },
+
+
+    
 },
   Mutation: {
     addUser: async (parent, args) => {
