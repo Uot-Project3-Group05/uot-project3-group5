@@ -19,9 +19,20 @@ import {
     Stack,
     Button,
     useToast,
-    toast
+    toast,
+    useDisclosure
 } from '@chakra-ui/react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy'
+// Chakra Modal
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react"
 
 
 
@@ -33,8 +44,15 @@ function Game() {
     const [options, setOptions] = useState([]);
     const [methods, setMethods] = useState({});
     const [gameMode, setGameMode] = useState(1);
+    // Modal Declaration
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    // Modal useState
+    const [numCorrectAnswer, SetNumCorrectAnswer] = useState(0); 
+
+
     const ref = useRef();
     let answer; // for answer checking
+    let correctAnswer; // will hold tally correct answer number
 
     // Allow toast to work
     const toast = useToast()
@@ -56,7 +74,11 @@ function Game() {
     } else {
       console.log(data)
     }
+
+
   
+  
+    
     function handleStart() {
       setGameStarted(true);
       const Game = new GameSession(data.deck.cards, [[], [], [], [], []]); // matrix retrieved from DB
@@ -69,9 +91,13 @@ function Game() {
       setOptions(currentQuestion.options);
       setCardAnswer(currentQuestion.answer); //put answer on back of card
       answer = currentQuestion.answer; //load correct answer for if statement below
+
       
 
       let matrixState = [];
+
+      // Modal Result Set
+      let tallyResults = {}
 
       return {
         handleInput(e) {
@@ -99,17 +125,51 @@ function Game() {
             }, 800); 
             ; //put answer on back of card
           } else { // at this point the  matrix has been sorted.
-            const tallyResults = Game.tallyResults()
+            //const tallyResults = Game.tallyResults()
+            let tallyAnswer = (Game.tallyResults())
+            SetNumCorrectAnswer(tallyAnswer.correct)
+           
+           //console.log(tallyResults.correct)
+
+
+            //let tallyResults = async () => { return SetNumCorrectAnswer(Game.tallyResults()) }
+            //console.log(tallyResults())
+            
+         //  tallyResults().then((value) => console.log(value))
+           // tallyResults().then((value) => SetNumCorrectAnswer(value))
+          //  console.log(numCorrectAnswer)
+
+            // async function tallyResults() {
+            //   return numCorrectAnswer = await SetNumCorrectAnswer(Game.tallyResults())
+            // };
+            // async function tallyResults() {
+            //   await SetNumCorrectAnswer(Game.tallyResults())
+            //   //
+            //   console.log("inside the async function")
+            //   console.log(numCorrectAnswer)
+            // };
+
+           // tallyResults()
+
+           
+
+            //SetNumCorrectAnswer(tallyResults)
             // To be used for the modal showing how many you had correct.
-            console.log(`You have answered ${tallyResults.correct} out of 10`)
+            console.log(`usestate correct answers ${numCorrectAnswer.correct}`)
+            //console.log(tallyResults)
+            //console.log(`You have answered ${tallyResults.correct} out of 10`)
             matrixState = Game.matrix
             console.log(matrixState)
-            // change the finished back to false to continue playing           
+            // change the finished back to false to continue playing        
+            // Show Modal with results.   
+            onOpen(true)
             //window.location.replace('/profile');
           }
         }
       }
     }
+
+
 
     return (
       <Box>
@@ -126,7 +186,7 @@ function Game() {
               setGameMode(1);
               toast({
                 title: "Activated!",
-                description: "Mode 1 Activated!",
+                description: "Symbol Mode Activated!",
                 status: "info",
                 duration: 2800,
                 isClosable: true,
@@ -135,7 +195,7 @@ function Game() {
               }
             }
             >
-            Mode 1 
+            Symbol Mode
           </Button>
         </WrapItem>
         <WrapItem p={2}>
@@ -148,7 +208,7 @@ function Game() {
             setGameMode(2);
             toast({
               title: "Activated!",
-              description: "Mode 2 Activated!",
+              description: "Description Mode Activated!",
               status: "info",
               duration: 2800,
               isClosable: true,
@@ -156,7 +216,7 @@ function Game() {
               });
             }
           }>
-            Mode 2
+            Description Mode
           </Button>
         </WrapItem>
         <WrapItem p={2}>
@@ -169,7 +229,7 @@ function Game() {
             setGameMode(3);
             toast({
               title: "Activated!",
-              description: "Mode 3 Activated!",
+              description: "Mix Mode Activated!",
               status: "info",
               duration: 2800,
               isClosable: true,
@@ -177,7 +237,7 @@ function Game() {
               });
             }
           }>
-            Mode 3
+            Mix Mode
           </Button>
         </WrapItem>
       </Wrap>}
@@ -252,6 +312,25 @@ function Game() {
             </WrapItem>
           ))}
         </Wrap>
+
+      
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{data.deck.deckname}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          You have answered {numCorrectAnswer} correctly.
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       </Box>
 
