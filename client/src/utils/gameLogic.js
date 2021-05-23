@@ -12,16 +12,6 @@ class GameSession {
         this.gameMode = 1; // get from react useState in Game component
     }
 
-    reset() {
-        this.finished = false;
-        this.progress = 0; // for displaying progress on problem set - i.e. 6/10
-        this.cardsInSet = [];
-        this.problemSet = [];
-        this.correctCards = [];
-        this.incorrectCards = [];
-        this.currentQuestion = {};
-    }
-
     // randomly reorder an array
     shuffleArray(array) { 
         array.sort((a, b) => Math.random() - 0.5)
