@@ -69,13 +69,13 @@ const resolvers = {
 
       if (user) {
         // const isExists = await User.findOne
-        const updatedUser = await User.findByIdAndUpdate(
+        const createGame = await User.create(
           { _id: user._id }, 
           { $addToSet: { games: data } },
           { new: true }
         )
 
-        return updatedUser;
+        return createGame;
       }
     }
   }

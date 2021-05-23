@@ -7,7 +7,8 @@ const gameSchema = new Schema({
         type: Number
     },
     deck: {
-        type: String
+        type: String,
+        unique: true,
     },
 
     matrix: [ [{ type: Number }] ]     

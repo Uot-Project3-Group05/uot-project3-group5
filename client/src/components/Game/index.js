@@ -63,6 +63,8 @@ function Game() {
       setOptions(currentQuestion.options);
       let answer = currentQuestion.answer;
 
+      let matrixState = [];
+
       return {
         handleInput(e) {
           const userInput = e.target.textContent;
@@ -82,8 +84,11 @@ function Game() {
             setQuestion(currentQuestion.question);
             setOptions(currentQuestion.options);
             answer = currentQuestion.answer;
-          } else {
-            window.location.replace('/profile');
+          } else { // at this point the  matrix has been sorted.
+            Game.tallyResults()
+            matrixState = Game.matrix
+            console.log(matrixState)
+            //window.location.replace('/profile');
           }
         }
       }
