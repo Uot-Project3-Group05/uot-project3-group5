@@ -63,17 +63,20 @@ const resolvers = {
     },
 
     addGame: async (parent, data, { user }) => {
+    
       data.score = 0;
+      data.userId = user._id
       data.matrix = [[], [], [], [], []];
       // return Game.create(data);
 
       if (user) {
         // const isExists = await User.findOne
-        const createGame = await User.create(
-          { _id: user._id }, 
-          { $addToSet: { games: data } },
-          { new: true }
-        )
+          const createGame = await Game.create(data)
+        // const createGame = await User.create(
+        //   { score: user._id }, 
+        //   { $addToSet: { games: data } },
+        //   { new: true }
+        // )
 
         return createGame;
       }
