@@ -58,6 +58,7 @@ class GameSession {
 
     // select cards based on a weighted random number generator
     randomSelect() { 
+        this.cardsInSet = [];
         let newCard;
         // percentage break points for each matrix array
         let bins = [0, 39, 69, 84, 94];
@@ -80,14 +81,14 @@ class GameSession {
         }
 
 
-        for (let j=0; j<=10; j++) {
+        for (let j=0; j<=9; j++) {
             
             // checks to see if number of selections from this array is >= the number of cards in this array
             // if true, change the percentage for this array to = 101 (cannot be chosen again)
             for (let i=0; i<this.matrix.length; i++) {
-                checkRollCount(binRollCount[i], binStartLength[i]);
+                checkRollCount(i);
             };
-            // console.log('New Bins: ', bins);
+            console.log('New Bins: ', bins);
 
             // creates a random "roll" from 0-99
             const roll = Math.floor(Math.random() * 100);
@@ -114,7 +115,7 @@ class GameSession {
             } else {
                 index = 0;
             }
-            // console.log(`Roll: ${roll} Percentages: ${bins} Index: ${index}`);
+            console.log(`Roll: ${roll} Percentages: ${bins} Index: ${index}`);
             // increase the "roll count" for this bin
             binRollCount[index]++;
             
@@ -122,7 +123,7 @@ class GameSession {
                 return this.cardsInSet.indexOf(card) === -1
             });
             this.cardsInSet.push(newCard);
-            // console.log('CardsInSet: ', this.cardsInSet);
+            console.log('CardsInSet: ', this.cardsInSet);
         }
     }
 
