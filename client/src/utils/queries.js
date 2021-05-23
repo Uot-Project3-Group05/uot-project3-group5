@@ -105,4 +105,15 @@ export const GET_DECKS = gql`
   }
 `;
 
-
+export const GET_GAME_BY_DECK_NAME = gql`
+  query getGame($deck: String!) {
+    getGame(deck: $deck) {
+      _id
+      score
+      deck
+      userId
+      deck
+      matrix
+    }
+  }
+`;

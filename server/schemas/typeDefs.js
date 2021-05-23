@@ -9,12 +9,15 @@ const typeDefs = gql`
     badges: [String]
     games:[Game]
   }
+
   type Game {
     _id: ID
     score: Int
+    userId: String
     deck: String
     matrix:[[Int]]
   }
+
   type Deck {
     _id: ID
     deckname: String
@@ -46,22 +49,15 @@ const typeDefs = gql`
     deck(_id: ID!): Deck
     users:[User]
     user(username: String!): User
+    getGame(deck: String!): Game
   }
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addGame(deck: String!): User
+    addGame(deck: String!): Game
+    updateGame(deck: String!, score: Int!, matrix: [[Int]]): Game
   }
 `;
-
-// saveBook(bookInput: BookInput): User
-
-// type Deck {
-//   _id: ID
-//   deckname: String
-//   description: String
-//   cards: [Card]
-// }
 
 // type Game {
 //   _id: ID
