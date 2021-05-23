@@ -12,6 +12,16 @@ class GameSession {
         this.gameMode = 1; // get from react useState in Game component
     }
 
+    reset() {
+        this.finished = false;
+        this.progress = 0; // for displaying progress on problem set - i.e. 6/10
+        this.cardsInSet = [];
+        this.problemSet = [];
+        this.correctCards = [];
+        this.incorrectCards = [];
+        this.currentQuestion = {};
+    }
+
     // randomly reorder an array
     shuffleArray(array) { 
         array.sort((a, b) => Math.random() - 0.5)
@@ -58,49 +68,83 @@ class GameSession {
 
     // select cards based on a weighted random number generator
     randomSelect() { 
-        let check = Math.floor(Math.random() * 100);
-        let bin; 
-        // determine which array in the matrix to pick from
-        if (check >= 0 && check < 40) {
-            bin = 0;
-        } else if (check >= 40 && check < 70){
-            bin = 1;
-        } else if (check >= 70 && check < 85){
-            bin = 2;
-        } else if (check >= 85 && check < 95){
-            bin = 3;
-        } else {
-            bin = 4;
+        let newCard;
+        // percentage break points for each matrix array
+        let bins = [0, 39, 69, 84, 94];
+        // number of times a card has been selected from each matrix array
+        let binRollCount = [0,0,0,0,0];
+        // create a tracker for how many cards are in each matrix array.
+        let binStartLength = [];
+        for (let i = 0; i < 5; i++) {
+            binStartLength.push(this.matrix[i].length)
         }
-        // if the array has no objects, call the function again
-        if (this.matrix[bin].length < 1) {
-            this.randomSelect();
+        // console.log(binStartLength);
+
+
+        // checks to see if number of selections from this array is >= the number of cards in this array
+        // if true, change the percentage for this array to = 101 (cannot be chosen again)
+        const checkRollCount = (i) => {
+            if (binRollCount[i] >= binStartLength[i]) {
+                bins[i] = 101;
+            }
         }
 
-        // if the array has entries, find the first one not already in this.cardsInSet
-        const newCard = this.matrix[bin].find((card) => {
-            return this.cardsInSet.indexOf(card) === -1
-        });
 
-        // if array has entries but all entries are already in this.cardsInSet, call function again
-        if (!newCard) {
-            this.randomSelect();
-        } else {
-            // if a card meets all criteria, push to this.cardsInSet array
+        for (let j=0; j<=10; j++) {
+            
+            // checks to see if number of selections from this array is >= the number of cards in this array
+            // if true, change the percentage for this array to = 101 (cannot be chosen again)
+            for (let i=0; i<this.matrix.length; i++) {
+                checkRollCount(binRollCount[i], binStartLength[i]);
+            };
+            // console.log('New Bins: ', bins);
+
+            // creates a random "roll" from 0-99
+            const roll = Math.floor(Math.random() * 100);
+
+            let index; // references corresponding matrix array, bins, binRollCount & binStartLength by index
+            if (roll > bins[4]) {
+                index = 4;
+            } else if (roll > bins[3]) {
+                index = 3;
+            } else if (roll > bins[2]) {
+                index = 2;
+            } else if (roll > bins[1]) {
+                index = 1; 
+            } else if (bins[0] === 101){
+                if (binRollCount[1] < binStartLength[1]) {
+                    index = 1;
+                } else if (binRollCount[2] < binStartLength[2]){
+                    index = 2;
+                } else if (binRollCount[3] < binStartLength[3]){
+                    index = 3;
+                } else {
+                    index = 4;
+                }
+            } else {
+                index = 0;
+            }
+            // console.log(`Roll: ${roll} Percentages: ${bins} Index: ${index}`);
+            // increase the "roll count" for this bin
+            binRollCount[index]++;
+            
+            newCard = this.matrix[index].find((card) => {
+                return this.cardsInSet.indexOf(card) === -1
+            });
             this.cardsInSet.push(newCard);
+            // console.log('CardsInSet: ', this.cardsInSet);
         }
     }
 
     // get cards from matrix to fill this.cardsInSet array
     selectCards() {
+        this.cardsInSet = [];
         // shuffle all arrays
         for (let i=0; i<5; i++) {
-            this.shuffleArray(this.matrix[i])
+            this.shuffleArray(this.matrix[i]);
         }
         // select random cards to fill this.cardsInSet
-        for (let j=0; j<10; j++) {
-            this.randomSelect();
-        }
+        this.randomSelect();
     }
 
     // get all data for a card from the deck given its cardId
@@ -171,6 +215,7 @@ class GameSession {
 
     // main game flow (up to creation of the problem set)
     start() {
+        this.reset();
         // are there cards?
         const hasCards = this.getTotal(); 
         // if no, then this is the first run, add 15 cards, shuffle and add to set
@@ -201,19 +246,6 @@ class GameSession {
         }
         this.progress++;
         return problem;
-        // if (this.progress < 10) {
-        //     const problem = this.problemSet[this.progress];
-        //     console.log(progress)
-        //     if (this.progress === 10)  {
-        //         this.finished = true;
-        //         this.tallyResults();
-        //     }
-        //     this.progress++;
-        //     return problem;
-        //  }
-        // else {
-        //     this.tallyResults();
-        // }
     }
 
     // checks the answer returns a boolean used to move card up or down one array in the matrix
