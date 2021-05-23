@@ -64,6 +64,7 @@ function Game() {
       Game.start();
       let currentQuestion;
       currentQuestion = Game.renderNext();
+      console.log(currentQuestion);
       setQuestion(currentQuestion.question);
       setOptions(currentQuestion.options);
       setCardAnswer(currentQuestion.answer); //put answer on back of card
@@ -93,6 +94,10 @@ function Game() {
             setQuestion(currentQuestion.question);
             setOptions(currentQuestion.options);
             answer = currentQuestion.answer;
+            setTimeout(() => {
+              setCardAnswer(answer); 
+            }, 800); 
+            ; //put answer on back of card
           } else { // at this point the  matrix has been sorted.
             const tallyResults = Game.tallyResults()
             // To be used for the modal showing how many you had correct.
@@ -239,7 +244,7 @@ function Game() {
                 ref.current.toggle();
                 setTimeout(() => {
                   methods.handleInput(e); 
-                }, 1000)                 
+                }, 800)                 
               }}
               >
                 {option}
