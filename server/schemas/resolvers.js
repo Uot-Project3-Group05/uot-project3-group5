@@ -10,6 +10,8 @@ const resolvers = {
         .select('-__v -password');
         return userData;
       }
+
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     users: async () => {
@@ -39,6 +41,8 @@ const resolvers = {
         const gameData = await Game.findOne({ $and: [ {userId: context.user._id} , { deck: deckname } ] })
         return gameData;
       }
+
+      throw new AuthenticationError('You need to be logged in!');
     },
 
 
@@ -75,23 +79,31 @@ const resolvers = {
     },
 
     addGame: async (parent, data, { user }) => {
-    
-      data.score = 0;
-      data.userId = user._id
-      data.matrix = [[], [], [], [], []];
-      // return Game.create(data);
-
       if (user) {
-        // const isExists = await User.findOne
-          const createGame = await Game.create(data)
-        // const createGame = await User.create(
-        //   { score: user._id }, 
-        //   { $addToSet: { games: data } },
-        //   { new: true }
-        // )
-
+        data.score = 0;
+        data.userId = user._id
+        data.matrix = [[], [], [], [], []];
+        const createGame = await Game.create(data)
         return createGame;
       }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    updateGame: async (parent, { userId, score, matrix, deck }, { user }) => {
+      if (user) {
+        userId = user._id;
+
+        const updatedGame = Game.findOneAndUpdate(
+          { deck: deck },
+          { $set: {"score": score, "matrix": matrix} },
+          { new: true }
+        );
+
+        return updatedGame;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
     }
   }
 }

@@ -55,17 +55,9 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addGame(deck: String!): Game
+    updateGame(deck: String!, score: Int!, matrix: [[Int]]): Game
   }
 `;
-
-// saveBook(bookInput: BookInput): User
-
-// type Deck {
-//   _id: ID
-//   deckname: String
-//   description: String
-//   cards: [Card]
-// }
 
 // type Game {
 //   _id: ID
