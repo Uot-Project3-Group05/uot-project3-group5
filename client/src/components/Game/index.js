@@ -19,9 +19,20 @@ import {
     Stack,
     Button,
     useToast,
-    toast
+    toast,
+    useDisclosure
 } from '@chakra-ui/react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy'
+// Chakra Modal
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react"
 
 
 
@@ -33,6 +44,8 @@ function Game() {
     const [options, setOptions] = useState([]);
     const [methods, setMethods] = useState({});
     const [gameMode, setGameMode] = useState(1);
+    // Modal Declaration
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const ref = useRef();
     let answer; // for answer checking
 
@@ -73,6 +86,9 @@ function Game() {
 
       let matrixState = [];
 
+      // Modal Result Set
+      let tallyResults = {}
+
       return {
         handleInput(e) {
           const userInput = e.target.textContent;
@@ -99,12 +115,14 @@ function Game() {
             }, 800); 
             ; //put answer on back of card
           } else { // at this point the  matrix has been sorted.
-            const tallyResults = Game.tallyResults()
+             //tallyResults = Game.tallyResults()
             // To be used for the modal showing how many you had correct.
-            console.log(`You have answered ${tallyResults.correct} out of 10`)
+            //console.log(`You have answered ${tallyResults.correct} out of 10`)
             matrixState = Game.matrix
             console.log(matrixState)
-            // change the finished back to false to continue playing           
+            // change the finished back to false to continue playing        
+            // Show Modal with results.   
+            onOpen(true)
             //window.location.replace('/profile');
           }
         }
@@ -252,6 +270,26 @@ function Game() {
             </WrapItem>
           ))}
         </Wrap>
+
+      
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          test
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       </Box>
 
