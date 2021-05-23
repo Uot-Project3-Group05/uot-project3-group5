@@ -63,6 +63,7 @@ To complete a deck, 100% of the cards in the deck need to be at level 4 or 5
 ## Technology Used
 
 Server Side: Apollo-Server-Express, Bcrypt, Express, GraphQL, Jsonwebtoken, Mongoose
+
 Client-Side: @apollo/client, @apollo/react-hooks, @chakra-ui/icons, @chakra-ui/react, @emotion/react, @emotion/styled, @testing-library/jest-dom, @testing-library/react, @testing-library/user-event, apollo-boost, framer-motion, graphql, graphql-tag, jwt-decode, react, react-dom, react-icons, react-router-dom, react-scripts, web-vitals
 
 ## Available Scripts
