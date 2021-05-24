@@ -1,73 +1,102 @@
-<<<<<<< HEAD
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Mind Decks
 
-## Available Scripts
+Need to learn things quickly without your brain imploding?
 
-In the project directory, you can run:
+Mind Decks modernizes classical flashcards to be an efficient and fun way to study on the go or at home.
 
-### `npm start`
+![App preview](https://user-images.githubusercontent.com/11519585/119285344-d5a7b000-bc0f-11eb-9d5a-38ca27b08db5.png)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Table of Contents
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [Description](#description)
+- [Purpose](#purpose)
+- [Deployment](#deployment)
+- [Usage](#usage)
+- [Technologies](#technologies)
+- [Features](#features)
+- [Licenses ](#licenses)
+- [Installation](#installation)
+- [Contributors](#contributors)
 
-### `npm test`
+## Description
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This is our submission for our final group project for UofT Bootcamp. We have used the skills and technologies we have learned over the past six weeks, including Performant JS, NoSQL databases, Progressive Web Applications, React single-page applications, GraphQL APIs, Concurrent servers in a MERN app and Authentication.
 
-### `npm run build`
+Mobile-first design is built on the fact that users increasingly use their mobile devices to interact with web applications. An application that provides users with the best performance and flexibility is likely to win out over its competitors.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Demonstration](https://user-images.githubusercontent.com/11519585/119285613-6a121280-bc10-11eb-99d6-dda4f7362f9f.gif)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Purpose
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+AS a LEARNER I WANT to efficiently remember facts in a gamified way
+SO THAT I can consistently recall facts at will
 
-### `npm run eject`
+GIVEN sets of decks to study from 
+WHEN I select a deck
+THEN the game loads this deck's contents to be reviewed
+WHEN a flashcard shows up THEN I can select an answer from three possible options
+WHEN I select an incorrect answer
+THEN the card will show more frequently in the future
+WHEN I select a correct answer
+THEN the card will show less frequently in the future
+WHEN I complete a game (of 15 cards)
+THEN I get a summary of how much points I have earned in this session WHEN I do particularly well in each game
+THEN more cards from the deck will be added to the pool
+WHEN my score reaches certain milestones
+THEN I will have earned a badge to show off on my profile
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+GIVEN my competitive nature in this gamified environment
+WHEN I open my profile page THEN I see my avatar, cumulative score, and badges I have earned
+WHEN I open the leaderboard page
+THEN I can see how my score compares with other players
+WHEN I click on another player's profile THEN I can see their avatar, cumulative score, and badges
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Deployment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+A deployed version of this app can be access in the link below:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+https://group5-project3-uot-duolingo.herokuapp.com/
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Create an account to access the different decks available.
+- Answering flashcard questions incorrectly will make them appear more often. Conversely, answering them correctly will make them appear less often.
+- As the user's mastery with each deck increases, more cards from the set will be added.
+- Relax and do your best! The app is designed to be a low-stressed way to learn and practice. Go with the flow, and with enough time commitment, you will naturally be able to answer all the questions flawlessly!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technologies
 
-### Code Splitting
+| Server-Side           | Client-Side   |
+| --------------------- | ------------- |
+| Apollo-Server-Express | Apollo        |
+| Bcrypt                | Chakra-UI     |
+| Express               | React         |
+| GraphQL               | Framer Motion |
+| JSON Web Tokens       |               |
+| Mongoose              |               |
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Features 
 
-### Analyzing the Bundle Size
+- Application is both desktop and mobile friendly.
+- PWA allows the app to be used on the go.
+- Persistent stat-tracking saved to the user's profile.
+- Digital badges to be awarded to be shown off when mastering flashcard decks.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Licenses 
 
-### Making a Progressive Web App
+Published under the ISC license.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Installation
 
-### Advanced Configuration
+- Run `git clone` from this respository: https://github.com/Uot-Project3-Group05/uot-project3-group5.git
+- Run `npm i` to install dependencies.
+- `npm start` will create a development build to experiment with.
+- Access the local dev build on http://localhost:3000/ (default).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Contributors
 
-### Deployment
+**Made with ❤️ by Group 5**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-=======
-# uot-project3-group5
-SPA - MERN application
->>>>>>> 42734de44afb6f1e69ecc131e9242e50c708f57e
+Johnny Wu, Kris Pennimpede, Esteban Romero, Ojashri Basnyat, Ali Taghva, Shawn Evans, Anagha Pawar, and Terrence Chan
