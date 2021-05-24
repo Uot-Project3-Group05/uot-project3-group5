@@ -45,6 +45,16 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
+    // get all games for one user
+
+    getAllGame: async (parent, params, { user }) => {
+      if (user) {
+        const gameData = await Game.find({ userId: user._id })
+        return gameData;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
 
     
 },

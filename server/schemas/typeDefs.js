@@ -50,6 +50,8 @@ const typeDefs = gql`
     users:[User]
     user(username: String!): User
     getGame(deck: String!): Game
+    getAllGame: [Game]
+    
   }
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
