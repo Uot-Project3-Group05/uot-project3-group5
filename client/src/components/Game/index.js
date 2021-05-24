@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import GameSession from '../../utils/gameLogic';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_DECKS, GET_DECK_ID, GET_GAME_BY_DECK_NAME } from "../../utils/queries";
-import { ADD_GAME } from '../../utils/mutations';
+import { ADD_GAME, UPDATE_GAME } from '../../utils/mutations';
 import { Link, useParams } from "react-router-dom";
 import {
     MdBuild,
@@ -76,6 +76,8 @@ function Game() {
     });
 
     const [addGame, { error }] = useMutation(ADD_GAME);
+    const [updateGame] = useMutation(UPDATE_GAME);
+
     if (loadingGame || loading) {
       return <h1>Loading...</h1>
     } else {
@@ -177,6 +179,21 @@ function Game() {
 
             matrixState = Game.matrix;
             console.log(matrixState);
+            let score = 0;
+
+
+            try {
+              score += 5;
+              // execute addUser mutation and pass in variable data from form
+              const updateGameData = updateGame({
+                variables: { deck: data.deck.deckname, score, matrix: matrixState }
+              });
+
+              console.log(typeof updateGameData);
+            } catch (e) {
+              console.error(e);
+            }
+
             // change the finished back to false to continue playing           
             //Game.reset();
             // change the finished back to false to continue playing        
