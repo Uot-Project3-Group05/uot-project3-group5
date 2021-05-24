@@ -89,6 +89,8 @@ function Profile() {
         Pick a Deck a Game
     </Box>
 
+    {/*
+
       <Box textAlign="center" fontSize="xl" mb={6} >
         <Link to={`/leaderboard`}>
           <Button
@@ -113,18 +115,27 @@ function Profile() {
         </Link>
 
       </Box>
+          */}
 
-      <SimpleGrid minChildWidth="300px" spacing={10} ml={5} mr={5}>
+      <SimpleGrid minChildWidth="300px" col={2} spacing={10} ml={5} mr={5}>
 
+          
         <Box >
+
+
+          {/*
           <Box textAlign="center" fontSize="xl" mb={6} >
             In Progress
+         
         </Box>
+         */}
+         
           <Wrap direction="column" justify="space-evenly" align="center">
             
           {data &&
               data.getAllGame.map(deck => (
-              <Link to={`/game/12345`}>
+             
+              <Link to={`/`}>
               <WrapItem align="center">                 
                 <Center boxShadow="2xl" bg="red.200" borderRadius="lg">
                   <Box maxW="sm"
@@ -154,6 +165,7 @@ function Profile() {
                 </Center>
               </WrapItem>
               </Link>
+              
            ))}
         
            
