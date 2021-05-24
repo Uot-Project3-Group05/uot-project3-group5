@@ -167,7 +167,7 @@ function Game() {
               setGameMode(1);
               toast({
                 title: "Activated!",
-                description: "Symbol Mode Activated!",
+                description: "Card Front Mode Activated!",
                 status: "info",
                 duration: 2800,
                 isClosable: true,
@@ -176,7 +176,7 @@ function Game() {
               }
             }
             >
-            Symbol Mode
+            Card Front Mode
           </Button>
         </WrapItem>
         <WrapItem p={2}>
@@ -189,7 +189,7 @@ function Game() {
             setGameMode(2);
             toast({
               title: "Activated!",
-              description: "Description Mode Activated!",
+              description: "Card Back Mode Activated!",
               status: "info",
               duration: 2800,
               isClosable: true,
@@ -197,7 +197,7 @@ function Game() {
               });
             }
           }>
-            Description Mode
+            Card Back Mode
           </Button>
         </WrapItem>
         <WrapItem p={2}>
