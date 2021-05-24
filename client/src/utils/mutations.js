@@ -25,3 +25,27 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const UPDATE_GAME = gql`
+  mutation updateGame($deck: String!, $score: Int!, $matrix: [[Int]]!) {
+    updateGame(deck: $deck, score: $score, matrix: $matrix) {
+      userId
+      deck
+      score
+      matrix
+    }
+  }
+`;
+
+export const ADD_GAME = gql`
+  mutation addGame($deck: String!) {
+    addGame(deck: $deck) {
+      _id
+      score
+      deck
+      userId
+      deck
+      matrix
+    }
+  }
+`;

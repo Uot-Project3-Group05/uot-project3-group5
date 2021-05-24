@@ -24,13 +24,13 @@ const SignupForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     
-
-    // check if form has everything (as per react-bootstrap docs)
+    //dont need this for chakra ui
+    /*// check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;    
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
+    }*/
 
     try {
       const { data } = await addUser({
@@ -46,11 +46,11 @@ const SignupForm = () => {
       //setShowAlert('true');
     }
 
-    setUserFormData({
+   /* setUserFormData({
       username: '',
       email: '',
       password: '',
-    });
+    });*/
   };
 
   // Disable button logic test
@@ -65,45 +65,34 @@ const SignupForm = () => {
           Something went wrong with your signup!
         </Alert> */}
 
-        <FormControl                    
-          id='username'
-          name='username'
-          onChange={handleInputChange}
-          value={userFormData.username}
-          isRequired
-          mt={2}
-        >
+        <FormControl isRequired  mt={2}>                      
           <FormLabel name='username'>Username</FormLabel>
-          <Input name='username' type='text' placeholder='Your username' />
-          <FormErrorMessage>Username is required!</FormErrorMessage>
+          <Input name='username'
+          type='text' 
+          placeholder='Your username' 
+          value={userFormData.username}
+          onChange={handleInputChange}         
+          />
         </FormControl>
 
-        <FormControl
-          id='email'          
-          name='email'
-          onChange={handleInputChange}
-          value={userFormData.email}
-          isRequired
-          mt={2}
-        >
+        <FormControl isRequired mt={2}>
           <FormLabel htmlFor='email'>Email</FormLabel>
-          <Input name='email' type='email' placeholder='Your email address' />
-          
-          <FormErrorMessage>Email is required!</FormErrorMessage>
+          <Input name='email' 
+          type='email' 
+          placeholder='Your email address'
+          value={userFormData.email}
+          onChange={handleInputChange}
+          />
         </FormControl>
 
-        <FormControl
-          type='password'
-          placeholder='Your password'
-          name='password'
-          onChange={handleInputChange}
-          value={userFormData.password}
-          isRequired
-          mt={2}
-        >
+        <FormControl isRequired mt={2}>
           <FormLabel htmlFor='password'>Password</FormLabel>
-          <Input name='password' type='password' placeholder='Your Password' />
-          <FormErrorMessage>Password is required!</FormErrorMessage>
+          <Input name='password'
+          type='password' 
+          placeholder='Your Password'
+          value={userFormData.password}
+          onChange={handleInputChange}
+          />
         </FormControl>
         <Button
           type='submit'
@@ -112,7 +101,7 @@ const SignupForm = () => {
           Submit
         </Button>
       </form>
-      {error && <div>Sing Up Failed</div>}
+      {error && <div>{error.message.toString().includes('duplicate') ? 'User with email id exist!' : error.message.substring(14,error.message.length)}</div>}
     </>
   );
 };

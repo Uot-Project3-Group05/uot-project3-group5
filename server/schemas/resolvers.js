@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Deck } = require('../models');
+const { User, Deck, Game } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -10,6 +10,8 @@ const resolvers = {
         .select('-__v -password');
         return userData;
       }
+
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     users: async () => {
@@ -29,8 +31,33 @@ const resolvers = {
     // Get many decks
     decks: async () => {
       return Deck.find();
-    }
-  },
+    },
+
+
+    // get game by userid and deckname
+
+    getGame: async (parent, { deck: deckname } , context) => {
+      if (context.user) {
+        const gameData = await Game.findOne({ $and: [ {userId: context.user._id} , { deck: deckname } ] })
+        return gameData;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    // get all games for one user
+
+    getAllGame: async (parent, params, { user }) => {
+      if (user) {
+        const gameData = await Game.find({ userId: user._id })
+        return gameData;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+
+    
+},
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -38,16 +65,55 @@ const resolvers = {
       return { token, user };
     },
     login: async (parent, { email, password }) => {
+      if(!email)
+      {
+        throw new AuthenticationError('Please enter email');
+      }
+
+      if(!password)
+      {
+        throw new AuthenticationError('Please enter password');
+      }
+
       const user = await User.findOne({ email });
+
       if (!user) {
-        throw new AuthenticationError('invalid credentials!');
+        throw new AuthenticationError('Invalid credentials!');
       }
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
-        throw new AuthenticationError('invalid credentials!');
+        throw new AuthenticationError('Invalid credentials!');
       }
       const token = signToken(user);
       return { token, user };
+    },
+
+    addGame: async (parent, data, { user }) => {
+      if (user) {
+        data.score = 0;
+        data.userId = user._id
+        data.matrix = [[], [], [], [], []];
+        const createGame = await Game.create(data)
+        return createGame;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    updateGame: async (parent, { userId, score, matrix, deck }, { user }) => {
+      if (user) {
+        userId = user._id;
+
+        const updatedGame = Game.findOneAndUpdate(
+          { deck: deck },
+          { $set: {"score": score, "matrix": matrix} },
+          { new: true }
+        );
+
+        return updatedGame;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
     }
   }
 }
