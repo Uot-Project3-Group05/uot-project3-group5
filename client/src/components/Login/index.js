@@ -33,13 +33,13 @@ const LoginForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     
-
+    /* don't need this for chakra UI
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;    
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
+    }*/
 
     try {
       const { data } = await loginUser({
@@ -55,10 +55,10 @@ const LoginForm = () => {
       //setShowAlert('true');
     }
 
-    setUserFormData({      
+   /* setUserFormData({      
       email: '',
       password: '',
-    });
+    });*/
   };
 
   // Disable button logic test
@@ -74,32 +74,24 @@ const LoginForm = () => {
         </Alert> */}
    
 
-        <FormControl
-          id='email'          
-          name='email'
-          onChange={handleInputChange}
-          value={userFormData.email}
-          isRequired
-          mt={2}
-        >
+        <FormControl isRequired mt={2}>
           <FormLabel htmlFor='email'>Email</FormLabel>
-          <Input name='email' type='email' placeholder='Your email address' />
-          
-          <FormErrorMessage>Email is required!</FormErrorMessage>
+          <Input name='email' 
+          type='email' 
+          placeholder='Your email address' 
+          value={userFormData.email}
+          onChange={handleInputChange}
+          />
         </FormControl>
 
-        <FormControl
-          type='password'
-          placeholder='Your password'
-          name='password'
-          onChange={handleInputChange}
-          value={userFormData.password}
-          isRequired
-          mt={2}          
-        >
+        <FormControl isRequired mt={2}>    
           <FormLabel htmlFor='password'>Password</FormLabel>
-          <Input name='password' type='password' placeholder='Your Password' />
-          <FormErrorMessage>Password is required!</FormErrorMessage>
+          <Input name='password' 
+          type='password' 
+          placeholder='Your Password'
+          value={userFormData.password}
+          onChange={handleInputChange}
+          />
         </FormControl>
         <Button
           type='submit'
@@ -108,7 +100,7 @@ const LoginForm = () => {
           Submit
         </Button>
       </form>
-      {error && <div>Login failed</div>}
+      {error && <div>{error.message.substring(14,error.message.length)}</div>}
     </>
   );
 };
