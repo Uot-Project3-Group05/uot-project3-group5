@@ -1,73 +1,67 @@
-<<<<<<< HEAD
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Mind Decks
 
-## Available Scripts
+Need to learn things quickly without your brain imploding?
 
-In the project directory, you can run:
+Mind Decks modernizes classical flashcards to be an efficient and fun way to study on the go or at home.
 
-### `npm start`
+## TOC
+- [Description](#Description)
+- [User Story](#UserStory)
+- [Web Address](#WebAddress)
+- [Usage](#Usage)
+- [Technologies](#Technologies)
+- [Features] (#Features)
+- [Credits](#credits)
+- [Licences](#licenses)
+- [Installation](#Installation)
+- [Contributors](#Contributors)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Description
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+This is our submission for our final group project for UofT Bootcamp. We have used the skills and technologies we have learned over the past six weeks, including Performant JS, NoSQL databases, Progressive Web Applications, React single-page applications, GraphQL APIs, Concurrent servers in a MERN app and Authentication.
 
-### `npm test`
+Mobile-first design is built on the fact that users increasingly use their mobile devices to interact with web applications. An application that provides users with the best performance and flexibility is likely to win out over its competitors.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## User Story
+AS a LEARNER I WANT to efficiently remember facts in a gamified way SO THAT I can consistently recall facts at will
+GIVEN sets of decks to study from WHEN I select a deck THEN the game loads this deck's contents to be reviewed WHEN a flashcard shows up THEN I can select an answer from three possible options WHEN I select an incorrect answer THEN the card will show more frequently in the future WHEN I select a correct answer THEN the card will show less frequently in the future WHEN I complete a game (of 15 cards) THEN I get a summary of how much points I have earned in this session WHEN I do particularly well in each game THEN more cards from the deck will be added to the pool WHEN my score reaches certain milestones THEN I will have earned a badge to show off on my profile
+GIVEN my competitive nature in this gamified environment WHEN I open my profile page THEN I see my avatar, cumulative score, and badges I have earned WHEN I open the leaderboard page THEN I can see how my score compares with other players WHEN I click on another player's profile THEN I can see their avatar, cumulative score, and badges
+This project was bootstrapped with Create React App.
 
-### `npm run build`
+## Web Address
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+https://group5-project3-uot-duolingo.herokuapp.com/
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Usage Tips
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+git clone
+npm i
+npm start
+use website http://localhost:3000/
 
-### `npm run eject`
+## Technologies
+Server Side: Apollo-Server-Express, Bcrypt, Express, GraphQL, Jsonwebtoken, Mongoose
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Client-Side: @apollo/client, @apollo/react-hooks, @chakra-ui/icons, @chakra-ui/react, @emotion/react, @emotion/styled, @testing-library/jest-dom, @testing-library/react, @testing-library/user-event, apollo-boost, framer-motion, graphql, graphql-tag, jwt-decode, react, react-dom, react-icons, react-router-dom, react-scripts, web-vitals
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Features 
+Application is both desktop and mobile friendly.
+(add screenshots here)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Credits
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+REACT way of creating webpages!
 
-## Learn More
+## Licences 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+npm install command will install javascript dependencies
+npm i
 
-### Code Splitting
+## Contributors
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Made with ❤️ by Group 5
 
-### Analyzing the Bundle Size
+Johnny Wu, Kris Pennimpede, Esteban Romero, Ojashri Basnyat, Ali Taghva, Shawn Evans, Anagha Pawar, and Terrence Chan
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-=======
-# uot-project3-group5
-SPA - MERN application
->>>>>>> 42734de44afb6f1e69ecc131e9242e50c708f57e
