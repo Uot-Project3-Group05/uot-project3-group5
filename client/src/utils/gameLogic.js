@@ -20,6 +20,7 @@ class GameSession {
 
     // get number of 'strong' or answered correctly cards and total number of cards in the game matrix
     getTotal() {
+        let gameOver = false;
         // total number of cards in arrays indexes [3] & [4]
         let strongCards = 0;
         // total all cards in the matrix 
@@ -32,7 +33,11 @@ class GameSession {
             }
             total += this.matrix[i].length;
         }
-        return { strong: strongCards, total: total, deckTotal: deckTotal};
+        // check to see if user completed the deck
+        if (strongCards === deckTotal){
+            gameOver = true;
+        }
+        return { strong: strongCards, total: total, deckTotal: deckTotal, gameOver: gameOver};
     }
 
     // pushes cards to matrix on first run and when 70% of current cards are in matrix[3] or matrix[4]

@@ -32,7 +32,7 @@ Mobile-first design is built on the fact that users increasingly use their mobil
 AS a LEARNER I WANT to efficiently remember facts in a gamified way
 SO THAT I can consistently recall facts at will
 
-GIVEN sets of decks to study from 
+GIVEN sets of decks to study from
 WHEN I select a deck
 THEN the game loads this deck's contents to be reviewed
 WHEN a flashcard shows up THEN I can select an answer from three possible options
@@ -77,14 +77,14 @@ https://group5-project3-uot-duolingo.herokuapp.com/
 | JSON Web Tokens       |               |
 | Mongoose              |               |
 
-## Features 
+## Features
 
 - Application is both desktop and mobile friendly.
 - PWA allows the app to be used on the go.
 - Persistent stat-tracking saved to the user's profile.
 - Digital badges to be awarded to be shown off when mastering flashcard decks.
 
-## Licenses 
+## Licenses
 
 Published under the ISC license.
 
