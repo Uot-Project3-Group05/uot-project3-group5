@@ -3,7 +3,7 @@ import { Form, Button, Alert, FormControl, FormLabel, FormErrorMessage, FormHelp
 import { useMutation } from '@apollo/react-hooks';
 
 //import { createUser } from '../utils/API';
-import { ADD_USER } from '../../utils/mutations'
+import { ADD_USER, ADD_GAME } from '../../utils/mutations'
 import Auth from '../../utils/auth';
 
 const SignupForm = () => {
@@ -21,8 +21,18 @@ const SignupForm = () => {
     setUserFormData({ ...userFormData, [name]: value });    
   };
 
+  // Load Games into the database for the user to play later
+  const [addGame] = useMutation(ADD_GAME);
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    
+    const decks = [
+      'Periodic Table',
+      'Famous Fiction',
+      'US States and Capitols'
+    ]
+  
     
     //dont need this for chakra ui
     /*// check if form has everything (as per react-bootstrap docs)
@@ -36,11 +46,26 @@ const SignupForm = () => {
       const { data } = await addUser({
         variables: { ...userFormData }
       });
-      
-
     //  const { token, user } = await response.json();
     //  console.log(user);
       Auth.login(data.addUser.token);
+
+      console.log("User has signed up and logged in")
+
+      // execute addGame mutation and pass in variable data from form
+      decks.forEach(deck => {
+        try {
+          const addGameData = addGame({
+            variables: { deck }
+          });
+      } catch (e) {
+        console.error(e);
+      }
+
+      })
+
+      console.log("Games Added")
+
     } catch (err) {
       console.error(err);
       //setShowAlert('true');
@@ -51,10 +76,18 @@ const SignupForm = () => {
       email: '',
       password: '',
     });*/
+
+    
   };
 
   // Disable button logic test
   //disabled={!(userFormData.username && userFormData.email && userFormData.password)
+
+
+  
+ 
+
+
 
   return (
     <>

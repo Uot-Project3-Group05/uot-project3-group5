@@ -13,7 +13,7 @@ const DECK_DATA = [{
   cards: CARD_DATA_FICTION
 },
 {
-  deckname: "US States and Capitals",
+  deckname: "US States and Capitols",
   description: "Can you name all 50 States with their capitals?",
   cards: CARD_DATA_USSTATES
 }];
