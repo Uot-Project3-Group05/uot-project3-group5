@@ -32,33 +32,8 @@ import {
   GiGoldBar
 } from "react-icons/gi";
 
-import periodicTable from '../../assets/images/periodic-table.svg'
-import flagsWorld from '../../assets/images/flags-world.png'
-
-
-
 
 function Profile() {
-
-  const deckImage = [
-    {
-      name: 'Periodic Table of Elements',
-      cards: 118,
-      img: svg0
-    },
-    {
-      name: 'Famous Fiction',
-      cards: 75,
-      img: svg1
-    },
-    {
-      name: 'US States and Capitals',
-      cards: 50,
-      img: svg2
-    }
-  ];
-
-
 
   const toast = useToast()
   // Get all decks for the logged in user.
@@ -69,18 +44,32 @@ function Profile() {
   } else {
     console.log(data)
   }
+ 
+  const imgArray = [svg0, svg1, svg2];
 
-  
-//   const imgArray = [svg0, svg1, svg2];
-
-//   for (let i = 0; i < 3; i++) {
-//     data.getAllGame[i].image = imgArray[i];
-// }
-
+  for (let i = 0; i < 3; i++) {
+    data.getAllGame[i].image = imgArray[i];
+  }
 
 
-  //<GiEmerald w={20} h={20} color="blue.200" ></GiEmerald>
-  //GiEmerald
+  const deckIds = [
+    '60abc80494e63d62e4417bdc',
+    '60abc80494e63d62e4417bdd',
+    '60abc80494e63d62e4417bde'
+  ]
+
+  for (let i = 0; i < 3; i++) {
+    data.getAllGame[i].deckId = deckIds[i];
+  }
+
+// periodic table
+//60abc80494e63d62e4417bdc
+
+// famous fiction
+//60abc80494e63d62e4417bdd
+
+// states
+//60abc80494e63d62e4417bde
 
   return (
     <Box>
@@ -135,13 +124,14 @@ function Profile() {
           {data &&
               data.getAllGame.map(deck => (
              
-              <Link to={`/`}>
+               
+              <Link to={`/game/${deck.deckId}`} key={deck.deckId}>
               <WrapItem align="center">                 
                 <Center boxShadow="2xl" bg="red.200" borderRadius="lg">
                   <Box maxW="sm"
                     borderRadius="lg"
                     overflow="hidden">
-                    <Image src={periodicTable} alt='Periodic Table' />
+                    <Image src={deck.image} alt={deck.deck} />
                     <Box>
                       {deck.deck}
                     </Box>
