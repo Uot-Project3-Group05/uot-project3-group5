@@ -73,7 +73,7 @@ function Profile() {
 
   const imgArray = [svg0, svg1, svg2];
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < data.getAllGame.length; i++) {
     data.getAllGame[i].image = imgArray[i];
   }
 
