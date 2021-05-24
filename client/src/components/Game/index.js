@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import GameSession from '../../utils/gameLogic';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_DECKS, GET_DECK_ID } from "../../utils/queries";
+import { GET_DECKS, GET_DECK_ID, GET_GAME_BY_DECK_NAME} from "../../utils/queries";
 import { Link, useParams } from "react-router-dom";
 import {
     MdBuild,
@@ -63,20 +63,48 @@ function Game() {
     const { id } = useParams();
     //console.log(thoughtId);
 
+    
     const { loading, data } = useQuery(GET_DECK_ID, {
       // this is from the react router dom useParams id URL
       //variables: { id: deckId }
       variables: { id }
     });
+    const getGameStatus = useQuery(GET_GAME_BY_DECK_NAME, {
+      skip: !data,
+      variables: { deck: data && data.deck.deckname },
+    });
+    console.log(getGameStatus)
+    //console.log(getGameStatus)
+    console.log(typeof getGameStatus)
 
     if (loading) {
       return <h1>Loading...</h1>
     } else {
       console.log(data)
+      
     }
+   
+    
+    // let deckName = '';
+   // Wait for the deck data to be found.
+
+    // const deckName = data.deck.deckname
+    // console.log(deckName)
 
 
-  
+    // const { loading: gameDataLoading, data: gameData } = useQuery(GET_GAME_BY_DECK_NAME, {
+    //   // this is from the react router dom useParams id URL
+    //   //variables: { id: deckId }
+    //   variables: { deckName }
+    // });
+
+
+    //  if (gameDataLoading) {
+      
+    // } else {
+    //   console.log(gameData)
+    // }
+
   
     
     function handleStart() {
@@ -159,11 +187,13 @@ function Game() {
 
             matrixState = Game.matrix;
             console.log(matrixState);
-            // change the finished back to false to continue playing           
-            //Game.reset();
+                  
+            
             // change the finished back to false to continue playing        
             // Show Modal with results.   
             onOpen(true)
+             // change the finished back to false to continue playing    
+            Game.reset();
             //window.location.replace('/profile');
             // Game.start();
           }
