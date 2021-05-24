@@ -71,21 +71,22 @@ function Game() {
       return <h1>Loading...</h1>
     } else {
       console.log(gameData);
-      if (!gameData.getGame) {
-        matrix = [[], [], [], [], []];
-        console.log('inside')
-        try {
-          // execute addUser mutation and pass in variable data from form
-          const addGameData = addGame({
-            variables: { deck: data.deck.deckname }
-          });
-          console.log(addGameData);
-        } catch (e) {
-          console.error(e);
-        }
-      } else {
-        matrix = gameData.getGame.matrix;
-      };
+      matrix = gameData.getGame.matrix;
+      // if (!gameData.getGame) {
+      //   matrix = [[], [], [], [], []];
+      //   console.log('inside')
+      //   try {
+      //     // execute addUser mutation and pass in variable data from form
+      //     const addGameData = addGame({
+      //       variables: { deck: data.deck.deckname }
+      //     });
+      //     console.log(addGameData);
+      //   } catch (e) {
+      //     console.error(e);
+      //   }
+      // } else {
+      //   matrix = gameData.getGame.matrix;
+      // };
     }
     function handleStart() {
       setGameStarted(true);
