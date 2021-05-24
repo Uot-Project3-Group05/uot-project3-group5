@@ -4,6 +4,8 @@ Need to learn things quickly without your brain imploding?
 
 Mind Decks modernizes classical flashcards to be an efficient and fun way to study on the go or at home.
 
+![App preview](https://user-images.githubusercontent.com/11519585/119285344-d5a7b000-bc0f-11eb-9d5a-38ca27b08db5.png)
+
 ## Table of Contents
 
 - [Description](#description)
@@ -21,6 +23,8 @@ Mind Decks modernizes classical flashcards to be an efficient and fun way to stu
 This is our submission for our final group project for UofT Bootcamp. We have used the skills and technologies we have learned over the past six weeks, including Performant JS, NoSQL databases, Progressive Web Applications, React single-page applications, GraphQL APIs, Concurrent servers in a MERN app and Authentication.
 
 Mobile-first design is built on the fact that users increasingly use their mobile devices to interact with web applications. An application that provides users with the best performance and flexibility is likely to win out over its competitors.
+
+![Demonstration](https://user-images.githubusercontent.com/11519585/119285613-6a121280-bc10-11eb-99d6-dda4f7362f9f.gif)
 
 ## Purpose
 
@@ -79,7 +83,6 @@ https://group5-project3-uot-duolingo.herokuapp.com/
 - PWA allows the app to be used on the go.
 - Persistent stat-tracking saved to the user's profile.
 - Digital badges to be awarded to be shown off when mastering flashcard decks.
-- (add screenshots here)
 
 ## Licenses 
 
