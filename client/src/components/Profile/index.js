@@ -1,5 +1,10 @@
 import React from 'react';
+import { GET_ALL_DECKS_BY_USER } from "../../utils/queries";
+import { useQuery } from '@apollo/react-hooks';
 import { Link, useParams } from "react-router-dom";
+import svg0 from '../../assets/images/svg1.svg';
+import svg1 from '../../assets/images/svg2.svg';
+import svg2 from '../../assets/images/svg3.svg';
 import {
   Box,
   Flex,
@@ -35,25 +40,44 @@ import flagsWorld from '../../assets/images/flags-world.png'
 
 function Profile() {
 
-  const deck = [
+  const deckImage = [
     {
       name: 'Periodic Table of Elements',
       cards: 118,
-      img: 'https://bit.ly/2Z4KKcF'
+      img: svg0
     },
     {
       name: 'Famous Fiction',
       cards: 75,
-      img: 'https://bit.ly/2Z4KKcF'
+      img: svg1
     },
     {
       name: 'US States and Capitals',
       cards: 50,
-      img: 'https://bit.ly/2Z4KKcF'
+      img: svg2
     }
   ];
 
+
+
   const toast = useToast()
+  // Get all decks for the logged in user.
+  const { loading, data } = useQuery(GET_ALL_DECKS_BY_USER);
+
+  if (loading) {
+    return <h1> Loading </h1>
+  } else {
+    console.log(data)
+  }
+
+  
+//   const imgArray = [svg0, svg1, svg2];
+
+//   for (let i = 0; i < 3; i++) {
+//     data.getAllGame[i].image = imgArray[i];
+// }
+
+
 
   //<GiEmerald w={20} h={20} color="blue.200" ></GiEmerald>
   //GiEmerald
@@ -62,7 +86,7 @@ function Profile() {
     <Box>
 
       <Box textAlign="center" fontSize="xl" mb={6} >
-        Pick a Deck to Continue or Begin!
+        Pick a Deck a Game
     </Box>
 
       <Box textAlign="center" fontSize="xl" mb={6} >
@@ -97,25 +121,28 @@ function Profile() {
             In Progress
         </Box>
           <Wrap direction="column" justify="space-evenly" align="center">
-            <Link to={`/game/12345`}>
-              <WrapItem align="center">
+            
+          {data &&
+              data.getAllGame.map(deck => (
+              <Link to={`/game/12345`}>
+              <WrapItem align="center">                 
                 <Center boxShadow="2xl" bg="red.200" borderRadius="lg">
                   <Box maxW="sm"
                     borderRadius="lg"
                     overflow="hidden">
                     <Image src={periodicTable} alt='Periodic Table' />
                     <Box>
-                      {deck[0].name}
+                      {deck.deck}
                     </Box>
                     <Box>
-                      {deck[0].cards} cards
+                      {deck.score} strong cards
                   </Box>
                     <Box ml={3} mr={3} >
                       <Progress
                         colorScheme="purple"
                         mb={2}
                         borderRadius="lg"
-                        value={33}
+                        value={deck.score}
                         hasStripe="true"
                         size="md" />
                     </Box>
@@ -126,10 +153,14 @@ function Profile() {
                   </Box>
                 </Center>
               </WrapItem>
-            </Link>
+              </Link>
+           ))}
+        
+           
           </Wrap>
         </Box>
 
+        {/*
         <Box >
           <Box textAlign="center" fontSize="xl" mb={6} >
             Completed
@@ -168,6 +199,8 @@ function Profile() {
             </Link>
           </Wrap>
         </Box>
+
+        */}
 
 
       </SimpleGrid>

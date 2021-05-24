@@ -85,7 +85,8 @@ function Home() {
     for (let i = 0; i < 3; i++) {
         data.decks[i].image = imgArray[i];
     }
-
+    
+    // Index DB logic to save decks
     data.decks.forEach(deck => idbPromise('decks', 'put', deck));
 
     /*
