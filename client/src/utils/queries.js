@@ -117,3 +117,15 @@ export const GET_GAME_BY_DECK_NAME = gql`
     }
   }
 `;
+
+export const GET_ALL_DECKS_BY_USER = gql`
+    {
+      getAllGame {
+        userId
+        deck
+        score
+        matrix
+      }
+    }
+`;
+

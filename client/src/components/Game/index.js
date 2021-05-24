@@ -34,9 +34,6 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react"
-
-
-
 function Game() {
   const [gameStarted, setGameStarted] = useState(false);
     const [question, setQuestion] = useState('Press Start Game to play');
@@ -49,21 +46,15 @@ function Game() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     // Modal useState
     const [numCorrectAnswer, SetNumCorrectAnswer] = useState(0); 
-
-
     const ref = useRef();
     let answer; // for answer checking
-    let correctAnswer; // will hold tally correct answer number
-
     // Allow toast to work
     const toast = useToast()
-
-
     // this will display the URL ID value from the URL
     //const { id: deckId } = useParams();
     const { id } = useParams();
     //console.log(thoughtId);
-
+    let matrix;
     const { loading, data } = useQuery(GET_DECK_ID, {
       // this is from the react router dom useParams id URL
       //variables: { id: deckId }
@@ -74,19 +65,15 @@ function Game() {
       skip: !data,
       variables: { deck: data && data.deck.deckname },
     });
-
-    const [addGame, { error }] = useMutation(ADD_GAME);
+    const [addGame] = useMutation(ADD_GAME);
     const [updateGame] = useMutation(UPDATE_GAME);
-
     if (loadingGame || loading) {
       return <h1>Loading...</h1>
     } else {
-      console.log('gameData', gameData);
-      console.log('gameData.getGame', gameData.getGame);
-
+      console.log(gameData);
       if (!gameData.getGame) {
+        matrix = [[], [], [], [], []];
         console.log('inside')
-
         try {
           // execute addUser mutation and pass in variable data from form
           const addGameData = addGame({
@@ -96,12 +83,15 @@ function Game() {
         } catch (e) {
           console.error(e);
         }
+      } else {
+        matrix = gameData.getGame.matrix;
       };
     }
-    
     function handleStart() {
       setGameStarted(true);
-      const Game = new GameSession(data.deck.cards, [[], [], [], [], []]); // matrix retrieved from DB
+      // const Game = new GameSession(data.deck.cards, [[], [], [], [], []]); // matrix retrieved from DB
+      console.log(matrix);
+      const Game = new GameSession(data.deck.cards, matrix); // matrix retrieved from DB
       Game.gameMode = gameMode;
       Game.start();
       let currentQuestion;
@@ -111,21 +101,15 @@ function Game() {
       setOptions(currentQuestion.options);
       setCardAnswer(currentQuestion.answer); //put answer on back of card
       answer = currentQuestion.answer; //load correct answer for if statement below
-
-      
-
       let matrixState = [];
-
       // Modal Result Set
       let tallyResults = {}
-
       return {
         handleInput(e) {
           e.preventDefault();
           const userInput = e.target.textContent;
           const isCorrect = answer === userInput;
           ref.current.toggle()
-          
           Game.isCorrect(isCorrect);
           toast({
             title: `${isCorrect ? 'Correct' : 'Incorrect'}`,
@@ -135,7 +119,6 @@ function Game() {
             isClosable: true,
             position: 'top'
           })
-
           if (!Game.finished) {
             currentQuestion = Game.renderNext();
             setQuestion(currentQuestion.question);
@@ -149,25 +132,20 @@ function Game() {
             //const tallyResults = Game.tallyResults()
             let tallyAnswer = (Game.tallyResults())
             SetNumCorrectAnswer(tallyAnswer.correct)
-           
             // UpdateGameData logic
             matrixState = Game.matrix;
             console.log(matrixState);
             const total = Game.getTotal();
             let score = total.strong;
-
-
             try {
               // execute addUser mutation and pass in variable data from form
               const updateGameData = updateGame({
                 variables: { deck: data.deck.deckname, score, matrix: matrixState }
               });
-
               console.log(typeof updateGameData);
             } catch (e) {
               console.error(e);
             }
-
             onOpen(true)
             //window.location.replace('/profile');
             // Game.start();
@@ -175,13 +153,9 @@ function Game() {
         }
       }
     }
-
-
-
     return (
       <Box>
       {/*Once you select the mode, a button to start will appear*/}
-
       {!gameStarted && <Wrap  direction="row"  justify="space-evenly" align="center">
         <WrapItem p={2}>
           <Button 
@@ -248,8 +222,6 @@ function Game() {
           </Button>
         </WrapItem>
       </Wrap>}
-
-        
       {!gameStarted && <Box textAlign="center" fontSize="xl" mb={6} >
            <Button 
            m={4} 
@@ -262,9 +234,7 @@ function Game() {
             Start Game
           </Button>
       </Box>}
-
         <Box>
-          
         <Wrap  direction="column"  justify="space-between" align="center">
         <Flippy
         flipOnHover={false}
@@ -299,15 +269,12 @@ function Game() {
             </BackSide>          
         </Flippy>
         </Wrap>
-       
-
         <Wrap  direction="row"  justify="space-evenly" align="center" mt={5}>
           {options.map(option => (
             <WrapItem key={option} p={2}>
               <Button 
               boxShadow="2xl"  
               onClick={e => {
-                
                 ref.current.toggle();
                 setTimeout(() => {
                   methods.handleInput(e); 
@@ -319,9 +286,6 @@ function Game() {
             </WrapItem>
           ))}
         </Wrap>
-
-      
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -330,7 +294,6 @@ function Game() {
           <ModalBody>
           You have answered {numCorrectAnswer} correctly.
           </ModalBody>
-
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
@@ -338,11 +301,8 @@ function Game() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-
       </Box>
-
     </Box>
     )
   }
-  
   export default Game;
