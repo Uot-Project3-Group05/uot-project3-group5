@@ -117,7 +117,7 @@ function Profile() {
       </Box>
           */}
 
-      <SimpleGrid minChildWidth="300px" col={2} spacing={10} ml={5} mr={5}>
+      
 
           
         <Box >
@@ -130,7 +130,7 @@ function Profile() {
         </Box>
          */}
          
-          <Wrap direction="column" justify="space-evenly" align="center">
+          <Wrap  justify="space-evenly" align="center">
             
           {data &&
               data.getAllGame.map(deck => (
@@ -215,7 +215,6 @@ function Profile() {
         */}
 
 
-      </SimpleGrid>
 
 
 
