@@ -24,13 +24,10 @@ import Nav from './components/Nav';
 import Profile from './components/Profile';
 import Home from './components/Home';
 import Game from './components/Game';
-<<<<<<< HEAD
 // End of imports //
-=======
 import Leaderboard from './components/Leaderboard';
 
 
->>>>>>> develop
 
 const client = new ApolloClient({
   request: (operation) => {
