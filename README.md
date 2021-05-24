@@ -16,17 +16,7 @@ Mind Decks modernizes classical flashcards to be an efficient and fun way to stu
 - [Features](#features)
 - [Licenses ](#licenses)
 - [Installation](#installation)
-- [Testing](#testing)
 - [Contributors](#contributors)
-
-# 🍽 Contributors 🍽
-
-|                  Anagha Pawar                   |          Terrence Chan           |                                                   Ali Taghva                                                    |                                Ojashri Basnyat                                 |                                 Esteban Romero                                 |
-| :---------------------------------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :----------------------------------------------------------------------------: |
-|                  ![myImage]()                   |           ![myImage]()           | ![image](https://user-images.githubusercontent.com/72447285/111550764-3240a780-8755-11eb-9c79-386292e447f1.png) | ![myImage](https://ca.slack-edge.com/T01EXTZCZ44-U01FJHU7QFL-f542de91cc26-512) | ![myImage](https://ca.slack-edge.com/T01EXTZCZ44-U01FQLMPF60-9d41f3ddda9e-512) |
-| <a href="" target="_blank"> Anagha's Github</a> | <a href="> Terrence's Github</a> |                             <a href="https://github.com/a-taghva">Ali's Github</a>                              |       <a href="https://github.com/Ojashri-Basnyat"> Ojashri's Github</a>       |             <a href="https://github.com/esroleo">Esteban's Github              |
-
-|Shawn Evans|Johnny Wu|Mateo Cruz|
 
 ## Description
 
@@ -84,15 +74,15 @@ https://group5-project3-uot-duolingo.herokuapp.com/
 | Bcrypt                | Chakra-UI     |
 | Express               | React         |
 | GraphQL               | Framer Motion |
-| JSON Web Tokens       | React-Flippy  |
+| JSON Web Tokens       |               |
 | Mongoose              |               |
 
 ## Features
 
 - Application is both desktop and mobile friendly.
 - PWA allows the app to be used on the go.
-- Persistent state-tracking saved to the user's profile.
-- Digital badges awarded to be shown off when mastering flashcard decks.
+- Persistent stat-tracking saved to the user's profile.
+- Digital badges to be awarded to be shown off when mastering flashcard decks.
 
 ## Licenses
 
@@ -104,13 +94,6 @@ Published under the ISC license.
 - Run `npm i` to install dependencies.
 - `npm start` will create a development build to experiment with.
 - Access the local dev build on http://localhost:3000/ (default).
-
-## Testing
-
-Tests for the game logic are included using the jest framework. To run them:
-
-- From the root folder `cd client`
-- `npm run start` to run the testing suite and see the results.
 
 ## Contributors
 
