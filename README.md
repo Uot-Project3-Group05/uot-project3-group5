@@ -19,14 +19,17 @@ Mind Decks modernizes classical flashcards to be an efficient and fun way to stu
 - [Testing](#testing)
 - [Contributors](#contributors)
 
-# 🍽 Contributors 🍽
+# Contributors
 
-|                  Anagha Pawar                   |          Terrence Chan           |                                                   Ali Taghva                                                    |                                Ojashri Basnyat                                 |                                 Esteban Romero                                 |
-| :---------------------------------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :----------------------------------------------------------------------------: |
-|                  ![myImage]()                   |           ![myImage]()           | ![image](https://user-images.githubusercontent.com/72447285/111550764-3240a780-8755-11eb-9c79-386292e447f1.png) | ![myImage](https://ca.slack-edge.com/T01EXTZCZ44-U01FJHU7QFL-f542de91cc26-512) | ![myImage](https://ca.slack-edge.com/T01EXTZCZ44-U01FQLMPF60-9d41f3ddda9e-512) |
-| <a href="" target="_blank"> Anagha's Github</a> | <a href="> Terrence's Github</a> |                             <a href="https://github.com/a-taghva">Ali's Github</a>                              |       <a href="https://github.com/Ojashri-Basnyat"> Ojashri's Github</a>       |             <a href="https://github.com/esroleo">Esteban's Github              |
+|                                     Anagha Pawar                                      |                                                   Ali Taghva                                                    |                                Ojashri Basnyat                                 |                                 Esteban Romero                                 |                         Kris Pennimpede                          |
+| :-----------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :--------------------------------------------------------------: |
+| ![myImage](https://anagha778.github.io/react-portfolio/static/media/Pic.d177441a.png) | ![image](https://user-images.githubusercontent.com/72447285/111550764-3240a780-8755-11eb-9c79-386292e447f1.png) | ![myImage](https://ca.slack-edge.com/T01EXTZCZ44-U01FJHU7QFL-f542de91cc26-512) | ![myImage](https://ca.slack-edge.com/T01EXTZCZ44-U01FQLMPF60-9d41f3ddda9e-512) | ![myImage](https://avatars.githubusercontent.com/u/74478797?v=4) |
+|      <a href="https://github.com/Anagha778" target="_blank"> Anagha's Github</a>      |                             <a href="https://github.com/a-taghva">Ali's Github</a>                              |       <a href="https://github.com/Ojashri-Basnyat"> Ojashri's Github</a>       |             <a href="https://github.com/esroleo">Esteban's Github              |      <a href="https://github.com/krispywing">Kris's Github       |
 
-|Shawn Evans|Johnny Wu|Mateo Cruz|
+|                                   Terrence Chan                                   |                           Shawn Evans                           |                                 Johnny Wu                                  |                       Mateo Cruz                        |
+| :-------------------------------------------------------------------------------: | :-------------------------------------------------------------: | :------------------------------------------------------------------------: | :-----------------------------------------------------: |
+|         ![myImage](https://avatars.githubusercontent.com/u/11519585?v=4)          | ![myImage](https://avatars.githubusercontent.com/u/3218539?v=4) | ![myImage](https://wujoh.github.io/Portfolio/assets/images/profilepic.jpg) |    ![myImage](./client/src/assets/images/cruzma.JPG)    |
+| <a href="https://github.com/TerrenceJChan" target="_blank"> Terrence's Github</a> |    <a href="https://github.com/bluesatyr">Shawn's Github</a>    |          <a href="https://github.com/WuJoh"> Johhny's Github</a>           | <a href="https://github.com/cruzma"> Mateo's Github</a> |
 
 ## Description
 
