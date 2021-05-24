@@ -16,7 +16,20 @@ Mind Decks modernizes classical flashcards to be an efficient and fun way to stu
 - [Features](#features)
 - [Licenses ](#licenses)
 - [Installation](#installation)
+- [Testing](#testing)
 - [Contributors](#contributors)
+
+# Contributors
+
+|                                     Anagha Pawar                                      |                                                   Ali Taghva                                                    |                                Ojashri Basnyat                                 |                                 Esteban Romero                                 |                         Kris Pennimpede                          |
+| :-----------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :--------------------------------------------------------------: |
+| ![myImage](https://anagha778.github.io/react-portfolio/static/media/Pic.d177441a.png) | ![image](https://user-images.githubusercontent.com/72447285/111550764-3240a780-8755-11eb-9c79-386292e447f1.png) | ![myImage](https://ca.slack-edge.com/T01EXTZCZ44-U01FJHU7QFL-f542de91cc26-512) | ![myImage](https://ca.slack-edge.com/T01EXTZCZ44-U01FQLMPF60-9d41f3ddda9e-512) | ![myImage](https://avatars.githubusercontent.com/u/74478797?v=4) |
+|      <a href="https://github.com/Anagha778" target="_blank"> Anagha's Github</a>      |                             <a href="https://github.com/a-taghva">Ali's Github</a>                              |       <a href="https://github.com/Ojashri-Basnyat"> Ojashri's Github</a>       |             <a href="https://github.com/esroleo">Esteban's Github              |      <a href="https://github.com/krispywing">Kris's Github       |
+
+|                                   Terrence Chan                                   |                           Shawn Evans                           |                                 Johnny Wu                                  |                       Mateo Cruz                        |
+| :-------------------------------------------------------------------------------: | :-------------------------------------------------------------: | :------------------------------------------------------------------------: | :-----------------------------------------------------: |
+|         ![myImage](https://avatars.githubusercontent.com/u/11519585?v=4)          | ![myImage](https://avatars.githubusercontent.com/u/3218539?v=4) | ![myImage](https://wujoh.github.io/Portfolio/assets/images/profilepic.jpg) |    ![myImage](./client/src/assets/images/cruzma.JPG)    |
+| <a href="https://github.com/TerrenceJChan" target="_blank"> Terrence's Github</a> |    <a href="https://github.com/bluesatyr">Shawn's Github</a>    |          <a href="https://github.com/WuJoh"> Johhny's Github</a>           | <a href="https://github.com/cruzma"> Mateo's Github</a> |
 
 ## Description
 
@@ -32,7 +45,7 @@ Mobile-first design is built on the fact that users increasingly use their mobil
 AS a LEARNER I WANT to efficiently remember facts in a gamified way
 SO THAT I can consistently recall facts at will
 
-GIVEN sets of decks to study from 
+GIVEN sets of decks to study from
 WHEN I select a deck
 THEN the game loads this deck's contents to be reviewed
 WHEN a flashcard shows up THEN I can select an answer from three possible options
@@ -74,17 +87,17 @@ https://group5-project3-uot-duolingo.herokuapp.com/
 | Bcrypt                | Chakra-UI     |
 | Express               | React         |
 | GraphQL               | Framer Motion |
-| JSON Web Tokens       |               |
+| JSON Web Tokens       | React-Flippy  |
 | Mongoose              |               |
 
-## Features 
+## Features
 
 - Application is both desktop and mobile friendly.
 - PWA allows the app to be used on the go.
-- Persistent stat-tracking saved to the user's profile.
-- Digital badges to be awarded to be shown off when mastering flashcard decks.
+- Persistent state-tracking saved to the user's profile.
+- Digital badges awarded to be shown off when mastering flashcard decks.
 
-## Licenses 
+## Licenses
 
 Published under the ISC license.
 
@@ -94,6 +107,13 @@ Published under the ISC license.
 - Run `npm i` to install dependencies.
 - `npm start` will create a development build to experiment with.
 - Access the local dev build on http://localhost:3000/ (default).
+
+## Testing
+
+Tests for the game logic are included using the jest framework. To run them:
+
+- From the root folder `cd client`
+- `npm run start` to run the testing suite and see the results.
 
 ## Contributors
 
