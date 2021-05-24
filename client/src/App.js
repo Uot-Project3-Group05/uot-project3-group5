@@ -24,6 +24,7 @@ import Nav from './components/Nav';
 import Profile from './components/Profile';
 import Home from './components/Home';
 import Game from './components/Game';
+// End of imports //
 import Leaderboard from './components/Leaderboard';
 
 
