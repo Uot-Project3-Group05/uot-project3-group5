@@ -121,6 +121,7 @@ function Game() {
 
       return {
         handleInput(e) {
+          e.preventDefault();
           const userInput = e.target.textContent;
           const isCorrect = answer === userInput;
           ref.current.toggle()
@@ -149,41 +150,14 @@ function Game() {
             let tallyAnswer = (Game.tallyResults())
             SetNumCorrectAnswer(tallyAnswer.correct)
            
-           //console.log(tallyResults.correct)
-
-
-            //let tallyResults = async () => { return SetNumCorrectAnswer(Game.tallyResults()) }
-            //console.log(tallyResults())
-            
-         //  tallyResults().then((value) => console.log(value))
-           // tallyResults().then((value) => SetNumCorrectAnswer(value))
-          //  console.log(numCorrectAnswer)
-
-            // async function tallyResults() {
-            //   return numCorrectAnswer = await SetNumCorrectAnswer(Game.tallyResults())
-            // };
-            // async function tallyResults() {
-            //   await SetNumCorrectAnswer(Game.tallyResults())
-            //   //
-            //   console.log("inside the async function")
-            //   console.log(numCorrectAnswer)
-            // };
-
-           // tallyResults()
-
-           
-
-            //SetNumCorrectAnswer(tallyResults)
-            // To be used for the modal showing how many you had correct.
-
-
+            // UpdateGameData logic
             matrixState = Game.matrix;
             console.log(matrixState);
-            let score = 0;
+            const total = Game.getTotal();
+            let score = total.strong;
 
 
             try {
-              score += 5;
               // execute addUser mutation and pass in variable data from form
               const updateGameData = updateGame({
                 variables: { deck: data.deck.deckname, score, matrix: matrixState }
@@ -194,10 +168,6 @@ function Game() {
               console.error(e);
             }
 
-            // change the finished back to false to continue playing           
-            //Game.reset();
-            // change the finished back to false to continue playing        
-            // Show Modal with results.   
             onOpen(true)
             //window.location.replace('/profile');
             // Game.start();
