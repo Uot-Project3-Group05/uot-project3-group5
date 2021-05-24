@@ -10,7 +10,7 @@ Mind Decks modernizes classical flashcards to be an efficient and fun way to stu
 - [Web Address](#WebAddress)
 - [Usage](#Usage)
 - [Technologies](#Technologies)
-- [Features] (#Features)
+- [Features](#Features)
 - [Credits](#credits)
 - [Licences](#licenses)
 - [Installation](#Installation)
@@ -34,15 +34,15 @@ https://group5-project3-uot-duolingo.herokuapp.com/
 
 ## Usage Tips
 
-git clone
-npm i
-npm start
-use website http://localhost:3000/
+- git clone
+- npm i
+- npm start
+- use website http://localhost:3000/
 
 ## Technologies
-Server Side: Apollo-Server-Express, Bcrypt, Express, GraphQL, Jsonwebtoken, Mongoose
+- Server Side: Apollo-Server-Express, Bcrypt, Express, GraphQL, Jsonwebtoken, Mongoose
 
-Client-Side: @apollo/client, @apollo/react-hooks, @chakra-ui/icons, @chakra-ui/react, @emotion/react, @emotion/styled, @testing-library/jest-dom, @testing-library/react, @testing-library/user-event, apollo-boost, framer-motion, graphql, graphql-tag, jwt-decode, react, react-dom, react-icons, react-router-dom, react-scripts, web-vitals
+- Client-Side: @apollo/client, @apollo/react-hooks, @chakra-ui/icons, @chakra-ui/react, @emotion/react, @emotion/styled, @testing-library/jest-dom, @testing-library/react, @testing-library/user-event, apollo-boost, framer-motion, graphql, graphql-tag, jwt-decode, react, react-dom, react-icons, react-router-dom, react-scripts, web-vitals
 
 ## Features 
 Application is both desktop and mobile friendly.
@@ -57,11 +57,12 @@ REACT way of creating webpages!
 ## Installation
 
 npm install command will install javascript dependencies
+
 npm i
 
 ## Contributors
 
-Made with ❤️ by Group 5
+**Made with ❤️ by Group 5**
 
 Johnny Wu, Kris Pennimpede, Esteban Romero, Ojashri Basnyat, Ali Taghva, Shawn Evans, Anagha Pawar, and Terrence Chan
 
