@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   ChakraProvider,
   Box,
@@ -18,57 +21,77 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Nav from './components/Nav';
+import Profile from './components/Profile';
+import Home from './components/Home';
+import Game from './components/Game';
+// End of imports //
+import Leaderboard from './components/Leaderboard';
+
+
+
+const client = new ApolloClient({
+  request: (operation) => {
+    const token = localStorage.getItem('id_token')
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+  },
+  uri: '/graphql',
+})
 
 function App() {
+
+  const [navLinkSelected, setNavLinkSelected] = useState('Home');
+
+  //navLinkSelected={navLinkSelected} setNavLinkSelected={setNavLinkSelected}
+
+  const renderPage = () => {
+
+
+
+    switch (navLinkSelected) {
+      case 'Profile':
+        return <Profile />;
+      case 'Home':
+       return <Home>
+       </Home>
+      case 'Game':
+        return <Game />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl" >
-        {/*Start of Header - move to header component*/}
-        <ColorModeSwitcher justifySelf="flex-end" m={5} />
-        <Nav />        
-        {/*End of Header*/}
+    <ApolloProvider client={client}>
+    <Router>
+      <ChakraProvider theme={theme}>
+        <Box textAlign="center" fontSize="xl" >
+          {/*Start of Header - move to header component*/}
+          <ColorModeSwitcher justifySelf="flex-end" m={5} />
+          <Nav navLinkSelected={navLinkSelected} setNavLinkSelected={setNavLinkSelected}>
+          </Nav>     
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/game/:id" component={Game} />
+            <Route exact path="/leaderboard" component={Leaderboard} />
 
-        <Box textAlign="center" fontSize="xl" mb={6} >
-          Pick a Deck to Begin!
-        </Box>     
-        
-        <Wrap  justify="space-evenly" spacing="8" >
-          <WrapItem boxShadow="2xl">
-            <Center w="300px" h="300px" bg="red.200">
-              Box 1
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="green.200">
-              Box 2
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="blue.200">
-              Box 3
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="yellow.200">
-              Box 4
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="orange.200">
-              Box 5
-            </Center>
-          </WrapItem>
-          <WrapItem boxShadow="2xl"> 
-            <Center w="300px" h="300px" bg="purple.200">
-              Box 6
-            </Center>
-          </WrapItem>
-        </Wrap>
-       
+          </Switch>
+          {/*End of Header*/}
+
+          <main>
+              {/* Call the renderPage function passing in the currentPage */}
+              {/*<div>{renderPage(navLinkSelected)}</div> */}
+          </main>
 
         
-      </Box>
-    </ChakraProvider>
+        </Box>
+      </ChakraProvider>
+    </Router>
+    </ApolloProvider>
   );
 }
 

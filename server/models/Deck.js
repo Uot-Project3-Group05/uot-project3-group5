@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const cardSchema = require('./Card');
+const Card = require('./Card');
 
 const deckSchema = new Schema({
     
@@ -17,7 +17,7 @@ const deckSchema = new Schema({
         trim: true
       },
 
-     cards:[cardSchema]
+     cards:[Card.schema]
 });
 
 const Deck = mongoose.model('Deck', deckSchema);

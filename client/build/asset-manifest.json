@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "files": {
     "main.js": "/static/js/main.60383cf7.chunk.js",
     "main.js.map": "/static/js/main.60383cf7.chunk.js.map",
@@ -17,4 +18,20 @@
     "static/js/2.351f1ed5.chunk.js",
     "static/js/main.60383cf7.chunk.js"
   ]
+=======
+  "main.js": "/static/js/main.b4fb8cbb.chunk.js",
+  "main.js.map": "/static/js/main.b4fb8cbb.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.0b48f35a.js",
+  "runtime~main.js.map": "/static/js/runtime~main.0b48f35a.js.map",
+  "static/js/2.1bf63c5f.chunk.js": "/static/js/2.1bf63c5f.chunk.js",
+  "static/js/2.1bf63c5f.chunk.js.map": "/static/js/2.1bf63c5f.chunk.js.map",
+  "static/js/3.1decdcab.chunk.js": "/static/js/3.1decdcab.chunk.js",
+  "static/js/3.1decdcab.chunk.js.map": "/static/js/3.1decdcab.chunk.js.map",
+  "index.html": "/index.html",
+  "precache-manifest.5fb04f0c85c268899c180e3ba7d205e5.js": "/precache-manifest.5fb04f0c85c268899c180e3ba7d205e5.js",
+  "service-worker.js": "/service-worker.js",
+  "static/media/logo.svg": "/static/media/logo.c1e81673.svg",
+  "static/media/logoMD.png": "/static/media/logoMD.ae4a0349.png",
+  "static/media/periodic-table.svg": "/static/media/periodic-table.2a4635af.svg"
+>>>>>>> main
 }
