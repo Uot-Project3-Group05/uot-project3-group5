@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import GameSession from '../../utils/gameLogic';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_DECKS, GET_DECK_ID } from "../../utils/queries";
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { GET_DECKS, GET_DECK_ID, GET_GAME_BY_DECK_NAME } from "../../utils/queries";
+import { ADD_GAME } from '../../utils/mutations';
 import { Link, useParams } from "react-router-dom";
 import {
     MdBuild,
@@ -68,16 +69,33 @@ function Game() {
       //variables: { id: deckId }
       variables: { id }
     });
+    //const getGameStatus = useQuery(GET_GAME_BY_DECK_NAME, {
+    const {loading: loadingGame, data: gameData }  = useQuery(GET_GAME_BY_DECK_NAME, {
+      skip: !data,
+      variables: { deck: data && data.deck.deckname },
+    });
 
-    if (loading) {
+    const [addGame, { error }] = useMutation(ADD_GAME);
+    if (loadingGame || loading) {
       return <h1>Loading...</h1>
     } else {
-      console.log(data)
+      console.log('gameData', gameData);
+      console.log('gameData.getGame', gameData.getGame);
+
+      if (!gameData.getGame) {
+        console.log('inside')
+
+        try {
+          // execute addUser mutation and pass in variable data from form
+          const addGameData = addGame({
+            variables: { deck: data.deck.deckname }
+          });
+          console.log(addGameData);
+        } catch (e) {
+          console.error(e);
+        }
+      };
     }
-
-
-  
-  
     
     function handleStart() {
       setGameStarted(true);

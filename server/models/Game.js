@@ -10,12 +10,12 @@ const gameSchema = new Schema({
         type: String
     },
     deck: {
-        type: String,
-        unique: true,
+        type: String
     },
     matrix: [ [{ type: Number }] ]     
 });
 
+        // unique: true,
         // type: Schema.Types.ObjectId,
         // ref: 'Deck'
 // matrix: [
