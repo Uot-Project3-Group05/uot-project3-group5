@@ -149,7 +149,7 @@ function Game() {
             }
             onOpen(true)
             //window.location.replace('/profile');
-            // Game.start();
+            Game.start();
           }
         }
       }
