@@ -91,13 +91,13 @@ function Nav(props) {
           
         </Box>
         {/*<Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />*/}
-        <LinkBox>
+        {Auth.loggedIn() && <LinkBox>
         <Link 
           to={`/profile`}
         >
         <Avatar size="xl" ></Avatar>
         </Link>
-        </LinkBox>
+        </LinkBox>}
 
       </Box>
     </Flex>
