@@ -1,10 +1,10 @@
 {
-  "name": "app name",
-  "short_name": "short name",
-  "theme_color": "#fff",
+  "name": "Mind Decks",
+  "short_name": "MD",
+  "theme_color": "#000",
   "background_color": "#fff",
-  "display": "browser",
-  "orientation": "portrait",
+  "display": "standalone",
+  "orientation": "any",
   "scope": "/",
   "start_url": "/",
   "icons": [
