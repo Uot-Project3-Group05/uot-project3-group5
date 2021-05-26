@@ -120,7 +120,7 @@ function Home() {
                 {data &&
                     data.decks.map(deck => (
                      
-                            <WrapItem >
+                            <WrapItem key={deck._id}>
 
                                 {Auth.loggedIn() ? (
                                     <>
